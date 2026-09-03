@@ -1,11 +1,11 @@
-/* JYC Verse — interactions */
+/* JYC Verse — interactions (multi-page) */
 (() => {
   const $ = (s, r = document) => r.querySelector(s)
   const $$ = (s, r = document) => [...r.querySelectorAll(s)]
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  /* ---------- Star field ---------- */
+  /* ---------- Star field (any canvas[data-stars]) ---------- */
   function starField(canvas) {
-    if (!canvas) return
     const ctx = canvas.getContext('2d')
     let w, h, stars = []
     const resize = () => {
@@ -27,26 +27,19 @@
         ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283)
         ctx.fillStyle = `rgba(${s.c},${tw})`; ctx.fill()
       }
-      requestAnimationFrame(draw)
+      if (!reduced) requestAnimationFrame(draw)
     }
     resize(); addEventListener('resize', resize); draw()
   }
-  starField($('#stars')); starField($('#stars2'))
+  $$('canvas[data-stars]').forEach(starField)
 
   /* ---------- Nav ---------- */
   const nav = $('#site-nav')
-  const onScroll = () => nav.classList.toggle('scrolled', scrollY > 30)
-  addEventListener('scroll', onScroll, { passive: true }); onScroll()
-  $('#nav-burger')?.addEventListener('click', () => nav.classList.toggle('menu-open'))
-  $$('.nav-links a').forEach(a => a.addEventListener('click', () => nav.classList.remove('menu-open')))
-
-  // active link
-  const secIds = ['galaxy', 'realms', 'economy', 'roadmap', 'foundation']
-  const links = Object.fromEntries($$('.nav-links a').map(a => [a.getAttribute('href').slice(1), a]))
-  const spy = new IntersectionObserver(es => {
-    es.forEach(e => { if (e.isIntersecting) { Object.values(links).forEach(l => l.classList.remove('active')); links[e.target.id]?.classList.add('active') } })
-  }, { rootMargin: '-40% 0px -55% 0px' })
-  secIds.forEach(id => { const el = document.getElementById(id); el && spy.observe(el) })
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('scrolled', scrollY > 30)
+    addEventListener('scroll', onScroll, { passive: true }); onScroll()
+    $('#nav-burger')?.addEventListener('click', () => nav.classList.toggle('menu-open'))
+  }
 
   /* ---------- Reveal on scroll ---------- */
   const io = new IntersectionObserver(es => {
@@ -56,48 +49,16 @@
 
   /* ---------- Hero parallax ---------- */
   const orbit = $('#hero-orbit')
-  if (orbit && matchMedia('(pointer:fine)').matches) {
+  if (orbit && matchMedia('(pointer:fine)').matches && !reduced) {
     addEventListener('mousemove', e => {
       const x = (e.clientX / innerWidth - .5) * 18, y = (e.clientY / innerHeight - .5) * 18
       orbit.style.transform = `perspective(1200px) rotateY(${x}deg) rotateX(${-y}deg)`
     }, { passive: true })
   }
 
-  /* ---------- Realm modal ---------- */
-  const realms = JSON.parse($('#realms-data').textContent)
-  const modal = $('#realm-modal'), panel = $('.modal-panel', modal)
-  let cur = 0
-  const fill = (i) => {
-    cur = (i + realms.length) % realms.length
-    const r = realms[cur]
-    panel.style.setProperty('--c', r.color); panel.style.setProperty('--c2', r.color2)
-    $('#m-icon').className = `fa-solid ${r.icon}`
-    $('#m-no').textContent = r.no; $('#m-code').textContent = r.code
-    $('#m-name').textContent = r.name; $('#m-tagline').textContent = r.tagline
-    $('#m-count').textContent = r.count; $('#m-desc').textContent = r.desc
-    $('#m-hl').innerHTML = r.highlight ? `<i class="fa-solid fa-bolt" style="color:var(--c);margin-right:8px"></i>${r.highlight}` : ''
-    $('#m-plays').innerHTML = r.plays.map((p, i) => `<span style="--i:${i}">${p}</span>`).join('')
-    panel.scrollTop = 0
-  }
-  const open = (id) => {
-    const i = realms.findIndex(r => r.id === id); if (i < 0) return
-    fill(i); modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); document.body.classList.add('modal-open')
-  }
-  const close = () => { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); document.body.classList.remove('modal-open') }
-  $$('[data-realm]').forEach(b => b.addEventListener('click', () => open(b.dataset.realm)))
-  $$('[data-close]', modal).forEach(b => b.addEventListener('click', close))
-  $('#m-prev').addEventListener('click', () => fill(cur - 1))
-  $('#m-next').addEventListener('click', () => fill(cur + 1))
-  addEventListener('keydown', e => {
-    if (!modal.classList.contains('open')) return
-    if (e.key === 'Escape') close()
-    if (e.key === 'ArrowLeft') fill(cur - 1)
-    if (e.key === 'ArrowRight') fill(cur + 1)
-  })
-
-  /* ---------- Galaxy slow rotation (planets counter-rotate labels) ---------- */
+  /* ---------- Galaxy slow rotation ---------- */
   const galaxy = $('#galaxy-map')
-  if (galaxy && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (galaxy && !reduced) {
     const planets = $$('.g-planet', galaxy).map(p => ({ el: p, a: parseFloat(p.style.getPropertyValue('--a')) }))
     let paused = false, off = 0, last = performance.now()
     galaxy.addEventListener('mouseenter', () => paused = true)
@@ -129,8 +90,17 @@
       el.textContent = pre + v + suf
       if (p < 1) requestAnimationFrame(step)
     }
+    if (reduced) { el.textContent = raw; return }
     requestAnimationFrame(step)
   }
   const cio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target) } }), { threshold: .5 })
   $$('.count').forEach(el => cio.observe(el))
+
+  /* ---------- Realm detail: keyboard prev/next ---------- */
+  const pagerPrev = $('.pager-item:not(.next)'), pagerNext = $('.pager-item.next')
+  if (pagerPrev && pagerNext) addEventListener('keydown', e => {
+    if (e.target.closest('input,textarea')) return
+    if (e.key === 'ArrowLeft') location.href = pagerPrev.href
+    if (e.key === 'ArrowRight') location.href = pagerNext.href
+  })
 })()
