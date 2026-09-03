@@ -6,19 +6,12 @@
 - **风格**：B+C「潮玩星际赌城」—— 紫黑星空底 + 糖果霓虹色（金色仅留给 JYC）+ 28px 大圆角玻璃卡 + 弹性 3D 金色按钮 + Baloo 2 / Nunito 圆润展示字体 + 3D 潮玩星球与吉祥物
 - **语言**：仅中文 UI；不含代币经济具体数字；路线图为 1 年（2026 Q4 → 2027 Q3）
 
-## 当前模式：单页展示（二级页面已保留、暂不对外）
-`src/components.tsx` 顶部的 **`SHOW_SUBPAGES = false`** 开关控制全站形态：
+## 站点形态：多页面（每个按钮 / 卡片都进入对应二级页面）
+`src/components.tsx` 顶部的 **`SHOW_SUBPAGES = true`** 开关控制全站形态（当前为 `true`，即完整多页面站点）。若改为 `false`，全站退化为仅首页 + 锚点导航，所有二级路径 302 回首页——仅作备用，当前不使用。
 
-| `SHOW_SUBPAGES` | 行为 |
-|---|---|
-| `false`（当前） | 仅首页 `/` 可访问；顶部导航为页内锚点（十二星域 / JYC 经济 / 路线图 / 起点）；星域卡片、路线图卡片为非链接；页脚展示导航锚点 + 星域名称纯文本；CTA 为 `mailto:invest@qpred.io`；所有非根路径（`/vision`、`/realms/*`、`/contact` …）由 `src/index.tsx` 中间件 **302 重定向到 `/`** |
-| `true` | 恢复完整多页面站点（下表全部路径），导航 / 卡片 / 页脚 / CTA 自动切回子页面链接 |
+所有页面右下角有金色「回到顶部」按钮（滚动超过 600px 出现，点击平滑回顶）。
 
-二级页面的代码（`src/pages/*.tsx`、路由、样式）全部保留，未删除；重新开放只需把开关改为 `true` 并 `npm run build`。
-
-首页可用锚点：`#hero` `#pillars` `#home-realms` `#home-economy` `#home-roadmap` `#home-foundation`。
-
-## URL（多页面站点，`SHOW_SUBPAGES = true` 时生效）
+## URL（多页面站点）
 | 路径 | 内容 |
 |---|---|
 | `/` | 首页：3D JYC 币主视觉 + 12 颗环绕星球、跑马灯、三支柱、十二星域卡片、飞轮、路线图摘要、基石数据、CTA |
@@ -67,7 +60,7 @@ npx wrangler pages dev dist --ip 0.0.0.0 --port 3000   # 本地预览；沙盒�
 - **改样式**：`public/static/style.css`（文件头定义设计 Token：`--bg --gold --cyan --violet --pink --mint --r`；移动端断点约 860px）；交互在 `public/static/app.js`
 - **改图片**：替换 `public/static/img/` 同名文件即可（命名规则见下文目录结构）
 - **缓存**：改动 css/js 后请把 `src/renderer.tsx` 中 `?v=N` 加一
-- **开放二级页面**：`src/components.tsx` → `SHOW_SUBPAGES = true` → 重新 build
+- **站点形态开关**：`src/components.tsx` → `SHOW_SUBPAGES`（当前 `true`，勿改）
 - 无数据库、无环境变量、无第三方 API；纯静态 + Hono 边缘渲染
 
 ## 本地开发
@@ -83,11 +76,11 @@ curl http://localhost:3000
 - 35 张 AI 素材处理（星球抠白底→透明 WebP、场景/叙事图压缩）并接入全部页面
 - 桌面（1440）与移动（360 / 390 / 430 / 768）视觉 QA：无横向溢出，汉堡菜单深色面板、点击锚点后自动收起
 - 顶部左侧改为纯文字 Logo「JYC Verse」（去掉金币图标），右上角「投资人咨询」按钮已移除
-- 单页模式（`SHOW_SUBPAGES` 开关 + 302 中间件），二级页面代码保留待启用
+- 全部二级页面开放；右下角「回到顶部」按钮
 
 ## 待办 / 建议
 - 部署到 Cloudflare Pages（需确认使用自有账号 BYOK 还是 Genspark 托管）
-- 时机合适时将 `SHOW_SUBPAGES` 改为 `true` 开放二级页面（可顺带删除 `.nav-cta` / `.logo-coin` 遗留 CSS）
+- 可顺带删除 `.nav-cta` / `.logo-coin` 遗留 CSS
 - 清理少量遗留未用 CSS（`.hero-orbit-wrap` `.hero-sun` `.flywheel` `.fw-node`）
 - 可选：为星域详情页补充各星域专属配图 / 视频、接入真实联系表单（需第三方邮件 API）
 

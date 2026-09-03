@@ -38,6 +38,12 @@
   if (nav) {
     const onScroll = () => nav.classList.toggle('scrolled', scrollY > 30)
     addEventListener('scroll', onScroll, { passive: true }); onScroll()
+  }
+  const toTop = $('#to-top')
+  if (toTop) {
+    const onTop = () => toTop.classList.toggle('show', scrollY > 600)
+    addEventListener('scroll', onTop, { passive: true }); onTop()
+    toTop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }))
     $('#nav-burger')?.addEventListener('click', () => nav.classList.toggle('menu-open'))
     $$('.nav-links a').forEach(a => a.addEventListener('click', () => nav.classList.remove('menu-open')))
   }

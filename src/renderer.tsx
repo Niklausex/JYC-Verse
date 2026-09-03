@@ -27,11 +27,14 @@ export const renderer = jsxRenderer(({ children, title, desc }) => {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" rel="stylesheet" />
-        <link href="/static/style.css?v=5" rel="stylesheet" />
+        <link href="/static/style.css?v=6" rel="stylesheet" />
       </head>
       <body>
         {children}
-        <script src="/static/app.js?v=5" defer></script>
+        <button class="to-top" id="to-top" type="button" aria-label="回到顶部" title="回到顶部">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+        <script src="/static/app.js?v=6" defer></script>
       </body>
     </html>
   )

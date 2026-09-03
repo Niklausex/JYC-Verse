@@ -1,7 +1,7 @@
 import { realms, totalPlays } from './data'
 
 /* ---------- 站点开关:二级页面暂不对外展示(路由保留,可随时打开) ---------- */
-export const SHOW_SUBPAGES = false
+export const SHOW_SUBPAGES = true
 
 /* ---------- 首页锚点导航(单页模式) ---------- */
 export const HOME_NAV = [

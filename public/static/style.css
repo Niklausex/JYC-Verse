@@ -788,3 +788,10 @@ div.rcard { cursor: default; }
 div.rcard:hover { transform: translateY(-4px); }
 .rm-mini-item:not([href]) { cursor: default; }
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+/* ---------- 回到顶部 ---------- */
+.to-top { position: fixed; right: 22px; bottom: 22px; z-index: 70; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: #2A1600; font-size: 18px; background: linear-gradient(180deg, #FFE27A, var(--gold)); box-shadow: 0 4px 0 #B86A00, 0 12px 28px rgba(255,197,49,.35); border: none; cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(16px) scale(.9); transition: opacity .3s, transform .4s var(--bounce), visibility .3s; }
+.to-top.show { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { transform: translateY(-3px); box-shadow: 0 7px 0 #B86A00, 0 16px 32px rgba(255,197,49,.45); }
+.to-top:active { transform: translateY(2px); box-shadow: 0 2px 0 #B86A00; }
+@media (max-width: 860px) { .to-top { right: 16px; bottom: 16px; width: 46px; height: 46px; font-size: 16px; } }
