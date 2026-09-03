@@ -55,6 +55,21 @@ public/static/
     mascot.webp / mascot.png / mascot-head.webp   吉祥物
 ```
 
+## 接手指南（给其他开发者 / Agent）
+```bash
+git clone https://github.com/Niklausex/JYC-Verse.git && cd JYC-Verse
+npm install
+npm run build                      # Vite → dist/（Cloudflare Pages 产物）
+npx wrangler pages dev dist --ip 0.0.0.0 --port 3000   # 本地预览；沙盒内用 pm2 start ecosystem.config.cjs
+```
+- **改文案 / 数据**：只改 `src/data.ts`（12 星域、玩法数、人格、路线图、系统、基石数据等全部在此，页面自动读取）
+- **改首页结构**：`src/pages/home.tsx`；共用组件（导航、页脚、星域卡、CTA、吉祥物）在 `src/components.tsx`
+- **改样式**：`public/static/style.css`（文件头定义设计 Token：`--bg --gold --cyan --violet --pink --mint --r`；移动端断点约 860px）；交互在 `public/static/app.js`
+- **改图片**：替换 `public/static/img/` 同名文件即可（命名规则见下文目录结构）
+- **缓存**：改动 css/js 后请把 `src/renderer.tsx` 中 `?v=N` 加一
+- **开放二级页面**：`src/components.tsx` → `SHOW_SUBPAGES = true` → 重新 build
+- 无数据库、无环境变量、无第三方 API；纯静态 + Hono 边缘渲染
+
 ## 本地开发
 ```bash
 npm run build                      # 构建到 dist/
