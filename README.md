@@ -12,6 +12,9 @@
 所有页面右下角有金色「回到顶部」按钮（滚动超过 600px 出现，点击平滑回顶）。
 
 ## URL（多页面站点）
+- **生产**：https://jyc.xnebul.com
+- **GitHub**：https://github.com/Niklausex/JYC-Verse
+
 | 路径 | 内容 |
 |---|---|
 | `/` | 首页：3D JYC 币主视觉 + 12 颗环绕星球、跑马灯、三支柱、十二星域卡片、飞轮、路线图摘要、基石数据、CTA |
@@ -79,12 +82,14 @@ curl http://localhost:3000
 - 全部二级页面开放；右下角「回到顶部」按钮
 
 ## 待办 / 建议
-- 部署到 Cloudflare Pages（需确认使用自有账号 BYOK 还是 Genspark 托管）
 - 可顺带删除 `.nav-cta` / `.logo-coin` 遗留 CSS
 - 清理少量遗留未用 CSS（`.hero-orbit-wrap` `.hero-sun` `.flywheel` `.fw-node`）
 - 可选：为星域详情页补充各星域专属配图 / 视频、接入真实联系表单（需第三方邮件 API）
 
 ## 部署
-- **平台**：Cloudflare Pages
-- **状态**：⏳ 未部署（沙盒预览中）
+- **生产地址**：https://jyc.xnebul.com（备用 https://jyc-verse.pages.dev）
+- **平台**：Cloudflare Pages（用户自有账号），项目名 `jyc-verse`，生产分支 `main`
+- **DNS**：`xnebul.com` zone 内 CNAME `jyc` → `jyc-verse.pages.dev`（proxied）
+- **重新部署**：`npm run build && npx wrangler pages deploy dist --project-name jyc-verse --branch main`（需 `CLOUDFLARE_API_TOKEN`）
+- **状态**：✅ 已上线
 - **最后更新**：2026-09-03
