@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "webapp",
+  "name": "jyc-verse",
   "compatibility_date": "2026-08-25",
   "pages_build_output_dir": "./dist",
   "compatibility_flags": [
