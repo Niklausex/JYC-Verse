@@ -4,7 +4,7 @@ import { Page, PageHero, Mascot } from '../components'
 export const ContactPage = () => (
   <Page path="/contact">
     <PageHero kicker="INVESTOR RELATIONS" crumbs={[['投资人咨询']]}
-      title={<>加入 JYC Verse,投资下一个<span class="grad-gold">万亿级娱乐宇宙</span></>}
+      title={<><span class="nowrap">加入 JYC Verse,</span><span class="nowrap">投资下一个</span><span class="grad-gold nowrap">万亿级娱乐宇宙</span></>}
       sub="欢迎投资机构、战略合作伙伴、游戏开发商与内容创作者与我们联系。" />
     <section class="sec" id="contact">
       <div class="contact-grid">
@@ -26,7 +26,7 @@ export const ContactPage = () => (
           <div class="kicker">AT A GLANCE</div>
           <h2>JYC Verse 一页纸</h2>
           <dl>
-            <div><dt>定位</dt><dd>全球首个覆盖全部博彩人格的一站式 Web3 娱乐宇宙</dd></div>
+            <div><dt>定位</dt><dd>全球首个覆盖全部玩家类型的一站式 Web3 娱乐宇宙</dd></div>
             <div><dt>代币</dt><dd>JYC(BSC)—— 全生态唯一结算货币</dd></div>
             <div><dt>规模</dt><dd>12 大星域 · {totalPlays}+ 玩法 · 7 语种</dd></div>
             <div><dt>起点</dt><dd>QuantumPredict 预测市场,{foundation[0].v} TVL · {foundation[1].v} 用户</dd></div>

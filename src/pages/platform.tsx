@@ -23,7 +23,7 @@ const Layers = () => (
 
 const Systems = () => (
   <section class="sec" id="systems">
-    <SectionHead kicker="9 CROSS-REALM SYSTEMS" title={<>一个身份,<span class="grad-cyan">九大横向系统</span></>}
+    <SectionHead kicker="9 CROSS-REALM SYSTEMS" title={<><span class="nowrap">一个身份,</span><span class="grad-cyan nowrap">九大横向系统</span></>}
       sub="它们把 12 个星域织成一张网:在任何星域的行为,都会在全生态累积等级、任务、排行与分红。" />
     <div class="sys-grid">
       {systems.map((s, i) => (
@@ -76,7 +76,7 @@ const Trust = () => (
 
 const Global = () => (
   <section class="sec" id="global">
-    <SectionHead kicker="GLOBAL" title={<>7 语种,<span class="grad-cyan">本地化玄学与内容</span></>}
+    <SectionHead kicker="GLOBAL" title={<><span class="nowrap">7 语种,</span><span class="grad-cyan nowrap">本地化玄学与内容</span></>}
       sub="已覆盖东亚与东南亚,内容与玄学矩阵按地区本地化。" />
     <div class="global-wrap">
       <figure class="global-pic reveal"><img src="/static/img/globe.jpg" alt="全球化地图" loading="lazy" /></figure>

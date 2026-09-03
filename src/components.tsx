@@ -52,7 +52,7 @@ export const Footer = () => (
     <div class="footer-grid">
       <div class="footer-col footer-about">
         <div class="footer-brand">JYC <em>Verse</em></div>
-        <p>全球首个覆盖全部博彩人格的一站式 Web3 娱乐宇宙。12 大星域 · {totalPlays}+ 玩法 · 1 枚代币。</p>
+        <p>全球首个覆盖全部玩家类型的一站式 Web3 娱乐宇宙。12 大星域 · {totalPlays}+ 玩法 · 1 枚代币。</p>
         <div class="footer-social">
           <a href="https://www.qpred.io" target="_blank" rel="noopener" aria-label="官网"><i class="fa-solid fa-globe"></i></a>
           <a href="https://m.qpred.io/" target="_blank" rel="noopener" aria-label="App"><i class="fa-solid fa-mobile-screen"></i></a>
@@ -71,7 +71,7 @@ export const Footer = () => (
         {realms.slice(0, 6).map(r => <a href={`/realms/${r.id}`}>{r.name}</a>)}
       </div>
       <div class="footer-col">
-        <h4>&nbsp;</h4>
+        <h4 class="h4-empty">&nbsp;</h4>
         {realms.slice(6).map(r => <a href={`/realms/${r.id}`}>{r.name}</a>)}
       </div>
       </> : <>
@@ -84,7 +84,7 @@ export const Footer = () => (
         {realms.slice(0, 6).map(r => <span class="footer-plain">{r.name}</span>)}
       </div>
       <div class="footer-col">
-        <h4>&nbsp;</h4>
+        <h4 class="h4-empty">&nbsp;</h4>
         {realms.slice(6).map(r => <span class="footer-plain">{r.name}</span>)}
       </div>
       </>}

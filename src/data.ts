@@ -31,7 +31,7 @@ export const realms: Realm[] = [
   },
   {
     id: 'arcade', no: '02', code: 'ARCADE', name: '极速游戏城',
-    tagline: '秒级结算,可验证公平,肾上腺素的主场',
+    tagline: '极速游戏,秒级结算,可验证公平',
     desc: '20+ 经典加密原生游戏与赌场桌游,全部 Provably Fair,每一局随机数链上可查。这里是 JYC 换手频率最高、手续费最密集的星域。',
     color: '#FF4FA3', color2: '#FF2D6F', icon: 'fa-dice', count: 22,
     plays: ['Crash 火箭', 'Dice 骰子', 'Plinko 弹珠', 'Mines 扫雷', 'Limbo', 'Coinflip 硬币', 'Wheel 幸运轮盘', 'Keno', 'Hi-Lo', 'Tower 爬塔', '轮盘 Roulette', '百家乐', '21 点', '龙虎', '骰宝', '德州扑克(对庄)', '三公', '牛牛', '视频扑克', '捕鱼', '宾果', 'JYC 主题老虎机系列'],
@@ -49,7 +49,7 @@ export const realms: Realm[] = [
   },
   {
     id: 'fortune', no: '04', code: 'FORTUNE', name: '玄学命运',
-    tagline: '先问天命,再下赌注',
+    tagline: '先看运势,再做决策',
     desc: '全球化本地玄学矩阵——中式八字、日式御神签、泰式佛牌、越南占卜、西方塔罗占星。AI 大师 24 小时在线。每一次运势,都能一键转化为幸运数字买彩票、幸运方向下注——玄学是导流全生态的入口。',
     color: '#9D5CFF', color2: '#6A2BFF', icon: 'fa-moon', count: 18,
     plays: ['每日运势', '塔罗牌', '星座占星盘', '生肖运程', '八字命书', '易经六爻', '关帝/观音灵签', '御神签', '泰式佛牌开光', 'AI 大师算命', 'AI 面相', 'AI 手相', '风水罗盘', '数字命理', '塔罗对赌', '命运挑战', '幸运数字一键投注', '运势海报分享'],
@@ -103,7 +103,7 @@ export const realms: Realm[] = [
   },
   {
     id: 'earn', no: '10', code: 'EARN', name: '理财金库',
-    tagline: '不赌,也能赢',
+    tagline: '持币即分红,稳健收益',
     desc: '质押 JYC 分享全生态收入;存入 Bankroll 庄家池,成为 120+ 玩法背后的庄家;复活险(Buyback 机制升级)让每一次失败都有回血机会。',
     color: '#FFD166', color2: '#C88A00', icon: 'fa-vault', count: 10,
     plays: ['Staking 全生态分红', 'Bankroll 庄家池', 'LP 流动性挖矿', '复活险', '锁仓 NFT 加成', 'JYC 债券', '跟单基金', '回购销毁看板', 'VIP 返水', '收益自动复投'],
@@ -143,12 +143,12 @@ export const tickerStats = [
 
 export const personas = [
   { icon: 'fa-brain', name: '认知型', desc: '相信自己比市场更懂', realms: ['PREDICT', 'SPORTS'], color: '#38A8FF' },
-  { icon: 'fa-bolt', name: '快感型', desc: '要即时反馈与肾上腺素', realms: ['ARCADE'], color: '#FF4FA3' },
+  { icon: 'fa-bolt', name: '快感型', desc: '追求即时反馈与极速刺激', realms: ['ARCADE'], color: '#FF4FA3' },
   { icon: 'fa-clover', name: '幸运型', desc: '小投入,博一个大梦想', realms: ['LOTTERY'], color: '#F5C24B' },
-  { icon: 'fa-moon', name: '玄学型', desc: '先问天命,再做决定', realms: ['FORTUNE'], color: '#9D5CFF' },
+  { icon: 'fa-moon', name: '玄学型', desc: '先看运势,再做决策', realms: ['FORTUNE'], color: '#9D5CFF' },
   { icon: 'fa-khanda', name: '竞技型', desc: '要赢的是对面的人', realms: ['ARENA', 'LIVE'], color: '#FF5A3C' },
   { icon: 'fa-clone', name: '收藏型', desc: '抽卡养成,攒的是资产', realms: ['CARDS', 'JYC CITY'], color: '#E86BFF' },
-  { icon: 'fa-vault', name: '理财型', desc: '不赌,也要稳稳地赢', realms: ['EARN'], color: '#FFD166' },
+  { icon: 'fa-vault', name: '理财型', desc: '追求稳健收益与长期回报', realms: ['EARN'], color: '#FFD166' },
 ]
 
 export const journey = [

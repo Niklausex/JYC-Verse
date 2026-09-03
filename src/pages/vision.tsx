@@ -34,7 +34,7 @@ const Problem = () => (
           </article>
         ))}
         <div class="pcard-answer reveal">
-          <span class="grad-gold">JYC Verse 的答案:</span> 一个身份、一枚筹码、一个宇宙。
+          <span class="grad-gold">JYC Verse 的答案:</span> <span class="nowrap">一个身份、</span><span class="nowrap">一枚筹码、</span><span class="nowrap">一个宇宙。</span>
         </div>
       </div>
     </div>
@@ -50,8 +50,8 @@ const Evolution = () => (
         <div class="evo-label">TODAY</div>
         <div class="evo-name">QuantumPredict</div>
         <div class="evo-planet single"><img src="/static/img/planet-predict.webp" alt="预测宇宙" loading="lazy" /></div>
-        <ul>
-          {foundation.map(f => <li><b>{f.v}</b> {f.l.split(' ')[0]}</li>)}
+        <ul class="evo-stats">
+          {foundation.map(f => <li><b>{f.v}</b><span>{f.l.split(' ')[0]}</span></li>)}
         </ul>
         <p>1 个板块 · 预测市场</p>
       </div>
@@ -65,9 +65,9 @@ const Evolution = () => (
         <div class="evo-planets">
           {realms.map(r => <a href={`/realms/${r.id}`} style={`--c:${r.color}`} title={r.code}><img src={r.planetImg} alt={r.name} loading="lazy" /></a>)}
         </div>
-        <ul>
-          <li><b>12</b> 大星域</li><li><b>{totalPlays}+</b> 玩法</li>
-          <li><b>7</b> 种博彩人格全覆盖</li><li><b>1</b> 枚代币 JYC</li>
+        <ul class="evo-stats">
+          <li><b>12</b><span>大星域</span></li><li><b>{totalPlays}+</b><span>种玩法</span></li>
+          <li><b>7</b><span>类玩家画像</span></li><li><b>1</b><span>枚代币 JYC</span></li>
         </ul>
         <p>全球最大的 Web3 娱乐宇宙</p>
       </div>
@@ -78,8 +78,8 @@ const Evolution = () => (
 const Personas = () => (
   <section class="sec" id="personas">
     <SectionHead kicker="RETENTION" title={<>总有一款,<span class="grad-gold">让你停留</span></>}
-      sub="玩家不是同一种人。JYC Verse 为每一种“想赢”的心理,准备了对应的星域。" />
-    <Banner src="/static/img/personas.jpg" alt="七种博彩人格" cap="七种“想赢”的人格,七条进入 JYC Verse 的路" sub="分析派 · 刺激派 · 梦想派 · 玄学派 · 竞技派 · 收藏派 · 社交派" />
+      sub="玩家不是同一种人。JYC Verse 为每一类玩家画像,准备了对应的星域。" />
+    <Banner src="/static/img/personas.jpg" alt="七类玩家画像" cap="七类玩家画像,七条进入 JYC Verse 的路" sub="分析派 · 刺激派 · 梦想派 · 玄学派 · 竞技派 · 收藏派 · 社交派" />
     <div class="persona-row">
       {personas.map((p, i) => (
         <article class="persona glass reveal" style={`--c:${p.color};--d:${i * 0.07}s`}>
@@ -125,8 +125,8 @@ const Trust = () => (
 export const VisionPage = () => (
   <Page path="/vision">
     <PageHero kicker="VISION" crumbs={[['愿景']]}
-      title={<>让 JYC 成为<span class="grad-gold">全球最大的娱乐化代币</span></>}
-      sub="从一个预测市场,到覆盖全部博彩人格的 Web3 娱乐宇宙。这是 JYC Verse 的起点、问题与答案。" />
+      title={<><span class="nowrap">让 JYC 成为</span><span class="grad-gold"><span class="nowrap">全球最大的</span><span class="nowrap">娱乐化代币</span></span></>}
+      sub="从一个预测市场,到覆盖全部玩家类型的 Web3 娱乐宇宙。这是 JYC Verse 的起点、问题与答案。" />
     <Market />
     <Problem />
     <Evolution />

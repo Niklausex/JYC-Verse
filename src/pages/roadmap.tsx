@@ -85,7 +85,7 @@ export const RoadmapPage = () => (
     <Detail />
     <Lit />
     <Now />
-    <CtaBand title={<>加入 JYC Verse,投资下一个<span class="grad-gold">万亿级娱乐宇宙</span></>} sub="欢迎投资机构与战略合作伙伴联系我们。"
+    <CtaBand title={<><span class="nowrap">加入 JYC Verse,</span><span class="nowrap">投资下一个</span><span class="grad-gold nowrap">万亿级娱乐宇宙</span></>} sub="欢迎投资机构与战略合作伙伴联系我们。"
       secondary={['回到首页', '/']} />
   </Page>
 )

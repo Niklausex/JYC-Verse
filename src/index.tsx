@@ -24,7 +24,7 @@ app.use('*', async (c, next) => {
 app.get('/', (c) => c.render(<HomePage />))
 
 app.get('/vision', (c) => c.render(<VisionPage />, {
-  title: '愿景', desc: '从一个预测市场,到覆盖全部博彩人格的 Web3 娱乐宇宙。JYC Verse 的起点、问题与答案。',
+  title: '愿景', desc: '从一个预测市场,到覆盖全部玩家类型的 Web3 娱乐宇宙。JYC Verse 的起点、问题与答案。',
 }))
 
 app.get('/realms', (c) => c.render(<RealmsPage />, {

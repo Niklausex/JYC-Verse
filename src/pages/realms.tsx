@@ -32,7 +32,7 @@ export const RealmsPage = () => (
         {realms.map((r, i) => <RealmCard r={r} i={i} />)}
       </div>
     </section>
-    <CtaBand title={<>这些玩法背后,只有<span class="grad-gold">一枚代币</span></>} sub="了解 JYC 如何从 164+ 种玩法中持续捕获价值。"
+    <CtaBand title={<><span class="nowrap">这些玩法背后,</span><span class="nowrap">只有<span class="grad-gold">一枚代币</span></span></>} sub="了解 JYC 如何从 164+ 种玩法中持续捕获价值。"
       primary={['查看 JYC 经济', '/economy']} secondary={['平台架构', '/platform']} />
   </Page>
 )

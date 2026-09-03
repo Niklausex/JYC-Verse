@@ -10,7 +10,7 @@ const SITE = 'JYC Verse'
 
 export const renderer = jsxRenderer(({ children, title, desc }) => {
   const fullTitle = title ? `${title} · ${SITE}` : `${SITE} · One Token. Every Thrill. — 全球最大的 Web3 娱乐宇宙`
-  const description = desc ?? 'JYC Verse:全球首个覆盖全部博彩人格的一站式 Web3 娱乐宇宙。预测、竞猜、赌场、彩票、玄学、竞技、卡牌、直播、元宇宙——12 大星域、160+ 玩法,只用一枚筹码:JYC。'
+  const description = desc ?? 'JYC Verse:全球首个覆盖全部玩家类型的一站式 Web3 娱乐宇宙。预测、竞猜、赌场、彩票、玄学、竞技、卡牌、直播、元宇宙——12 大星域、160+ 玩法,一枚代币贯通全生态:JYC。'
   return (
     <html lang="zh-CN">
       <head>
@@ -27,14 +27,14 @@ export const renderer = jsxRenderer(({ children, title, desc }) => {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" rel="stylesheet" />
-        <link href="/static/style.css?v=6" rel="stylesheet" />
+        <link href="/static/style.css?v=7" rel="stylesheet" />
       </head>
       <body>
         {children}
         <button class="to-top" id="to-top" type="button" aria-label="回到顶部" title="回到顶部">
           <i class="fas fa-arrow-up"></i>
         </button>
-        <script src="/static/app.js?v=6" defer></script>
+        <script src="/static/app.js?v=7" defer></script>
       </body>
     </html>
   )

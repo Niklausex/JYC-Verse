@@ -21,7 +21,7 @@ const Flywheel = () => (
       </div>
       <div class="eco-side reveal">
         <div class="kicker">THE FLYWHEEL</div>
-        <h2 class="sec-title">玩法越多,<span class="grad-gold">JYC 越值钱</span></h2>
+        <h2 class="sec-title">玩法越多,<span class="grad-gold nowrap">JYC 价值越强</span></h2>
         <p class="sec-sub">每一个星域都是 JYC 的消耗场景。手续费、抽水、庄家优势汇入统一的生态收入池——一部分分红给质押者,一部分回购销毁,一部分注入 MEGA JACKPOT 拉新。用户越多,消耗越多;消耗越多,分红与销毁越多;持币动机越强,用户越多。</p>
         <div class="eco-quotes">
           <p><i class="fa-solid fa-quote-left"></i> 每一笔投注,都在为持币者分红</p>
@@ -103,13 +103,13 @@ const Distribution = () => (
 export const EconomyPage = () => (
   <Page path="/economy">
     <PageHero kicker="JYC TOKENOMICS" crumbs={[['JYC 经济']]}
-      title={<>一枚代币,<span class="grad-gold">{totalPlays}+ 个消耗场景</span></>}
+      title={<><span class="nowrap">一枚代币,</span><span class="grad-gold nowrap">{totalPlays}+ 个消耗场景</span></>}
       sub="JYC 是 JYC Verse 唯一的结算货币。每一笔投注、每一次抽水、每一个新玩法,都在为持币者创造价值。" />
     <Flywheel />
     <Utilities />
     <Revenue />
     <Distribution />
-    <CtaBand title={<>把 12 个星域织成一张网的,是<span class="grad-cyan">平台层</span></>} sub="统一账户、VIP、任务、排行榜、公会、MEGA JACKPOT。"
+    <CtaBand title={<><span class="nowrap">把 12 个星域</span><span class="nowrap">织成一张网的,</span>是<span class="grad-cyan">平台层</span></>} sub="统一账户、VIP、任务、排行榜、公会、MEGA JACKPOT。"
       primary={['查看平台架构', '/platform']} secondary={['路线图', '/roadmap']} />
   </Page>
 )
