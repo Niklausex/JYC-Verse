@@ -11,7 +11,7 @@ const Galaxy = () => (
       {[1, 2, 3].map(o => <div class={`g-ring g-ring-${o}`}></div>)}
       {realms.map(r => (
         <a class={`g-planet g-orbit-${r.orbit}`} style={`--a:${r.angle}deg;--c:${r.color};--c2:${r.color2}`} href={`/realms/${r.id}`} aria-label={`${r.code} ${r.name}`}>
-          <span class="g-planet-body"><i class={`fa-solid ${r.icon}`}></i></span>
+          <span class="g-planet-body"><img src={r.planetImg} alt="" loading="lazy" /></span>
           <span class="g-planet-label"><b>{r.code}</b><small>{r.name} · {r.count} 玩法</small></span>
         </a>
       ))}

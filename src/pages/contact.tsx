@@ -1,5 +1,5 @@
 import { totalPlays, foundation } from '../data'
-import { Page, PageHero } from '../components'
+import { Page, PageHero, Mascot } from '../components'
 
 export const ContactPage = () => (
   <Page path="/contact">
@@ -37,6 +37,7 @@ export const ContactPage = () => (
             <a class="btn btn-gold" href="mailto:invest@qpred.io?subject=JYC%20Verse%20投资咨询">发送邮件 <i class="fa-solid fa-paper-plane"></i></a>
             <a class="btn btn-ghost" href="/vision">重读愿景</a>
           </div>
+          <div class="contact-mascot" aria-hidden="true"><Mascot /></div>
         </div>
       </div>
     </section>

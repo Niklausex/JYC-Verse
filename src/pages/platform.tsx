@@ -53,7 +53,7 @@ const Jackpot = () => (
       <div class="jackpot-visual">
         <div class="jackpot-num"><small>示意 · 累积奖池</small><b class="count" data-count="8,642,190">8,642,190</b><span>JYC</span></div>
         <div class="jackpot-feed">
-          {realms.slice(0, 5).map(r => <span style={`--c:${r.color}`}><i class={`fa-solid ${r.icon}`}></i>{r.code} +0.5%</span>)}
+          {realms.slice(0, 5).map(r => <span style={`--c:${r.color}`}><img src={r.planetImg} alt="" loading="lazy" style="width:16px;height:16px;object-fit:contain" />{r.code} +0.5%</span>)}
         </div>
       </div>
     </div>
@@ -78,6 +78,8 @@ const Global = () => (
   <section class="sec" id="global">
     <SectionHead kicker="GLOBAL" title={<>7 语种,<span class="grad-cyan">本地化玄学与内容</span></>}
       sub="已覆盖东亚与东南亚,内容与玄学矩阵按地区本地化。" />
+    <div class="global-wrap">
+      <figure class="global-pic reveal"><img src="/static/img/globe.jpg" alt="全球化地图" loading="lazy" /></figure>
     <div class="lang-grid reveal">
       {[
         ['简体中文', '八字 · 关帝灵签 · 麻将 · 斗地主'],
@@ -88,6 +90,7 @@ const Global = () => (
         ['ภาษาไทย', '佛牌 · 泰彩 · 泰拳竞猜'],
         ['Tiếng Việt', '越南占卜 · 彩票 · 足球'],
       ].map(([l, d]) => <div class="lang glass"><b>{l}</b><span>{d}</span></div>)}
+    </div>
     </div>
   </section>
 )

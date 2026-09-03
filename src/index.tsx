@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
 import { realms, totalPlays } from './data'
-import { Page } from './components'
+import { Page, Mascot } from './components'
 import { HomePage } from './pages/home'
 import { VisionPage } from './pages/vision'
 import { RealmsPage, RealmDetailPage } from './pages/realms'
@@ -61,6 +61,7 @@ app.notFound((c) => { c.status(404); return c.render(
     <section class="notfound">
       <canvas class="stars" data-stars></canvas>
       <div class="notfound-inner">
+        <Mascot cls="notfound-mascot" />
         <div class="kicker">404</div>
         <h1 class="page-title">这颗星球<span class="grad-gold">尚未点亮</span></h1>
         <p class="page-sub">你要找的页面不在 JYC Verse 的任何一个星域里。</p>

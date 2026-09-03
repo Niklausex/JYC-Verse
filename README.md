@@ -1,82 +1,67 @@
-# JYC Verse — 投资人展示官网
-
-> One Token. Every Thrill. — 以 JYC 为唯一代币的全球 Web3 娱乐宇宙
+# JYC Verse · 潮玩星际赌城 —— 投资人展示官网
 
 ## 项目概览
-- **名称**:JYC Verse 战略展示站(独立于现有 qpred.io 官网,不修改原站)
-- **目标**:向投资人直观呈现 JYC 从"预测市场"进化为"全球最大娱乐化代币"的完整生态蓝图,激发兴趣与长期期许
-- **语言**:全站中文
-- **风格**:深空 + 霓虹赌场 + 金色点缀,玻璃拟态,长滚动叙事页(24 屏)
+- **名称**：JYC Verse 官网（QuantumPredict 出品，独立于 qpred.io 现有站点）
+- **目标**：面向投资人展示 JYC Verse —— 以 JYC 代币为唯一结算货币的 Web3 娱乐宇宙（12 大星域 / 164+ 玩法），让 JYC 成为「全球最大的娱乐化代币」
+- **风格**：B+C「潮玩星际赌城」—— 紫黑星空底 + 糖果霓虹色（金色仅留给 JYC）+ 28px 大圆角玻璃卡 + 弹性 3D 金色按钮 + Baloo 2 / Nunito 圆润展示字体 + 3D 潮玩星球与吉祥物
+- **语言**：仅中文 UI；不含代币经济具体数字；路线图为 1 年（2026 Q4 → 2027 Q3）
 
-## URL
-- **沙盒预览**:https://3000-i2h87mladygw4hr64m708-2b54fc91.sandbox.novita.ai
-- **API**:`GET /api/realms` — 返回 12 大星域及玩法总数 JSON
-- **生产环境**:尚未部署(Cloudflare Pages)
-
-## 已完成功能
-1. **Hero**:Canvas 星空 + 12 星球三轨道环绕 JYC 太阳,鼠标视差,点击星球跳转对应星域
-2. **数据跑马灯**:生态关键指标滚动
-3. **问题 → 进化**:孤岛困境 / 从预测市场到娱乐宇宙的进化叙事
-4. **星系总览图**:12 星域可交互星图(自动旋转、悬停暂停、点击弹窗)
-5. **12 大星域详情屏**(交替左右布局):预测 / 街机 / 彩票 / 幸运 / 体育 / 竞技 / 棋牌 / 真人 / 城市 / 收益 / AI / 开放平台,共 **164 种玩法**
-6. **玩家画像**(7 类)+ **玩家旅程**(7 步)
-7. **底层系统**(9 大基建)
-8. **经济飞轮**:6 节点循环图 + 8 项 JYC 效用
-9. **路线图**:2026 Q4 奠基 → 2027 Q1 扩张 → 2027 Q2 社交 → 2027 Q3 宇宙,滚动进度线动画
-10. **公平与信任**、**现有基础数据**(数字滚动)、**投资人联系 CTA** + 免责声明
-11. **星域弹窗**:上一个/下一个/Esc/方向键
-12. 全响应式(1100 / 860 / 520 断点),支持 `prefers-reduced-motion`
-
-## 项目结构
-```
-webapp/
-├── src/
-│   ├── index.tsx        # 页面全部组件 + 路由(/ 与 /api/realms)
-│   ├── renderer.tsx     # HTML 外壳(字体、FontAwesome、样式脚本引用)
-│   └── data.ts          # 全站内容数据(星域、画像、系统、路线图等)
-├── public/static/
-│   ├── style.css        # 设计系统
-│   ├── app.js           # 交互脚本
-│   ├── favicon.svg
-│   └── img/             # 概念图目录(待放入)
-├── ecosystem.config.cjs # PM2 配置
-├── wrangler.jsonc
-└── vite.config.ts
-```
-
-## 概念图文件名对照(放入 `public/static/img/` 即自动生效)
-图片缺失时页面自动显示图标占位,不影响布局。
-
-| 用途 | 文件名 |
+## URL（多页面站点）
+| 路径 | 内容 |
 |---|---|
-| 12 星域星球(透明底 PNG) | `planet-predict.png` `planet-arcade.png` `planet-lottery.png` `planet-fortune.png` `planet-sports.png` `planet-arena.png` `planet-cards.png` `planet-live.png` `planet-city.png` `planet-earn.png` `planet-ai.png` `planet-open.png` |
-| 12 星域场景图(JPG, 16:10) | `scene-predict.jpg` `scene-arcade.jpg` `scene-lottery.jpg` `scene-fortune.jpg` `scene-sports.jpg` `scene-arena.jpg` `scene-cards.jpg` `scene-live.jpg` `scene-city.jpg` `scene-earn.jpg` `scene-ai.jpg` `scene-open.jpg` |
-| 孤岛困境 | `islands.jpg` |
-| 进化叙事 | `evolution.jpg` |
-| 公平与信任 | `fair.jpg` |
+| `/` | 首页：3D JYC 币主视觉 + 12 颗环绕星球、跑马灯、三支柱、十二星域卡片、飞轮、路线图摘要、基石数据、CTA |
+| `/vision` | 愿景：市场规模、七座孤岛、从预测到宇宙、七种人格横幅、24 小时玩家日、可验证信任 |
+| `/realms` | 十二星域：可点击星系图 + 全部星域卡片 |
+| `/realms/:id` | 星域详情（predict/arcade/lottery/fortune/sports/arena/cards/live/jyc-city/earn/ai/open）：场景图、全部玩法、人群、JYC 流转、上一/下一星域 |
+| `/economy` | JYC 经济：飞轮图、8 重效用、收入分配（无数字）、Staking 阶梯 |
+| `/platform` | 平台架构：三层架构、9 大系统、MEGA JACKPOT、信任合规、7 语种全球化 |
+| `/roadmap` | 路线图：四季度横幅 + 轨道、里程碑、12 星域点亮进度、起点数据 |
+| `/contact` | 投资人咨询：联系方式 + 一页纸摘要 + 吉祥物 |
+| 其他 | 404 页（吉祥物 + 「这颗星球尚未点亮」） |
 
-需求清单中 A1/A2(Hero 背景)、D1–D4/D6(画像横幅、飞轮、头奖、路线图、地球)尚未接入页面,收到图片后可追加。
+## 技术栈
+- Hono 4 + JSX（`hono/jsx-renderer`）· Vite（`@hono/vite-build/cloudflare-pages`）· Wrangler · Cloudflare Pages
+- 前端零框架：原生 CSS（`public/static/style.css`，设计 Token 见文件头）+ 原生 JS（`public/static/app.js`：星空 canvas、滚动 reveal、主视觉视差、星系旋转、路线图进度、数字滚动、键盘翻页）
+- 无数据库 / 无后端状态；所有内容集中在 `src/data.ts`
 
-## 数据架构
-- **数据模型**:`Realm`(id/编号/名称/标语/描述/配色/图标/玩法列表/亮点/轨道位置)及静态内容常量,全部在 `src/data.ts`
-- **存储**:纯静态展示站,无数据库
-- **数据流**:`data.ts` → 服务端 JSX 渲染 → 同时以 `<script type="application/json">` 嵌入供前端弹窗使用
+## 目录结构
+```
+src/
+  index.tsx        路由 + 404
+  renderer.tsx     HTML 外壳、字体、meta
+  components.tsx   Nav / Footer / RealmCard / Banner / Mascot / CtaBand / Pic …
+  data.ts          12 星域、玩法、人格、路线图、平台系统等全部文案
+  pages/           home / vision / realms / economy / platform / roadmap / contact
+public/static/
+  style.css  app.js
+  img/
+    planet-<id>.webp ×12   透明底 3D 潮玩星球（640px）
+    scene-<id>.jpg   ×12   星域场景图（1376×768）
+    hero-key.jpg / hero-bg.jpg   首页主视觉 / 星空底
+    flywheel.jpg  jackpot.jpg  roadmap.jpg  personas.jpg  globe.jpg
+    islands.jpg  evolution.jpg  fair.jpg
+    mascot.webp / mascot.png / mascot-head.webp   吉祥物
+```
 
 ## 本地开发
 ```bash
-npm run build
-pm2 start ecosystem.config.cjs     # http://localhost:3000
-pm2 logs webapp --nostream
+npm run build                      # 构建到 dist/
+pm2 start ecosystem.config.cjs     # wrangler pages dev dist --port 3000
+curl http://localhost:3000
 ```
 
-## 部署
-- **平台**:Cloudflare Pages
-- **状态**:❌ 未部署(沙盒预览中)
-- **技术栈**:Hono 4 + JSX + Vite 8 + Wrangler 4 + 原生 CSS/JS
-- **最后更新**:2026-09-03
+## 已完成
+- 多页面信息架构（8 个主页面 + 12 个星域详情 + 404）
+- B+C 潮玩星际赌城全站视觉重构
+- 35 张 AI 素材处理（星球抠白底→透明 WebP、场景/叙事图压缩）并接入全部页面
+- 桌面（1440）与移动（390）视觉 QA
 
-## 后续建议
-1. 接入用户交付的 34 张概念图,并补充 A1/A2/D 系列位置
-2. 移动端逐屏视觉复核
-3. 部署到 Cloudflare Pages 并绑定自定义域名(如 verse.qpred.io)
-4. 可选:增加英文版切换、投资人资料下载入口
+## 待办 / 建议
+- 部署到 Cloudflare Pages（需确认使用自有账号 BYOK 还是 Genspark 托管）
+- 清理少量遗留未用 CSS（`.hero-orbit-wrap` `.hero-sun` `.flywheel` `.fw-node`）
+- 可选：为星域详情页补充各星域专属配图 / 视频、接入真实联系表单（需第三方邮件 API）
+
+## 部署
+- **平台**：Cloudflare Pages
+- **状态**：⏳ 未部署（沙盒预览中）
+- **最后更新**：2026-09-03

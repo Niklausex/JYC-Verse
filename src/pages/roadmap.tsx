@@ -1,8 +1,9 @@
 import { realms, roadmap, foundation } from '../data'
-import { Page, PageHero, SectionHead, CtaBand } from '../components'
+import { Page, PageHero, SectionHead, CtaBand, Banner } from '../components'
 
 const Track = () => (
   <section class="sec" id="track">
+    <Banner src="/static/img/roadmap.jpg" alt="十二星域点亮路线" cap="四个季度,一路点亮" sub="2026 Q4 奠基 → 2027 Q1 扩张 → 2027 Q2 社交 → 2027 Q3 宇宙" />
     <div class="rm-track reveal">
       <div class="rm-line"><span id="rm-progress"></span></div>
       {roadmap.map((m, i) => (
@@ -11,7 +12,7 @@ const Track = () => (
           <div class="rm-q">{m.q}</div>
           <h3>{m.title}</h3>
           <div class="rm-realms">
-            {m.realms.map(id => { const r = realms.find(x => x.id === id)!; return <a href={`/realms/${r.id}`} style={`--c:${r.color}`} title={r.code}><i class={`fa-solid ${r.icon}`}></i>{r.code}</a> })}
+            {m.realms.map(id => { const r = realms.find(x => x.id === id)!; return <a href={`/realms/${r.id}`} style={`--c:${r.color}`} title={r.code}><img src={r.planetImg} alt="" loading="lazy" />{r.code}</a> })}
           </div>
         </article>
       ))}
@@ -30,7 +31,7 @@ const Detail = () => (
             <div class="ms-q">{m.q}</div>
             <h3>{m.title}</h3>
             <div class="rm-realms">
-              {m.realms.map(id => { const r = realms.find(x => x.id === id)!; return <a href={`/realms/${r.id}`} style={`--c:${r.color}`}><i class={`fa-solid ${r.icon}`}></i>{r.code}</a> })}
+              {m.realms.map(id => { const r = realms.find(x => x.id === id)!; return <a href={`/realms/${r.id}`} style={`--c:${r.color}`}><img src={r.planetImg} alt="" loading="lazy" />{r.code}</a> })}
             </div>
           </div>
           <ul class="ms-items">
@@ -53,7 +54,7 @@ const Lit = () => {
           const s = stageOf(r.id)
           return (
             <a class="lit" href={`/realms/${r.id}`} style={`--c:${r.color};--sc:${roadmap[s]?.color ?? '#fff'}`}>
-              <span class="lit-planet"><i class={`fa-solid ${r.icon}`}></i></span>
+              <span class="lit-planet"><img src={r.planetImg} alt="" loading="lazy" /></span>
               <b>{r.name}</b>
               <small>{roadmap[s]?.q} · {roadmap[s]?.title}</small>
               <div class="lit-bar">{roadmap.map((_, i) => <i class={i <= s ? 'on' : ''}></i>)}</div>

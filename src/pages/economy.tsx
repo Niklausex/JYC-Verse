@@ -4,21 +4,20 @@ import { Page, PageHero, SectionHead, CtaBand } from '../components'
 const Flywheel = () => (
   <section class="sec" id="flywheel-sec">
     <div class="economy">
-      <div class="flywheel reveal" id="flywheel">
-        <div class="fw-ring"></div>
-        <div class="fw-center"><span>JYC</span><small>飞轮</small></div>
-        {[
-          ['fa-gamepad', `${totalPlays}+ 玩法`, '消耗 JYC'],
-          ['fa-sack-dollar', '生态收入池', '手续费 · 抽水 · 庄优'],
-          ['fa-hand-holding-dollar', '质押分红', '持币者获利'],
-          ['fa-fire', '回购销毁', 'JYC 更稀缺'],
-          ['fa-gem', 'MEGA JACKPOT', '拉新弹药'],
-          ['fa-users', '用户量 ↑', '持币动机 ↑'],
-        ].map(([ic, t, d], i) => (
-          <div class="fw-node" style={`--i:${i}`}>
-            <i class={`fa-solid ${ic}`}></i><b>{t}</b><small>{d}</small>
-          </div>
-        ))}
+      <div class="reveal">
+        <div class="flywheel-img" id="flywheel">
+          <img src="/static/img/flywheel.jpg" alt="JYC 价值飞轮" loading="lazy" />
+        </div>
+        <div class="fw-legend">
+          {[
+            ['fa-gamepad', `${totalPlays}+ 玩法消耗`],
+            ['fa-sack-dollar', '生态收入池'],
+            ['fa-hand-holding-dollar', '质押分红'],
+            ['fa-fire', '回购销毁'],
+            ['fa-gem', 'MEGA JACKPOT'],
+            ['fa-users', '用户 ↑ 持币 ↑'],
+          ].map(([ic, t]) => <div><i class={`fa-solid ${ic}`}></i>{t}</div>)}
+        </div>
       </div>
       <div class="eco-side reveal">
         <div class="kicker">THE FLYWHEEL</div>

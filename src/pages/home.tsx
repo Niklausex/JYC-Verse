@@ -1,33 +1,34 @@
-import { realms, totalPlays, tickerStats, roadmap, foundation, utilities } from '../data'
-import { Page, SectionHead, RealmCard, CtaBand, Pic } from '../components'
+import { realms, totalPlays, tickerStats, roadmap, foundation } from '../data'
+import { Page, SectionHead, RealmCard, CtaBand } from '../components'
 
 const Hero = () => (
   <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
     <canvas class="stars" data-stars></canvas>
-    <div class="hero-orbit-wrap" id="hero-orbit">
-      <div class="hero-sun">
-        <div class="sun-core"><span>JYC</span></div>
-        <div class="sun-glow"></div>
-      </div>
-      {[1, 2, 3].map(o => <div class={`hero-ring ring-${o}`}></div>)}
-      {realms.map(r => (
-        <a class={`hero-planet orbit-${r.orbit}`} style={`--a:${r.angle}deg;--c:${r.color}`} href={`/realms/${r.id}`} title={`${r.code} · ${r.name}`}>
-          <i class={`fa-solid ${r.icon}`}></i>
-        </a>
-      ))}
-    </div>
     <div class="hero-content">
-      <div class="hero-kicker"><span class="dot"></span> JYC VERSE · WEB3 ENTERTAINMENT UNIVERSE</div>
+      <div class="hero-kicker"><span class="dot"></span> JYC VERSE · 潮玩星际赌城</div>
       <h1 class="hero-title">One Token.<br /><span class="grad-gold">Every Thrill.</span></h1>
       <p class="hero-sub">一枚代币,通吃所有心跳</p>
       <p class="hero-desc">
-        JYC Verse —— 全球首个覆盖全部博彩人格的一站式 Web3 娱乐宇宙。预测、竞猜、赌场、彩票、玄学、竞技、卡牌、直播、元宇宙……
-        <b>12 大星域、{totalPlays}+ 玩法</b>,只用一枚筹码:<b class="grad-gold">JYC</b>。
+        全球首个覆盖全部博彩人格的一站式 Web3 娱乐宇宙。<b>12 大星域、{totalPlays}+ 玩法</b>,只用一枚筹码:<b class="grad-gold">JYC</b>。
       </p>
       <div class="hero-cta">
-        <a class="btn btn-gold" href="/realms">探索十二星域 <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="btn btn-gold" href="/realms">进入十二星域 <i class="fa-solid fa-rocket"></i></a>
         <a class="btn btn-ghost" href="/economy">查看 JYC 经济</a>
       </div>
+      <div class="hero-badges">
+        {[['fa-dice', '秒级结算', '#FF4FB8'], ['fa-shield-halved', '可验证公平', '#3DE8FF'], ['fa-gem', 'MEGA JACKPOT', '#FFC531'], ['fa-language', '7 种语言', '#A855FF']].map(([ic, t, c]) => (
+          <span style={`--c:${c}`}><i class={`fa-solid ${ic}`}></i>{t}</span>
+        ))}
+      </div>
+    </div>
+    <div class="hero-key" id="hero-orbit">
+      <img src="/static/img/hero-key.jpg" alt="JYC Verse 主视觉:JYC 金币与环绕的十二星域" fetchpriority="high" />
+      {realms.map(r => (
+        <a class={`hero-planet orbit-${r.orbit}`} style={`--a:${r.angle}deg;--c:${r.color}`} href={`/realms/${r.id}`} title={`${r.code} · ${r.name}`}>
+          <img src={r.planetImg} alt={r.name} loading="lazy" />
+        </a>
+      ))}
     </div>
     <div class="hero-stats">
       <span><b>12</b> 大星域</span><i></i>
@@ -93,10 +94,8 @@ const EconomyTeaser = () => (
         </ul>
         <a class="btn btn-gold" href="/economy">了解 JYC 经济模型 <i class="fa-solid fa-arrow-right"></i></a>
       </div>
-      <div class="util-grid home-util reveal">
-        {utilities.map(u => (
-          <div class="util"><i class={`fa-solid ${u.icon}`}></i><b>{u.name}</b><span>{u.desc}</span></div>
-        ))}
+      <div class="flywheel-img reveal">
+        <img src="/static/img/flywheel.jpg" alt="JYC 价值飞轮" loading="lazy" />
       </div>
     </div>
   </section>
@@ -111,7 +110,7 @@ const RoadmapTeaser = () => (
           <span class="rm-mini-q">{m.q}</span>
           <b>{m.title}</b>
           <div class="rm-realms">
-            {m.realms.map(id => { const r = realms.find(x => x.id === id)!; return <span style={`--c:${r.color}`}><i class={`fa-solid ${r.icon}`}></i>{r.code}</span> })}
+            {m.realms.map(id => { const r = realms.find(x => x.id === id)!; return <span style={`--c:${r.color}`}><img src={r.planetImg} alt="" loading="lazy" />{r.code}</span> })}
           </div>
           {i < roadmap.length - 1 && <i class="fa-solid fa-chevron-right rm-mini-arrow"></i>}
         </a>

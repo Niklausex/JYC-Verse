@@ -105,19 +105,35 @@ export const SectionHead = ({ kicker, title, sub, align }: { kicker: string; tit
   </div>
 )
 
-/* ---------- 星域卡片(列表页/首页共用) ---------- */
+/* ---------- 星域卡片:游戏厅贴片(场景图 + 3D 星球) ---------- */
 export const RealmCard = ({ r, i, compact }: { r: (typeof realms)[number]; i: number; compact?: boolean }) => (
   <a class={`rcard glass reveal ${compact ? 'compact' : ''}`} href={`/realms/${r.id}`} style={`--c:${r.color};--c2:${r.color2};--d:${(i % 4) * 0.07}s`}>
-    <div class="rcard-top">
-      <span class="rcard-icon"><i class={`fa-solid ${r.icon}`}></i></span>
+    <div class="rcard-scene">
+      <img src={r.sceneImg} alt={`${r.name} 场景`} loading="lazy" />
       <span class="rcard-no">{r.no}</span>
+      
     </div>
-    <div class="rcard-code">{r.code}</div>
-    <h3>{r.name}</h3>
-    <p class="rcard-tag">{r.tagline}</p>
-    {!compact && <div class="rcard-tags">{r.plays.slice(0, 4).map(p => <span>{p}</span>)}<span class="more">+{r.count - 4}</span></div>}
-    <div class="rcard-foot"><b>{r.count}</b> 种玩法 <i class="fa-solid fa-arrow-right"></i></div>
+    <div class="rcard-body">
+      <div class="rcard-code">{r.code}</div>
+      <h3>{r.name}</h3>
+      <p class="rcard-tag">{r.tagline}</p>
+      {!compact && <div class="rcard-tags">{r.plays.slice(0, 3).map(p => <span>{p}</span>)}<span class="more">+{r.count - 3}</span></div>}
+      <div class="rcard-foot"><b>{r.count}</b> 种玩法 <i class="fa-solid fa-arrow-right"></i></div>
+    </div>
   </a>
+)
+
+/* ---------- 横幅大图 ---------- */
+export const Banner = ({ src, alt, cap, sub }: { src: string; alt: string; cap?: string; sub?: string }) => (
+  <figure class="banner reveal">
+    <img src={src} alt={alt} loading="lazy" />
+    {cap && <figcaption class="banner-cap">{cap}{sub && <small>{sub}</small>}</figcaption>}
+  </figure>
+)
+
+/* ---------- 吉祥物 ---------- */
+export const Mascot = ({ cls }: { cls?: string }) => (
+  <img class={`mascot ${cls ?? ''}`} src="/static/img/mascot.webp" alt="JYC 吉祥物" loading="lazy" />
 )
 
 /* ---------- 通用底部 CTA 条 ---------- */
@@ -132,6 +148,7 @@ export const CtaBand = ({ title, sub, primary, secondary }: { title: any; sub?: 
         <a class="btn btn-gold" href={primary?.[1] ?? '/contact'}>{primary?.[0] ?? '投资人咨询'} <i class="fa-solid fa-arrow-right"></i></a>
         {secondary && <a class="btn btn-ghost" href={secondary[1]}>{secondary[0]}</a>}
       </div>
+      <div class="cta-mascot" aria-hidden="true"><Mascot /></div>
     </div>
   </section>
 )

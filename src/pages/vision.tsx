@@ -1,5 +1,5 @@
 import { realms, totalPlays, tickerStats, personas, journey, foundation, trust } from '../data'
-import { Page, PageHero, SectionHead, CtaBand, Pic } from '../components'
+import { Page, PageHero, SectionHead, CtaBand, Pic, Banner } from '../components'
 
 const Market = () => (
   <section class="sec" id="market">
@@ -49,7 +49,7 @@ const Evolution = () => (
       <div class="evo-side evo-today glass">
         <div class="evo-label">TODAY</div>
         <div class="evo-name">QuantumPredict</div>
-        <div class="evo-planet single"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="evo-planet single"><img src="/static/img/planet-predict.webp" alt="预测宇宙" loading="lazy" /></div>
         <ul>
           {foundation.map(f => <li><b>{f.v}</b> {f.l.split(' ')[0]}</li>)}
         </ul>
@@ -63,7 +63,7 @@ const Evolution = () => (
         <div class="evo-label gold">TOMORROW</div>
         <div class="evo-name grad-gold">JYC Verse</div>
         <div class="evo-planets">
-          {realms.map(r => <a href={`/realms/${r.id}`} style={`--c:${r.color}`} title={r.code}><i class={`fa-solid ${r.icon}`}></i></a>)}
+          {realms.map(r => <a href={`/realms/${r.id}`} style={`--c:${r.color}`} title={r.code}><img src={r.planetImg} alt={r.name} loading="lazy" /></a>)}
         </div>
         <ul>
           <li><b>12</b> 大星域</li><li><b>{totalPlays}+</b> 玩法</li>
@@ -79,6 +79,7 @@ const Personas = () => (
   <section class="sec" id="personas">
     <SectionHead kicker="RETENTION" title={<>总有一款,<span class="grad-gold">让你停留</span></>}
       sub="玩家不是同一种人。JYC Verse 为每一种“想赢”的心理,准备了对应的星域。" />
+    <Banner src="/static/img/personas.jpg" alt="七种博彩人格" cap="七种“想赢”的人格,七条进入 JYC Verse 的路" sub="分析派 · 刺激派 · 梦想派 · 玄学派 · 竞技派 · 收藏派 · 社交派" />
     <div class="persona-row">
       {personas.map((p, i) => (
         <article class="persona glass reveal" style={`--c:${p.color};--d:${i * 0.07}s`}>

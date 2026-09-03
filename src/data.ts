@@ -27,7 +27,7 @@ export const realms: Realm[] = [
     color: '#38A8FF', color2: '#1F5BFF', icon: 'fa-chart-line', count: 18,
     plays: ['经典预测市场', 'Quick 极速市场', '加密 1 分钟涨跌', '加密 5 分钟涨跌', '世界杯专区', '电竞预测', '娱乐八卦预测', '天气预测', '政治选举', '科技发布预测', 'UGC 自建市场', '串关 Parlay', '跟单大神榜', '预测锦标赛', '预测积分赛季', '多结果市场', '区间市场', '预测保险'],
     highlight: 'UGC 自建市场:任何人都可以出题当庄',
-    planetImg: '/static/img/planet-predict.png', sceneImg: '/static/img/scene-predict.jpg', orbit: 1, angle: 0,
+    planetImg: '/static/img/planet-predict.webp', sceneImg: '/static/img/scene-predict.jpg', orbit: 1, angle: 0,
   },
   {
     id: 'arcade', no: '02', code: 'ARCADE', name: '极速游戏城',
@@ -36,7 +36,7 @@ export const realms: Realm[] = [
     color: '#FF4FA3', color2: '#FF2D6F', icon: 'fa-dice', count: 22,
     plays: ['Crash 火箭', 'Dice 骰子', 'Plinko 弹珠', 'Mines 扫雷', 'Limbo', 'Coinflip 硬币', 'Wheel 幸运轮盘', 'Keno', 'Hi-Lo', 'Tower 爬塔', '轮盘 Roulette', '百家乐', '21 点', '龙虎', '骰宝', '德州扑克(对庄)', '三公', '牛牛', '视频扑克', '捕鱼', '宾果', 'JYC 主题老虎机系列'],
     highlight: 'JYC 主题老虎机系列:星际 · 财神 · 世界杯 · 塔罗 · 赌城夜',
-    planetImg: '/static/img/planet-arcade.png', sceneImg: '/static/img/scene-arcade.jpg', orbit: 1, angle: 90,
+    planetImg: '/static/img/planet-arcade.webp', sceneImg: '/static/img/scene-arcade.jpg', orbit: 1, angle: 90,
   },
   {
     id: 'lottery', no: '03', code: 'LOTTERY', name: '彩票与奖池',
@@ -45,7 +45,7 @@ export const realms: Realm[] = [
     color: '#F5C24B', color2: '#FF9F1C', icon: 'fa-ticket', count: 12,
     plays: ['5 分钟快开彩', '每日大乐透', '周度 Powerball 累积奖池', '刮刮乐(多主题)', '区块哈希彩票', 'Raffle 实物/NFT 抽奖', '幸运号码守护(包号)', '合买团', '时时彩', '竞彩足球', '数字 3D', 'MEGA JACKPOT 全生态大奖'],
     highlight: 'MEGA JACKPOT:全生态每笔投注抽 0.5% 注入,任何游戏都可能触发',
-    planetImg: '/static/img/planet-lottery.png', sceneImg: '/static/img/scene-lottery.jpg', orbit: 1, angle: 180,
+    planetImg: '/static/img/planet-lottery.webp', sceneImg: '/static/img/scene-lottery.jpg', orbit: 1, angle: 180,
   },
   {
     id: 'fortune', no: '04', code: 'FORTUNE', name: '玄学命运',
@@ -54,7 +54,7 @@ export const realms: Realm[] = [
     color: '#9D5CFF', color2: '#6A2BFF', icon: 'fa-moon', count: 18,
     plays: ['每日运势', '塔罗牌', '星座占星盘', '生肖运程', '八字命书', '易经六爻', '关帝/观音灵签', '御神签', '泰式佛牌开光', 'AI 大师算命', 'AI 面相', 'AI 手相', '风水罗盘', '数字命理', '塔罗对赌', '命运挑战', '幸运数字一键投注', '运势海报分享'],
     highlight: '命运挑战:运势说你财旺,敢不敢下注验证?',
-    planetImg: '/static/img/planet-fortune.png', sceneImg: '/static/img/scene-fortune.jpg', orbit: 1, angle: 270,
+    planetImg: '/static/img/planet-fortune.webp', sceneImg: '/static/img/scene-fortune.jpg', orbit: 1, angle: 270,
   },
   {
     id: 'sports', no: '05', code: 'SPORTS', name: '体育电竞',
@@ -63,7 +63,7 @@ export const realms: Realm[] = [
     color: '#2EE59D', color2: '#00B871', icon: 'fa-futbol', count: 14,
     plays: ['足球竞猜', '篮球', '网球', 'UFC / 拳击', 'F1', '滚球 Live', '电竞 5 大项', 'Fantasy 梦幻体育', '虚拟赛马', '虚拟足球', '虚拟赛狗', '赛马', '大赛专题(世界杯/奥运/欧冠)', '体育串关'],
     highlight: '虚拟体育:每 3 分钟一场,24 小时永不停歇',
-    planetImg: '/static/img/planet-sports.png', sceneImg: '/static/img/scene-sports.jpg', orbit: 2, angle: 30,
+    planetImg: '/static/img/planet-sports.webp', sceneImg: '/static/img/scene-sports.jpg', orbit: 2, angle: 30,
   },
   {
     id: 'arena', no: '06', code: 'ARENA', name: '竞技对战',
@@ -72,7 +72,7 @@ export const realms: Realm[] = [
     color: '#FF5A3C', color2: '#E0231A', icon: 'fa-khanda', count: 16,
     plays: ['1v1 预测对赌', '德州扑克(P2P)', '麻将(国标/日麻/广东)', '斗地主', '象棋', '围棋', '国际象棋', 'Ludo 飞行棋', 'UNO', 'Trivia 直播答题', '猜拳', '反应力挑战', '拼图速度赛', 'Sit&Go 锦标赛', '战队 / 公会赛', '赛季天梯与冠军池'],
     highlight: 'Trivia 直播答题:全场同答,赢者分池',
-    planetImg: '/static/img/planet-arena.png', sceneImg: '/static/img/scene-arena.jpg', orbit: 2, angle: 90,
+    planetImg: '/static/img/planet-arena.webp', sceneImg: '/static/img/scene-arena.jpg', orbit: 2, angle: 90,
   },
   {
     id: 'cards', no: '07', code: 'CARDS', name: '卡牌与收藏',
@@ -81,7 +81,7 @@ export const realms: Realm[] = [
     color: '#E86BFF', color2: '#38E8FF', icon: 'fa-clone', count: 12,
     plays: ['抽卡', '盲盒', '命运卡 NFT', '卡牌合成 / 升星', '卡牌增益系统', '卡牌对战 TCG', '宠物养成', '坐骑', '限量藏品拍卖', '卡牌二级市场', '赛季限定卡', '名人 / IP 联名卡'],
     highlight: '卡牌增益:SSR = 手续费折扣 · 彩票加倍 · Crash 保险 · 分红加成',
-    planetImg: '/static/img/planet-cards.png', sceneImg: '/static/img/scene-cards.jpg', orbit: 2, angle: 150,
+    planetImg: '/static/img/planet-cards.webp', sceneImg: '/static/img/scene-cards.jpg', orbit: 2, angle: 150,
   },
   {
     id: 'live', no: '08', code: 'LIVE', name: '直播与社交',
@@ -90,7 +90,7 @@ export const realms: Realm[] = [
     color: '#FF3D8A', color2: '#FFFFFF', icon: 'fa-tower-broadcast', count: 12,
     plays: ['真人荷官(百家乐 / 轮盘 / 龙虎)', '直播开奖', '主播竞猜房', '打赏即下注', '聊天室 Rain 红包雨', '跟单 Copy Bet', '好友对赌房', '战绩晒单', 'KOL 联盟', '社区投票', '排行榜直播', '语音房'],
     highlight: '主播竞猜房:主播开盘,观众下注,主播分成',
-    planetImg: '/static/img/planet-live.png', sceneImg: '/static/img/scene-live.jpg', orbit: 2, angle: 210,
+    planetImg: '/static/img/planet-live.webp', sceneImg: '/static/img/scene-live.jpg', orbit: 2, angle: 210,
   },
   {
     id: 'city', no: '09', code: 'JYC CITY', name: '元宇宙赌城',
@@ -99,7 +99,7 @@ export const realms: Realm[] = [
     color: '#38E8FF', color2: '#F5C24B', icon: 'fa-city', count: 10,
     plays: ['虚拟赌城地图', '虚拟地产(买地 / 开店 / 收租)', '玩家做庄(赌桌牌照)', 'Avatar 与皮肤', '剧情任务线', '探索宝箱', '赌城赛季活动', '名人堂雕像', '城市治理投票', '品牌联名地块'],
     highlight: '玩家做庄:购买赌桌牌照,庄家优势归你',
-    planetImg: '/static/img/planet-city.png', sceneImg: '/static/img/scene-city.jpg', orbit: 2, angle: 270,
+    planetImg: '/static/img/planet-city.webp', sceneImg: '/static/img/scene-city.jpg', orbit: 2, angle: 270,
   },
   {
     id: 'earn', no: '10', code: 'EARN', name: '理财金库',
@@ -108,7 +108,7 @@ export const realms: Realm[] = [
     color: '#FFD166', color2: '#C88A00', icon: 'fa-vault', count: 10,
     plays: ['Staking 全生态分红', 'Bankroll 庄家池', 'LP 流动性挖矿', '复活险', '锁仓 NFT 加成', 'JYC 债券', '跟单基金', '回购销毁看板', 'VIP 返水', '收益自动复投'],
     highlight: 'Bankroll 庄家池:存入 JYC,成为 120+ 玩法背后的庄家',
-    planetImg: '/static/img/planet-earn.png', sceneImg: '/static/img/scene-earn.jpg', orbit: 2, angle: 330,
+    planetImg: '/static/img/planet-earn.webp', sceneImg: '/static/img/scene-earn.jpg', orbit: 2, angle: 330,
   },
   {
     id: 'ai', no: '11', code: 'AI', name: '智脑',
@@ -117,7 +117,7 @@ export const realms: Realm[] = [
     color: '#7FD7FF', color2: '#2A7BFF', icon: 'fa-brain', count: 10,
     plays: ['AI 预测分析', 'AI 算命师', 'AI 荷官 / 主播', 'AI 对手', 'AI 个性化推荐', 'AI 赛事解说', 'AI 自动出题', 'AI 风控', 'AI 客服', 'AI 内容生成'],
     highlight: 'AI 推荐:"你今天该玩什么"',
-    planetImg: '/static/img/planet-ai.png', sceneImg: '/static/img/scene-ai.jpg', orbit: 3, angle: 60,
+    planetImg: '/static/img/planet-ai.webp', sceneImg: '/static/img/scene-ai.jpg', orbit: 3, angle: 60,
   },
   {
     id: 'open', no: '12', code: 'OPEN', name: '开放生态',
@@ -126,7 +126,7 @@ export const realms: Realm[] = [
     color: '#E8F4FF', color2: '#38E8FF', icon: 'fa-circle-nodes', count: 10,
     plays: ['JYC Pay', '开发者 SDK', '白标 B2B', '跨链桥(BSC → Base / TON / Solana)', 'DAO 治理', '生态基金 Grants', '商户联盟(实物 / 礼品卡 / 旅游)', 'API 开放平台', '合作方游戏市场', '联盟营销网络'],
     highlight: 'JYC Pay:任何商户都可以收 JYC',
-    planetImg: '/static/img/planet-open.png', sceneImg: '/static/img/scene-open.jpg', orbit: 3, angle: 240,
+    planetImg: '/static/img/planet-open.webp', sceneImg: '/static/img/scene-open.jpg', orbit: 3, angle: 240,
   },
 ]
 
