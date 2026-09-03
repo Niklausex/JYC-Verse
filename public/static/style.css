@@ -740,7 +740,9 @@ img { display: block; max-width: 100%; }
   .contact-summary { padding: 28px 22px; }
   .ms { padding: 26px 22px; }
   .nav-burger { display: block; }
-  .nav.menu-open .nav-links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; padding: 20px 32px 28px; background: rgba(14,7,32,.97); border-bottom: 1px solid var(--line); gap: 18px; }
+  .nav.menu-open { background: #0E0720; border-color: var(--line); }
+  .nav.menu-open .nav-links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; padding: 16px 20px 24px; background: #0E0720; border-bottom: 1px solid var(--line); gap: 6px; box-shadow: 0 24px 40px rgba(0,0,0,.45); }
+  .nav.menu-open .nav-links a { font-size: 17px; padding: 14px 16px; border-radius: 14px; color: var(--ink); }
   .sec { padding: 80px 20px; }
   .problem-grid, .trust-wrap, .economy, .realm-hero-inner, .split, .contact-grid, .jackpot { grid-template-columns: 1fr; gap: 32px; }
   .jackpot { gap: 0; } .jackpot-text { padding: 32px 24px; } .jackpot-visual { min-height: 300px; }
@@ -778,3 +780,11 @@ img { display: block; max-width: 100%; }
 /* --- 图标位替换为小星球的通用尺寸 --- */
 .rm-realms span img, .rm-realms a img { width: 18px; height: 18px; object-fit: contain; }
 .rm-realms span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ---- 单页模式:导航精简、脚注纯文本、卡片无链接手势 ---- */
+.nav-logo .logo-text { font-size: 24px; }
+.footer-plain { display: block; color: var(--muted); font-size: 14px; padding: 4px 0; }
+div.rcard { cursor: default; }
+div.rcard:hover { transform: translateY(-4px); }
+.rm-mini-item:not([href]) { cursor: default; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }

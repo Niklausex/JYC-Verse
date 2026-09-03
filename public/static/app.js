@@ -39,6 +39,7 @@
     const onScroll = () => nav.classList.toggle('scrolled', scrollY > 30)
     addEventListener('scroll', onScroll, { passive: true }); onScroll()
     $('#nav-burger')?.addEventListener('click', () => nav.classList.toggle('menu-open'))
+    $$('.nav-links a').forEach(a => a.addEventListener('click', () => nav.classList.remove('menu-open')))
   }
 
   /* ---------- Reveal on scroll ---------- */

@@ -1,5 +1,7 @@
 import { realms, totalPlays, tickerStats, roadmap, foundation } from '../data'
-import { Page, SectionHead, RealmCard, CtaBand } from '../components'
+import { Page, SectionHead, RealmCard, CtaBand, SHOW_SUBPAGES } from '../components'
+
+const L = (sub: string, anchor: string) => SHOW_SUBPAGES ? sub : anchor
 
 const Hero = () => (
   <section class="hero" id="hero">
@@ -13,8 +15,8 @@ const Hero = () => (
         全球首个覆盖全部博彩人格的一站式 Web3 娱乐宇宙。<b>12 大星域、{totalPlays}+ 玩法</b>,只用一枚筹码:<b class="grad-gold">JYC</b>。
       </p>
       <div class="hero-cta">
-        <a class="btn btn-gold" href="/realms">进入十二星域 <i class="fa-solid fa-rocket"></i></a>
-        <a class="btn btn-ghost" href="/economy">查看 JYC 经济</a>
+        <a class="btn btn-gold" href={L('/realms', '#home-realms')}>进入十二星域 <i class="fa-solid fa-rocket"></i></a>
+        <a class="btn btn-ghost" href={L('/economy', '#home-economy')}>查看 JYC 经济</a>
       </div>
       <div class="hero-badges">
         {[['fa-dice', '秒级结算', '#FF4FB8'], ['fa-shield-halved', '可验证公平', '#3DE8FF'], ['fa-gem', 'MEGA JACKPOT', '#FFC531'], ['fa-language', '7 种语言', '#A855FF']].map(([ic, t, c]) => (
@@ -25,7 +27,7 @@ const Hero = () => (
     <div class="hero-key" id="hero-orbit">
       <img src="/static/img/hero-key.jpg" alt="JYC Verse 主视觉:JYC 金币与环绕的十二星域" fetchpriority="high" />
       {realms.map(r => (
-        <a class={`hero-planet orbit-${r.orbit}`} style={`--a:${r.angle}deg;--c:${r.color}`} href={`/realms/${r.id}`} title={`${r.code} · ${r.name}`}>
+        <a class={`hero-planet orbit-${r.orbit}`} style={`--a:${r.angle}deg;--c:${r.color}`} href={SHOW_SUBPAGES ? `/realms/${r.id}` : '#home-realms'} title={`${r.code} · ${r.name}`}>
           <img src={r.planetImg} alt={r.name} loading="lazy" />
         </a>
       ))}
@@ -55,14 +57,14 @@ const Pillars = () => (
       sub="体育博彩、线上赌场、彩票、预测市场、算命占卜、电竞竞猜、卡牌抽赏……每一个都是百亿千亿级生意,但它们彼此割裂。JYC Verse 用一枚代币把它们全部连成一体。" />
     <div class="pillars">
       {[
-        ['fa-layer-group', '12 大星域', `${totalPlays}+ 种玩法覆盖全部 7 种博彩人格,玩家来了总有一款能停留。`, '/realms', '#38E8FF'],
-        ['fa-coins', '一枚代币 JYC', '所有星域唯一结算货币。每一笔投注都在为持币者分红、为 JYC 销毁。', '/economy', '#F5C24B'],
-        ['fa-network-wired', '一个平台', '统一账户、VIP、任务、排行榜、公会、MEGA JACKPOT——把 12 个星域织成一张网。', '/platform', '#9D5CFF'],
+        ['fa-layer-group', '12 大星域', `${totalPlays}+ 种玩法覆盖全部 7 种博彩人格,玩家来了总有一款能停留。`, L('/realms', '#home-realms'), '#38E8FF'],
+        ['fa-coins', '一枚代币 JYC', '所有星域唯一结算货币。每一笔投注都在为持币者分红、为 JYC 销毁。', L('/economy', '#home-economy'), '#F5C24B'],
+        ['fa-network-wired', '一个平台', '统一账户、VIP、任务、排行榜、公会、MEGA JACKPOT——把 12 个星域织成一张网。', L('/platform', '#home-roadmap'), '#9D5CFF'],
       ].map(([ic, t, d, href, c], i) => (
         <a class="pillar glass reveal" href={href} style={`--c:${c};--d:${i * 0.1}s`}>
           <i class={`fa-solid ${ic}`}></i>
           <h3>{t}</h3><p>{d}</p>
-          <span class="link-more">了解更多 <i class="fa-solid fa-arrow-right"></i></span>
+          {SHOW_SUBPAGES && <span class="link-more">了解更多 <i class="fa-solid fa-arrow-right"></i></span>}
         </a>
       ))}
     </div>
@@ -76,7 +78,7 @@ const RealmsPreview = () => (
     <div class="rcard-grid">
       {realms.map((r, i) => <RealmCard r={r} i={i} compact />)}
     </div>
-    <div class="sec-more reveal"><a class="btn btn-outline" href="/realms">查看全部 {totalPlays} 种玩法 <i class="fa-solid fa-arrow-right"></i></a></div>
+    {SHOW_SUBPAGES && <div class="sec-more reveal"><a class="btn btn-outline" href="/realms">查看全部 {totalPlays} 种玩法 <i class="fa-solid fa-arrow-right"></i></a></div>}
   </section>
 )
 
@@ -92,7 +94,7 @@ const EconomyTeaser = () => (
           <li><i class="fa-solid fa-check"></i>每一次抽水,都在为 JYC 销毁</li>
           <li><i class="fa-solid fa-check"></i>每一个新玩法,都是 JYC 的新消耗</li>
         </ul>
-        <a class="btn btn-gold" href="/economy">了解 JYC 经济模型 <i class="fa-solid fa-arrow-right"></i></a>
+        {SHOW_SUBPAGES && <a class="btn btn-gold" href="/economy">了解 JYC 经济模型 <i class="fa-solid fa-arrow-right"></i></a>}
       </div>
       <div class="flywheel-img reveal">
         <img src="/static/img/flywheel.jpg" alt="JYC 价值飞轮" loading="lazy" />
@@ -106,7 +108,7 @@ const RoadmapTeaser = () => (
     <SectionHead kicker="ROADMAP · 12 MONTHS" title={<>一年,<span class="grad-cyan">点亮十二星域</span></>} />
     <div class="rm-mini reveal">
       {roadmap.map((m, i) => (
-        <a class="rm-mini-item" href="/roadmap" style={`--c:${m.color}`}>
+        <a class="rm-mini-item" href={SHOW_SUBPAGES ? '/roadmap' : undefined} style={`--c:${m.color}`}>
           <span class="rm-mini-q">{m.q}</span>
           <b>{m.title}</b>
           <div class="rm-realms">
@@ -142,6 +144,6 @@ export const HomePage = () => (
     <FoundationBand />
     <CtaBand title={<>加入 JYC Verse,投资下一个<span class="grad-gold">万亿级娱乐宇宙</span></>}
       sub={`12 大星域 · ${totalPlays}+ 玩法 · 7 种博彩人格 · 1 枚代币`}
-      secondary={['查看愿景', '/vision']} />
+      secondary={['查看愿景', '/vision']} primary={SHOW_SUBPAGES ? undefined : ['联系我们', 'mailto:invest@qpred.io']} />
   </Page>
 )

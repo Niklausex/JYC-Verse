@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
 import { realms, totalPlays } from './data'
-import { Page, Mascot } from './components'
+import { Page, Mascot, SHOW_SUBPAGES } from './components'
 import { HomePage } from './pages/home'
 import { VisionPage } from './pages/vision'
 import { RealmsPage, RealmDetailPage } from './pages/realms'
@@ -12,6 +12,13 @@ import { ContactPage } from './pages/contact'
 
 const app = new Hono()
 app.use(renderer)
+
+/* ---------- 二级页面开关:关闭时全部 302 回首页(路由与页面代码保留) ---------- */
+app.use('*', async (c, next) => {
+  const p = new URL(c.req.url).pathname
+  if (!SHOW_SUBPAGES && p !== '/' && !p.startsWith('/static') && !p.includes('.')) return c.redirect('/', 302)
+  await next()
+})
 
 /* ---------- 页面路由 ---------- */
 app.get('/', (c) => c.render(<HomePage />))
