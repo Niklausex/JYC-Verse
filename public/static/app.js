@@ -144,20 +144,31 @@
       gsap.to(el, { yPercent: 12, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } })
     })
     // Section titles: split-ish pop
+    // Helper: GSAP takes over from the CSS .reveal system for these elements
+    const takeover = el => { el.classList.remove('reveal'); el.classList.add('in') }
     $$('.sec-title').forEach(t => {
-      gsap.from(t, { y: 30, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: t, start: 'top 88%' } })
+      takeover(t)
+      gsap.from(t, { y: 30, opacity: 0, duration: .9, ease: 'power3.out', clearProps: 'all', scrollTrigger: { trigger: t, start: 'top 88%' } })
     })
     // Staggered grids
     ;['.guard-grid', '.lobby-grid', '.hot-grid', '.why-grid', '.layers', '.rcard-grid', '.pillars', '.plays-grid'].forEach(sel => {
       $$(sel).forEach(grid => {
         const kids = [...grid.children].filter(k => k.offsetParent !== null)
         if (!kids.length) return
-        kids.forEach(k => k.classList.remove('reveal'))
-        gsap.from(kids, { y: 40, opacity: 0, scale: .96, duration: .7, ease: 'back.out(1.4)', stagger: { each: .06, from: 'start' }, scrollTrigger: { trigger: grid, start: 'top 85%' } })
+        kids.forEach(takeover)
+        gsap.from(kids, { y: 40, opacity: 0, scale: .96, duration: .7, ease: 'back.out(1.4)', clearProps: 'all', stagger: { each: .06, from: 'start' }, scrollTrigger: { trigger: grid, start: 'top 85%' } })
       })
     })
     // Guardian band slide
-    $$('.guardian-band').forEach(b => gsap.from(b, { x: -60, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: b, start: 'top 85%' } }))
+    $$('.guardian-band').forEach(b => { takeover(b); gsap.from(b, { x: -60, opacity: 0, duration: .9, ease: 'power3.out', clearProps: 'all', scrollTrigger: { trigger: b, start: 'top 85%' } }) })
+    // Layout shifts (lazy video/img, fonts) → recompute trigger positions
+    let rt; const refresh = () => { clearTimeout(rt); rt = setTimeout(() => ScrollTrigger.refresh(), 120) }
+    addEventListener('load', refresh)
+    $$('img').forEach(im => { if (!im.complete) im.addEventListener('load', refresh, { once: true }) })
+    $$('video').forEach(v => v.addEventListener('loadedmetadata', refresh, { once: true }))
+    if ('ResizeObserver' in window) { const ro = new ResizeObserver(refresh); ro.observe(document.body) }
+    // Safety net: anything GSAP left invisible after its trigger passed gets forced visible
+    setInterval(() => ScrollTrigger.getAll().forEach(t => { if (t.progress === 1) (t.trigger ? [t.trigger] : []).forEach(el => { if (getComputedStyle(el).opacity === '0') gsap.set(el, { clearProps: 'all' }) }) }), 1500)
     // Mouseverse ring: rotate on scroll
     const mv = $('#mv-stage')
     if (mv) gsap.to(mv.querySelector('.mv-ring'), { rotate: 180, ease: 'none', scrollTrigger: { trigger: mv, start: 'top bottom', end: 'bottom top', scrub: 1 } })
@@ -210,4 +221,68 @@
   if (matchMedia('(pointer:coarse)').matches) {
     document.addEventListener('touchstart', e => { const t = e.target.closest('.btn, .g-btn, .mnav a, .rcard, .guard, .gcard-lobby, .hot'); if (t) { t.classList.add('pressed'); setTimeout(() => t.classList.remove('pressed'), 200) } }, { passive: true })
   }
+
+  /* ============================================================
+     v9 — Video system
+     ============================================================ */
+  // Concurrency-limited loader: at most MAXC videos fetching at once (mobile data + dev-proxy friendly)
+  const MAXC = 3, queue = []; let active = 0
+  const pump = () => {
+    while (active < MAXC && queue.length) {
+      const v = queue.shift(); if (!v.isConnected || v.dataset.loaded === '2') continue
+      active++; v.dataset.loaded = '2'
+      const done = () => { if (v.__done) return; v.__done = 1; active--; pump() }
+      v.addEventListener('loadeddata', done, { once: true }); v.addEventListener('error', done, { once: true })
+      setTimeout(done, 8000) // never block the queue
+      $$('source', v).forEach(src => { if (src.dataset.src) src.src = src.dataset.src }); v.load()
+      if (v.__wantPlay && !reduced) { const p = v.play(); if (p && p.catch) p.catch(() => {}) }
+    }
+  }
+  const loadVideo = (v) => { if (v.dataset.loaded) return; v.dataset.loaded = '1'; queue.push(v); pump() }
+  const tryPlay = (v) => { v.__wantPlay = 1; if (v.dataset.loaded && v.dataset.loaded !== '2') return; const p = v.play(); if (p && p.catch) p.catch(() => {}) }
+  // lazy: load + autoplay when in view, pause when out (saves battery/data)
+  const vio = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target
+    if (e.isIntersecting) { loadVideo(v); if (!reduced) tryPlay(v); v.closest('.vid')?.classList.add('playing') }
+    else { v.__wantPlay = 0; v.pause(); v.closest('.vid')?.classList.remove('playing') }
+  }), { threshold: .25, rootMargin: '120px 0px' })
+  $$('video[data-lazy-video]').forEach(v => vio.observe(v))
+  // hover videos: play on hover (desktop) or when in view (touch)
+  $$('video[data-hover-video]').forEach(v => {
+    const host = v.closest('a, .guard, .hot, .gcard-lobby') || v.parentElement
+    if (matchMedia('(pointer:fine)').matches) {
+      host.addEventListener('pointerenter', () => { loadVideo(v); tryPlay(v); host.classList.add('vid-on') })
+      host.addEventListener('pointerleave', () => { v.__wantPlay = 0; v.pause(); if (v.readyState) v.currentTime = 0; host.classList.remove('vid-on') })
+    } else {
+      const hio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && e.intersectionRatio > .6) { loadVideo(v); tryPlay(v); host.classList.add('vid-on') } else { v.__wantPlay = 0; v.pause(); host.classList.remove('vid-on') } }), { threshold: [0, .6] })
+      hio.observe(v)
+    }
+  })
+  // play/pause toggle button on .vid
+  $$('[data-vid-sound]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); const v = $('video', b.parentElement); loadVideo(v); if (v.paused) { tryPlay(v); b.innerHTML = '<i class="fa-solid fa-pause"></i>' } else { v.pause(); b.innerHTML = '<i class="fa-solid fa-play"></i>' } }))
+  $$('.vid video').forEach(v => { v.addEventListener('play', () => { const b = $('[data-vid-sound]', v.parentElement); if (b) b.innerHTML = '<i class="fa-solid fa-pause"></i>' }); v.addEventListener('pause', () => { const b = $('[data-vid-sound]', v.parentElement); if (b) b.innerHTML = '<i class="fa-solid fa-play"></i>' }) })
+  // cinema player (universe page)
+  const cv = $('#cinema-video')
+  if (cv) {
+    let idx = 1, items = $$('.cinema-item'), timer
+    const show = (i) => {
+      idx = (i + items.length) % items.length; const it = items[idx]
+      items.forEach(x => x.classList.toggle('on', x === it))
+      const main = $('.cinema-main'); main.classList.add('switch')
+      setTimeout(() => {
+        cv.poster = it.dataset.poster; $('source', cv).src = it.dataset.video; cv.load(); tryPlay(cv)
+        $('#cinema-code').textContent = it.dataset.code; $('#cinema-title').textContent = it.dataset.title; $('#cinema-tag').textContent = it.dataset.tag; $('#cinema-link').href = `/realms/${it.dataset.cinema}`
+        main.style.setProperty('--c', it.style.getPropertyValue('--c')); main.classList.remove('switch')
+      }, 220)
+      it.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
+    }
+    items.forEach((it, i) => it.addEventListener('click', () => { show(i); clearInterval(timer); timer = setInterval(() => show(idx + 1), 9000) }))
+    cv.addEventListener('ended', () => show(idx + 1))
+    timer = setInterval(() => show(idx + 1), 9000)
+    $('#cinema-mute')?.addEventListener('click', function () { cv.muted = !cv.muted; this.innerHTML = cv.muted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>' })
+  }
+  // universe hero video: fade in once playable
+  const uv = $('.uv-video'); if (uv) { uv.addEventListener('canplay', () => uv.classList.add('ready')); if (reduced) uv.pause() }
+  // reel marquee: pause on hover
+  const reel = $('.reel-track'); if (reel) { reel.addEventListener('pointerenter', () => reel.style.animationPlayState = 'paused'); reel.addEventListener('pointerleave', () => reel.style.animationPlayState = '') }
 })()

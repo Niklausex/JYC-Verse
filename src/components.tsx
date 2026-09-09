@@ -152,6 +152,17 @@ export const RealmCard = ({ r, i, compact }: { r: (typeof realms)[number]; i: nu
   </Tag>
 )}
 
+/* ---------- 视频:自动播放(静音、循环、进入视口才加载) ---------- */
+export const Vid = ({ src, poster, cls, cap, sub, controls }: { src: string; poster: string; cls?: string; cap?: string; sub?: string; controls?: boolean }) => (
+  <figure class={`vid ${cls ?? ''}`}>
+    <video class="vid-el" data-lazy-video poster={poster} muted playsinline loop preload="none" controls={controls} aria-label={cap}>
+      <source data-src={src} type="video/mp4" />
+    </video>
+    <button class="vid-sound" type="button" data-vid-sound aria-label="播放/暂停"><i class="fa-solid fa-play"></i></button>
+    {cap && <figcaption class="vid-cap"><b>{cap}</b>{sub && <small>{sub}</small>}</figcaption>}
+  </figure>
+)
+
 /* ---------- 横幅大图 ---------- */
 export const Banner = ({ src, alt, cap, sub }: { src: string; alt: string; cap?: string; sub?: string }) => (
   <figure class="banner reveal">

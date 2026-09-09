@@ -1,5 +1,5 @@
 import { realms, allGames } from '../data'
-import { Page, PageHero, CtaBand } from '../components'
+import { Page, PageHero, CtaBand, Vid } from '../components'
 
 /* ---------- 试玩钱包条(所有游戏页共用) ---------- */
 export const WalletBar = () => (
@@ -37,6 +37,17 @@ export const PlayPage = () => (
     <PageHero kicker="GAME HUB · DEMO" crumbs={[['游戏大厅']]}
       title={<>游戏大厅 · <span class="grad-gold">{allGames.length} 款可试玩</span></>}
       sub="所有玩法均为交互式模拟演示,使用 10,000 试玩 JYC。无需钱包、无需注册,直接感受每个星域的核心手感。" />
+    <section class="sec sec-wide vid-strip-sec" id="lobby-videos">
+      <div class="sec-head left reveal"><div class="kicker">GAMEPLAY REELS</div><h2 class="sec-title">十二星域<span class="grad-gold">玩法演绎</span></h2><p class="sec-sub">守护鼠亲自出镜,6 秒看懂每个星域的核心手感。</p></div>
+      <div class="vid-strip" id="vid-strip">
+        {realms.map(r => (
+          <a class="vid-card" href={`/realms/${r.id}`} style={`--c:${r.color}`}>
+            <video data-lazy-video muted playsinline loop preload="none" poster={r.poster}><source data-src={r.video} type="video/mp4" /></video>
+            <span class="vid-card-cap"><b>{r.code}</b>{r.guardian.name}</span>
+          </a>
+        ))}
+      </div>
+    </section>
     <section class="sec sec-wide" id="lobby">
       <WalletBar />
       <div class="lobby-filter reveal" id="lobby-filter">
@@ -81,6 +92,19 @@ export const GamePage = ({ g }: { g: (typeof allGames)[number] }) => {
       <section class="sec sec-wide game-sec" id="game">
         <WalletBar />
         <div class="game-frame glass" data-game={g.id} style={`--c:${g.color};--c2:${g.color2}`}></div>
+        <div class="game-video-row">
+          <Vid src={g.video} poster={g.poster} cls="game-video" cap={`${g.guardian.name} 玩法演绎`} sub={`${g.realmName} · ${g.realmCode}`} />
+          <div class="game-howto glass">
+            <div class="kicker" style={`color:${g.color};border-color:${g.color}55;background:${g.color}18`}>HOW TO PLAY</div>
+            <h3>{g.name} · 三步上手</h3>
+            <ol>
+              <li><b>01</b><span>在右侧面板选择下注金额(可用筹码快捷键)</span></li>
+              <li><b>02</b><span>{g.desc}</span></li>
+              <li><b>03</b><span>赢得的试玩 JYC 实时进入钱包;每笔投注 0.5% 汇入 MEGA JACKPOT</span></li>
+            </ol>
+            <blockquote><img src="/static/img/mascot-head.webp" alt="" /> {g.guardian.name}:“{g.guardian.quote}”</blockquote>
+          </div>
+        </div>
         <p class="game-disc"><i class="fa-solid fa-circle-info"></i> 本页为产品概念演示,所有数字为试玩币,随机数在浏览器本地生成,不涉及真实资产。</p>
       </section>
 

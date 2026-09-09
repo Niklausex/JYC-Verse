@@ -1,5 +1,5 @@
 import { realms, universeLore, totalPlays } from '../data'
-import { Page, SectionHead, CtaBand } from '../components'
+import { Page, SectionHead, CtaBand, Vid } from '../components'
 
 /* ---------- 鼠族元宇宙 · 概念页 ---------- */
 export const UniversePage = () => (
@@ -11,6 +11,7 @@ export const UniversePage = () => (
         <source media="(max-width: 700px)" srcset="/static/img/universe-key-m.jpg" />
         <img src="/static/img/universe-key.jpg" alt="JYC 鼠族元宇宙全景:鼠王站在 JYC 金币上,十二座星岛环绕" fetchpriority="high" />
       </picture>
+      <video class="uv-video" autoplay muted playsinline loop poster="/static/video/universe-hero.jpg" aria-hidden="true"><source src="/static/video/universe-hero.mp4" type="video/mp4" /></video>
       <div class="uv-hero-fade"></div>
       <div class="uv-hero-text">
         <div class="kicker">MOUSE METAVERSE</div>
@@ -70,7 +71,10 @@ export const UniversePage = () => (
         {realms.map((r, i) => (
           <a class="guard glass reveal tilt" href={`/realms/${r.id}`} style={`--c:${r.color};--c2:${r.color2};--d:${(i % 4) * .07}s`}>
             <div class="guard-bg"></div>
-            <img class="guard-img" src={r.mouseImg} alt={r.guardian.name} loading="lazy" />
+            <div class="guard-media">
+              <img class="guard-img" src={r.mouseImg} alt={r.guardian.name} loading="lazy" />
+              <video class="guard-vid" data-hover-video muted playsinline loop preload="none" poster={r.poster}><source data-src={r.video} type="video/mp4" /></video>
+            </div>
             <div class="guard-body">
               <span class="guard-no">{r.no} · {r.code}</span>
               <h3>{r.guardian.name}</h3>
@@ -81,6 +85,25 @@ export const UniversePage = () => (
             </div>
           </a>
         ))}
+      </div>
+    </section>
+
+    {/* 影院:十二星域玩法演绎 */}
+    <section class="sec sec-wide" id="cinema">
+      <SectionHead kicker="CINEMA" title={<>十二星域<span class="grad-gold">玩法演绎</span></>} sub="每位守护鼠在自己的星域里演示核心玩法——这是 JYC Verse 未来游戏内 CG 与营销素材的风格基线。" />
+      <div class="cinema reveal" id="cinema-player">
+        <div class="cinema-main">
+          <video id="cinema-video" muted playsinline loop autoplay poster={realms[1].poster}><source src={realms[1].video} type="video/mp4" /></video>
+          <div class="cinema-info"><span class="kicker" id="cinema-code">{realms[1].code}</span><h3 id="cinema-title">{realms[1].guardian.name} · {realms[1].name}</h3><p id="cinema-tag">{realms[1].tagline}</p><a class="btn btn-gold btn-sm" id="cinema-link" href={`/realms/${realms[1].id}`}>进入星域试玩 <i class="fa-solid fa-play"></i></a></div>
+          <button class="cinema-mute" type="button" id="cinema-mute" aria-label="静音切换"><i class="fa-solid fa-volume-xmark"></i></button>
+        </div>
+        <div class="cinema-list">
+          {realms.map((r, i) => (
+            <button type="button" class={`cinema-item ${i === 1 ? 'on' : ''}`} data-cinema={r.id} data-video={r.video} data-poster={r.poster} data-code={r.code} data-title={`${r.guardian.name} · ${r.name}`} data-tag={r.tagline} style={`--c:${r.color}`}>
+              <img src={r.poster} alt="" loading="lazy" /><span><b>{r.code}</b>{r.guardian.name}</span>
+            </button>
+          ))}
+        </div>
       </div>
     </section>
 

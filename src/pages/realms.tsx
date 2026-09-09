@@ -1,5 +1,5 @@
 import { realms, totalPlays, roadmap, personas, type Realm } from '../data'
-import { Page, PageHero, SectionHead, RealmCard, CtaBand, Pic } from '../components'
+import { Page, PageHero, SectionHead, RealmCard, CtaBand, Pic, Vid } from '../components'
 
 /* ---------- 星系交互图 ---------- */
 const Galaxy = () => (
@@ -78,6 +78,9 @@ export const RealmDetailPage = ({ r }: { r: Realm }) => {
 
       {/* 守护鼠 + 可试玩 */}
       <section class="sec sec-wide" id="realm-play" style={`--c:${r.color};--c2:${r.color2}`}>
+        <div class="realm-video-wrap reveal">
+          <Vid src={r.video} poster={r.poster} cls="realm-video" cap={`${r.guardian.name} · ${r.name}玩法演绎`} sub={r.tagline} />
+        </div>
         <div class="guardian-band glass reveal">
           <img src={r.mouseImg} alt={r.guardian.name} />
           <div class="guardian-band-text">

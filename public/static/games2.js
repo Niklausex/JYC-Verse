@@ -242,7 +242,7 @@
       const R = [['N', .55, '#9AA5B8', 0.4], ['R', .28, '#38A8FF', 1], ['SR', .12, '#A855FF', 3], ['SSR', .045, '#FFC531', 12], ['UR', .005, '#FF4FB8', 60]]
       const MICE = ['predict', 'arcade', 'lottery', 'fortune', 'sports', 'arena', 'cards', 'live', 'city', 'earn', 'ai', 'open']
       root.innerHTML = `
-        <div class="g-stage gacha-stage"><div class="gacha-pack" data-pack><img src="/static/img/mouse-cards.webp" alt=""><span>命运卡包</span></div><div class="gacha-cards" data-cards></div></div>
+        <div class="g-stage gacha-stage"><div class="gacha-pack" data-pack><img class="gp-back" src="/static/img/props/cardback.webp" alt=""><img class="gp-mouse" src="/static/img/mouse-cards.webp" alt=""><span>命运卡包</span></div><div class="gacha-cards" data-cards></div></div>
         <div class="g-panel"><div class="g-field"><label>卡包价格</label><b>100 JYC / 包</b></div><button class="g-btn g-btn-gold" data-go="1">开 1 包</button><button class="g-btn g-btn-cash" data-go="5">开 5 包 (500)</button><div class="g-hint">概率公示:N 55% · R 28% · SR 12% · SSR 4.5% · UR 0.5% · 卡牌可在全生态生效(手续费折扣 / 彩票加倍 / 分红加成)</div></div>`
       const cards = $('[data-cards]', root), pack = $('[data-pack]', root)
       const roll = () => { const r = Math.random(); let acc = 0; for (const t of R) { acc += t[1]; if (r < acc) return t } return R[0] }
@@ -263,6 +263,8 @@
     },
   }
 
+  function hongbaoRain(root) { if (api_reduced()) return; const box = document.createElement('div'); box.className = 'hb-rain'; root.appendChild(box); for (let i = 0; i < 18; i++) { const h = document.createElement('img'); h.src = '/static/img/props/hongbao.webp'; h.style.cssText = `left:${rnd(2, 95)}%;animation-delay:${rnd(0, .8)}s;animation-duration:${rnd(1.4, 2.4)}s;--r:${rnd(-200, 200)}deg`; box.appendChild(h) } setTimeout(() => box.remove(), 3500) }
+  const api_reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches
   /* ============ LIVE ROOM ============ */
   G.liveroom = {
     title: '主播竞猜房',
@@ -282,7 +284,7 @@
         await sleep(800); addMsg('麦克鼠', '开!', 'host')
         const d = [ri(1, 6), ri(1, 6), ri(1, 6)], s = d.reduce((a, b) => a + b), big = s >= 11
         await sleep(600); addMsg('系统', `🎲 ${d.join(' + ')} = ${s} · ${big ? '大' : '小'}`, 'sys')
-        if ((pick === 'big') === big) { api.win(bet * 1.9, '1.9'); if (Math.random() < .5) { addMsg('麦克鼠', '🧧 红包雨!', 'host'); api.coinBurst(root, 24) } } else api.lose()
+        if ((pick === 'big') === big) { api.win(bet * 1.9, '1.9'); if (Math.random() < .5) { addMsg('麦克鼠', '🧧 红包雨!', 'host'); hongbaoRain(root) } } else api.lose()
       })
       root.addEventListener('DOMNodeRemoved', () => clearInterval(ticker), { once: true })
     },
@@ -381,7 +383,7 @@
     title: 'MEGA JACKPOT',
     mount(root, api) {
       root.innerHTML = `
-        <div class="g-stage jackpot-stage"><img class="jp-mouse" src="/static/img/mouse-lottery.webp" alt=""><div class="jp-label">MEGA JACKPOT · 全生态滚存</div><div class="jp-num"><b data-jackpot>—</b><span>JYC</span></div><div class="jp-feed" data-feed></div></div>
+        <div class="g-stage jackpot-stage"><div class="jp-visual"><img class="jp-chest" src="/static/img/props/chest.webp" alt=""><img class="jp-mouse" src="/static/img/mouse-lottery.webp" alt=""></div><div class="jp-label">MEGA JACKPOT · 全生态滚存</div><div class="jp-num"><b data-jackpot>—</b><span>JYC</span></div><div class="jp-feed" data-feed></div></div>
         <div class="g-panel">${betBox('jp', 100)}<button class="g-btn g-btn-gold" data-go>随机玩一局 · 尝试触发大奖</button><div class="g-hint">每一笔投注抽 0.5% 注入奖池;每一局(任何星域)都有极小概率触发全额奖池。演示中触发概率放大为 1/40。</div>${fairTag()}</div>`
       const getBet = wireBet(root), feed = $('[data-feed]', root)
       const NM = ['Lucky7', '阿伦', 'Crypto猫', '夜猫子', '梭哈王', '稳健哥', '小明爱冲']
@@ -396,6 +398,5 @@
     },
   }
 
-  window.__JYC_ALL_LOADED = true
   window.JYCMount?.()
 })()

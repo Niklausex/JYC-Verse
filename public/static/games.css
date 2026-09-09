@@ -352,3 +352,126 @@
   .plinko-slots span { font-size: 8px; padding: 6px 0; }
   .crash-rocket { width: 54px; }
 }
+
+/* ============ v9 — props, FX, casino classics ============ */
+/* crash: rocket prop + flame + explosion */
+.crash-rocket { position: absolute; width: 90px; height: 90px; left: 6%; top: 88%; transform: translate(-50%,-50%) rotate(-20deg); pointer-events: none; transition: opacity .2s; }
+.crash-rocket-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 18px rgba(255,197,49,.6)); }
+.crash-rider { position: absolute; width: 46%; left: 27%; top: -8%; filter: drop-shadow(0 4px 8px rgba(0,0,0,.6)); }
+.crash-flame { position: absolute; left: 50%; bottom: -14px; width: 22px; height: 46px; margin-left: -11px; border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%; background: linear-gradient(180deg, #fff 0%, #FFC531 30%, #FF6A00 70%, transparent); filter: blur(1px); opacity: 0; transform-origin: top; transform: rotate(180deg) scaleY(.4); }
+.flying .crash-flame { opacity: 1; animation: flame .12s infinite alternate; }
+@keyframes flame { from { transform: rotate(180deg) scaleY(.8) scaleX(.9) } to { transform: rotate(180deg) scaleY(1.3) scaleX(1.1) } }
+.crash-boom { position: absolute; width: 10px; height: 10px; margin: -5px; border-radius: 50%; pointer-events: none; opacity: 0; }
+.crash-boom.go { animation: boom .7s ease-out forwards; }
+@keyframes boom { 0% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,255,255,.9), 0 0 0 0 rgba(255,138,0,.9), 0 0 0 0 rgba(255,59,59,.7); transform: scale(1) } 100% { opacity: 0; box-shadow: 0 0 40px 60px rgba(255,255,255,0), 0 0 80px 120px rgba(255,138,0,0), 0 0 120px 180px rgba(255,59,59,0); transform: scale(3) } }
+.crash-stage.boomflash { animation: crashflash .5s, shakeStage .5s; }
+@keyframes shakeStage { 0%, 100% { transform: none } 20% { transform: translate(-6px, 4px) } 40% { transform: translate(6px, -4px) } 60% { transform: translate(-4px, -3px) } 80% { transform: translate(4px, 3px) } }
+/* mines props */
+.mine-cell img { position: absolute; inset: 14%; width: 72%; height: 72%; object-fit: contain; opacity: 0; transform: scale(.3) rotate(-20deg); transition: all .4s var(--bounce); }
+.mine-cell.safe .mc-gem { opacity: 1; transform: none; filter: drop-shadow(0 0 10px var(--cyan)); }
+.mine-cell.bomb .mc-bomb { opacity: 1; transform: none; }
+.mine-cell.boom .mc-bomb { animation: bombpop .5s var(--bounce); }
+@keyframes bombpop { 50% { transform: scale(1.5) } }
+/* coin faces */
+.coin-face img { width: 100%; height: 100%; object-fit: contain; }
+.coin-face { background: transparent; box-shadow: none; }
+/* scratch props */
+.scratch-under span img { width: 70%; height: 70%; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,.5)); }
+/* lotto balls */
+.lotto-drum i { background: none; width: 30px; height: 30px; } .lotto-drum i img { width: 100%; height: 100%; }
+/* coin burst with image */
+.g-coins b { background: none; box-shadow: none; } .g-coins b img { width: 100%; height: 100%; filter: drop-shadow(0 0 8px rgba(255,197,49,.7)); }
+/* gacha pack */
+.gacha-pack { position: relative; width: 170px; height: 190px; } .gp-back { position: absolute; left: 50%; top: 0; width: 120px; transform: translateX(-50%) rotate(-6deg); filter: drop-shadow(0 10px 24px rgba(232,107,255,.5)); } .gp-mouse { position: absolute; left: 50%; bottom: 20px; width: 110px; transform: translateX(-50%); } .gacha-pack span { position: absolute; bottom: 0; left: 0; right: 0; }
+.gacha-pack.open .gp-back { animation: packopen .6s var(--bounce) forwards; } @keyframes packopen { to { transform: translateX(-50%) rotate(20deg) translateY(-30px) scale(1.1); opacity: 0 } }
+/* jackpot chest */
+.jp-visual { position: relative; width: 200px; height: 170px; } .jp-chest { position: absolute; left: 50%; bottom: 0; width: 150px; transform: translateX(-50%); filter: drop-shadow(0 0 30px rgba(255,197,49,.6)); } .jp-mouse { position: absolute; right: -10px; bottom: 10px; width: 100px; }
+.spin .jp-chest { animation: winjump .25s infinite alternate; }
+/* hongbao rain */
+.hb-rain { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 22; } .hb-rain img { position: absolute; top: -60px; width: 44px; animation: hbfall linear forwards; filter: drop-shadow(0 4px 10px rgba(0,0,0,.5)); }
+@keyframes hbfall { to { transform: translateY(120%) rotate(var(--r)); opacity: .3 } }
+.hb-rain img { animation-name: hbfall2; } @keyframes hbfall2 { to { top: 110%; transform: rotate(var(--r)) } }
+
+/* ---- SLOT ---- */
+.slot-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 16px; background: radial-gradient(circle at 50% 0%, rgba(255,79,184,.3), transparent 60%), linear-gradient(180deg, #2A0F3A, #0E0720); }
+.slot-top { display: flex; align-items: center; gap: 12px; font-family: var(--f-display); font-weight: 900; font-size: 26px; letter-spacing: .1em; color: #fff; text-shadow: 0 0 20px var(--pink); } .slot-top img { width: 34px; animation: coinspin 3s linear infinite; } .slot-top span { color: var(--gold); }
+.slot-cab { position: relative; width: min(100%, 360px); padding: 12px; border-radius: 22px; background: linear-gradient(180deg, #4A1A6A, #2A0F3A); border: 4px solid #FFC531; box-shadow: 0 0 0 3px #7A3A00, 0 0 40px rgba(255,197,49,.4), inset 0 0 30px rgba(0,0,0,.5); }
+.slot-reels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; aspect-ratio: 1; }
+.reel { position: relative; overflow: hidden; border-radius: 12px; background: linear-gradient(180deg, #FFF6E0, #E8DCC0); box-shadow: inset 0 8px 16px rgba(0,0,0,.25), inset 0 -8px 16px rgba(0,0,0,.25); }
+.reel-strip { display: grid; grid-template-rows: repeat(3, 1fr); height: 100%; }
+.reel-strip i { display: grid; place-items: center; padding: 6%; transition: transform .2s; } .reel-strip i img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 3px 6px rgba(0,0,0,.35)); }
+.reel-strip i.lit { animation: symlit .6s infinite alternate; } @keyframes symlit { to { transform: scale(1.15); filter: drop-shadow(0 0 12px #fff) } }
+.reel.spin .reel-strip { filter: blur(3px); animation: reelblur .08s infinite; } @keyframes reelblur { from { transform: translateY(-6%) } to { transform: translateY(6%) } }
+.reel.stop { animation: reelstop .3s var(--bounce); } @keyframes reelstop { 50% { transform: translateY(6px) } }
+.slot-lines { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); pointer-events: none; }
+.slot-lines polyline { fill: none; stroke: var(--gold); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; opacity: 0; filter: drop-shadow(0 0 8px var(--gold)); }
+.slot-lines polyline.hit { opacity: 1; animation: linepulse .5s infinite alternate; } @keyframes linepulse { to { opacity: .35 } }
+.slot-msg { font-weight: 800; color: var(--gold); font-family: var(--f-display); font-size: 16px; min-height: 22px; }
+.slot-pays { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; } .slot-pays span { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-family: var(--f-mono); color: var(--muted); padding: 3px 8px; border-radius: 999px; background: rgba(255,255,255,.06); } .slot-pays img { width: 18px; height: 18px; }
+.slot-lever { font-size: 20px; letter-spacing: .15em; }
+
+/* ---- ROULETTE ---- */
+.rou-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 16px; background: radial-gradient(circle at 50% 50%, rgba(31,169,113,.2), transparent 60%), #0E0720; }
+.rou-wheel-wrap { position: relative; width: min(320px, 78vw); aspect-ratio: 1; }
+.rou-pointer { position: absolute; left: 50%; top: -6px; z-index: 5; width: 0; height: 0; margin-left: -12px; border: 12px solid transparent; border-top: 22px solid var(--gold); filter: drop-shadow(0 0 8px var(--gold)); }
+.rou-wheel { position: absolute; inset: 0; border-radius: 50%; border: 10px solid #3A2200; box-shadow: 0 0 0 4px var(--gold), 0 0 60px rgba(255,197,49,.3), inset 0 0 40px rgba(0,0,0,.6); transition: transform 4.2s cubic-bezier(.12,.75,.1,1); }
+.rou-wheel span { position: absolute; inset: 0; display: flex; justify-content: center; align-items: flex-start; padding-top: 8px; transform: rotate(var(--a)); font-family: var(--f-mono); font-weight: 700; font-size: 11px; color: #fff; text-shadow: 0 1px 2px #000; pointer-events: none; }
+.rou-hub { position: absolute; inset: 30%; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #FFF4C8, var(--gold) 45%, #C97A00); display: grid; place-items: center; box-shadow: 0 0 30px rgba(255,197,49,.5), inset 0 0 20px rgba(0,0,0,.3); } .rou-hub img { width: 70%; }
+.rou-ball { position: absolute; inset: 0; pointer-events: none; transition: transform 4.2s cubic-bezier(.1,.7,.15,1); }
+.rou-ball::after { content: ''; position: absolute; left: 50%; top: 9%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fff, #ccc 60%, #888); box-shadow: 0 2px 6px rgba(0,0,0,.6); transition: top 4.2s ease-in; }
+.rou-ball.drop::after { top: 18%; }
+.rou-result { font-family: var(--f-mono); font-weight: 700; font-size: 44px; line-height: 1; transition: transform .3s var(--bounce); } .rou-result.pop { transform: scale(1.4); }
+.rou-hist { display: flex; gap: 5px; } .rou-hist b { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-mono); font-size: 11px; color: #fff; border: 1px solid rgba(255,255,255,.2); animation: popin .3s; }
+.rou-bets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.rou-bets button, .sb-bets button, .dt-pick button, .bc-pick button { padding: 9px 4px; border-radius: 10px; background: rgba(255,255,255,.06); border: 1px solid var(--line); font-weight: 800; font-size: 13px; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 1px; transition: all .2s; }
+.rou-bets button small, .sb-bets button small, .dt-pick button small, .bc-pick button small { font-size: 10px; color: var(--gold); font-family: var(--f-mono); }
+.rou-bets button.on, .sb-bets button.on, .dt-pick button.on, .bc-pick button.on { border-color: var(--c, var(--gold)); background: color-mix(in srgb, var(--c, var(--gold)) 22%, transparent); color: #fff; transform: scale(1.04); }
+
+/* ---- DRAGON TIGER ---- */
+.dt-stage { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 20px; gap: 10px; background: radial-gradient(ellipse at 50% 100%, rgba(27,107,74,.5), transparent 60%), #0E0720; }
+.dt-side { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px; border-radius: 18px; border: 2px solid transparent; transition: all .4s; }
+.dt-side > img { width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 6px 14px rgba(0,0,0,.5)); }
+.dt-side b { font-family: var(--f-display); font-size: 14px; letter-spacing: .1em; } .dragon b { color: var(--cyan) } .tiger b { color: #FF8A00 }
+.dt-side.win { border-color: var(--gold); background: rgba(255,197,49,.1); box-shadow: 0 0 30px rgba(255,197,49,.3); } .dt-side.win > img { animation: winjump .4s infinite alternate; }
+.dt-card { position: relative; width: 90px; aspect-ratio: 2/3; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.4,.2,.2,1); perspective: 600px; }
+.dt-card.flip { transform: rotateY(180deg); }
+.dt-back, .dt-front { position: absolute; inset: 0; border-radius: 10px; backface-visibility: hidden; display: grid; place-items: center; box-shadow: 0 8px 20px rgba(0,0,0,.5); }
+.dt-back img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+.dt-front { transform: rotateY(180deg); background: #FFF8EE; color: #1A1030; } .dt-front span { display: grid; place-items: center; } .dt-front b { font-family: var(--f-mono); font-size: 34px; font-weight: 700; } .dt-front i { font-style: normal; font-size: 26px; } .dt-front .red { color: #E0231A; }
+.dt-vs { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; } .dt-vs img { width: 54px; } .dt-vs span { font-weight: 800; color: var(--gold); font-size: 14px; }
+.dt-pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+
+/* ---- SIC BO ---- */
+.sb-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 20px; background: radial-gradient(ellipse at 50% 100%, rgba(27,107,74,.5), transparent 60%), #0E0720; perspective: 900px; }
+.sb-cup { position: relative; width: min(320px, 80vw); height: 180px; border-radius: 50% / 40%; background: radial-gradient(ellipse at 50% 30%, #1B6B4A, #0D3A27); border: 8px solid #3A2200; box-shadow: 0 0 0 3px var(--gold), inset 0 10px 30px rgba(0,0,0,.5); display: grid; place-items: center; }
+.sb-cup.shake { animation: cupshake 1.4s ease-in-out; } @keyframes cupshake { 0%, 100% { transform: none } 10%, 50%, 90% { transform: translateX(-10px) rotate(-3deg) } 30%, 70% { transform: translateX(10px) rotate(3deg) } }
+.sb-chips { position: absolute; right: -10px; bottom: -20px; width: 70px; }
+.sb-dice { display: flex; gap: 26px; transform-style: preserve-3d; }
+.d3 { position: relative; width: 52px; height: 52px; transform-style: preserve-3d; transition: transform 1.5s cubic-bezier(.2,.8,.2,1); }
+.d3 .face { position: absolute; inset: 0; border-radius: 10px; background: linear-gradient(135deg, #fff, #E8E8F0); box-shadow: inset 0 0 6px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.15); display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 6px; gap: 0; }
+.d3 .face i { display: block; width: 9px; height: 9px; border-radius: 50%; background: #1A1030; place-self: center; }
+.d3 .f1 { transform: translateZ(26px); } .d3 .f6 { transform: rotateX(-90deg) translateZ(26px); } .d3 .f2 { transform: rotateY(90deg) translateZ(26px); } .d3 .f5 { transform: rotateX(90deg) translateZ(26px); } .d3 .f3 { transform: rotateY(180deg) translateZ(26px); } .d3 .f4 { transform: rotateY(-90deg) translateZ(26px); }
+.sb-res { font-family: var(--f-mono); font-size: 20px; color: var(--muted); } .sb-res b { color: var(--gold); font-size: 30px; }
+.sb-bets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+
+/* ---- BACCARAT ---- */
+.bc-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 16px; background: radial-gradient(ellipse at 50% 100%, rgba(27,107,74,.5), transparent 60%), #0E0720; }
+.bc-table { position: relative; width: 100%; max-width: 520px; display: grid; grid-template-columns: 1fr 100px 1fr; align-items: end; gap: 8px; padding: 60px 16px 16px; border-radius: 50% 50% 20px 20px / 40% 40% 20px 20px; background: radial-gradient(ellipse at 50% 30%, #1B6B4A, #0D3A27); border: 6px solid #3A2200; box-shadow: 0 0 0 3px var(--gold); }
+.bc-dealer { position: absolute; left: 50%; top: -40px; width: 110px; transform: translateX(-50%); filter: drop-shadow(0 10px 20px rgba(0,0,0,.5)); }
+.bc-hand { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px; border-radius: 14px; border: 2px solid transparent; transition: all .4s; min-height: 130px; }
+.bc-hand span { font-size: 11px; font-weight: 800; letter-spacing: .12em; color: rgba(255,255,255,.7); } .bc-hand.player span { color: var(--cyan) } .bc-hand.banker span { color: var(--pink) }
+.bc-hand b { font-family: var(--f-mono); font-size: 22px; color: var(--gold); }
+.bc-hand.win { border-color: var(--gold); background: rgba(255,197,49,.12); box-shadow: 0 0 24px rgba(255,197,49,.3); }
+.bc-cards { display: flex; gap: -10px; min-height: 66px; }
+.bc-card { width: 44px; height: 64px; border-radius: 6px; background: #FFF8EE; color: #1A1030; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,.4); margin-left: -8px; animation: dealin .35s var(--bounce); } .bc-card:first-child { margin-left: 0; }
+.bc-card b { font-family: var(--f-mono); font-size: 18px; font-weight: 700; } .bc-card i { font-style: normal; font-size: 14px; } .bc-card.red { color: #E0231A; }
+@keyframes dealin { from { transform: translateY(-60px) rotate(-20deg); opacity: 0 } }
+.bc-res { font-weight: 800; color: var(--gold); font-family: var(--f-display); font-size: 18px; }
+.bc-pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+
+@media (max-width: 900px) {
+  .dt-stage { padding: 14px 8px; } .dt-side > img { width: 56px; height: 56px; } .dt-card { width: 70px; } .dt-front b { font-size: 26px; }
+  .bc-table { padding: 50px 8px 12px; grid-template-columns: 1fr 70px 1fr; } .bc-dealer { width: 80px; top: -30px; } .bc-card { width: 36px; height: 52px; } .bc-card b { font-size: 15px; }
+  .slot-cab { width: 100%; }
+  .rou-bets { grid-template-columns: repeat(3, 1fr); }
+}

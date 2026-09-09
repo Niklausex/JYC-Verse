@@ -55,7 +55,7 @@
     if (reduced) return
     const box = document.createElement('div'); box.className = 'g-coins'; root.appendChild(box)
     for (let i = 0; i < n; i++) {
-      const c = document.createElement('b'); c.textContent = 'J'
+      const c = document.createElement('b'); c.innerHTML = '<img src="/static/img/props/coin.webp" alt="">'
       c.style.cssText = `--dx:${rnd(-160, 160)}px;--dy:${rnd(-220, -80)}px;animation-delay:${rnd(0, .25)}s`
       box.appendChild(c)
     }
@@ -123,7 +123,7 @@
       root.innerHTML = `
         <div class="g-stage crash-stage">
           <canvas class="crash-canvas"></canvas>
-          <img class="crash-rocket" src="/static/img/mouse-arcade.webp" alt="" />
+          <div class="crash-rocket"><img class="crash-rocket-img" src="/static/img/props/rocket.webp" alt="" /><img class="crash-rider" src="/static/img/mouse-arcade.webp" alt="" /><i class="crash-flame"></i></div><div class="crash-boom" data-boom></div>
           <div class="crash-mult">1.00<small>x</small></div>
           <div class="crash-status">准备发射</div>
           <div class="crash-hist" data-hist></div>
@@ -163,7 +163,9 @@
         ctx.fillStyle = crashed ? 'rgba(255,59,59,.12)' : 'rgba(255,197,49,.10)'; ctx.fill()
         const last = pts[pts.length - 1]
         rocket.style.left = (X(last.t) / devicePixelRatio) + 'px'; rocket.style.top = (Y(last.m) / devicePixelRatio) + 'px'
-        rocket.style.transform = `translate(-50%,-60%) rotate(${crashed ? 90 : -35 + Math.min(30, mult * 3)}deg) scale(${crashed ? .8 : 1})`
+        rocket.style.transform = `translate(-50%,-50%) rotate(${crashed ? 120 : -20 + Math.min(20, mult * 2)}deg) scale(${crashed ? .6 : 1})`
+        rocket.style.opacity = crashed ? 0 : 1
+        if (crashed) { const bm = $('[data-boom]', root); bm.style.left = rocket.style.left; bm.style.top = rocket.style.top; bm.classList.remove('go'); void bm.offsetWidth; bm.classList.add('go') }
       }
       function start() {
         bet = getBet(); if (!api.bet(bet)) return
@@ -195,6 +197,7 @@
         multEl.innerHTML = `${crashAt.toFixed(2)}<small>x</small>`
         history.push(crashAt); drawHist(); draw(true)
         root.classList.remove('flying', 'cashed'); root.classList.add('crashed')
+        if (!cashed && !api.reduced) { const st = $('.crash-stage', root); st.classList.remove('boomflash'); void st.offsetWidth; st.classList.add('boomflash') }
         status.textContent = cashed ? `火箭在 ${crashAt.toFixed(2)}x 爆炸 · 你已安全兑现` : `💥 爆炸 @ ${crashAt.toFixed(2)}x`
         if (!cashed) api.lose()
         cash.disabled = true; go.disabled = false
@@ -322,7 +325,7 @@
       const N = 25
       const multFor = (k, m) => { let p = 1; for (let i = 0; i < k; i++) p *= (N - m - i) / (N - i); return Math.floor((0.97 / p) * 100) / 100 }
       const refresh = () => { const m = +$('[data-mines]', root).value; $('[data-open]', root).textContent = opened; $('[data-mult]', root).textContent = mult.toFixed(2) + 'x'; $('[data-next]', root).textContent = multFor(opened + 1, m).toFixed(2) + 'x' }
-      const render = () => { grid.innerHTML = Array.from({ length: N }, (_, i) => `<button type="button" class="mine-cell" data-i="${i}"><i class="fa-solid fa-gem"></i><i class="fa-solid fa-bomb"></i></button>`).join('') }
+      const render = () => { grid.innerHTML = Array.from({ length: N }, (_, i) => `<button type="button" class="mine-cell" data-i="${i}"><img class="mc-gem" src="/static/img/props/gem.webp" alt=""><img class="mc-bomb" src="/static/img/props/bomb.webp" alt=""></button>`).join('') }
       render(); refresh()
       const revealAll = () => $$('.mine-cell', grid).forEach(c => { c.classList.add(mines.has(+c.dataset.i) ? 'bomb' : 'safe-dim'); c.disabled = true })
       go.addEventListener('click', () => {
@@ -348,7 +351,7 @@
     title: 'Coinflip 硬币',
     mount(root, api) {
       root.innerHTML = `
-        <div class="g-stage coin-stage"><div class="coin3d" data-coin><div class="coin-face heads">JYC</div><div class="coin-face tails"><img src="/static/img/mascot-head.webp" alt=""></div></div><div class="coin-streak" data-streak></div></div>
+        <div class="g-stage coin-stage"><div class="coin3d" data-coin><div class="coin-face heads"><img src="/static/img/props/coin.webp" alt=""></div><div class="coin-face tails"><img src="/static/img/props/mousecoin.webp" alt=""></div></div><div class="coin-streak" data-streak></div></div>
         <div class="g-panel">${betBox('coin', 100)}<div class="coin-pick"><button type="button" class="on" data-pick="heads">JYC 面</button><button type="button" data-pick="tails">鼠王面</button></div><button class="g-btn g-btn-gold" data-go>翻转 · 1.96x</button>${fairTag()}</div>`
       const getBet = wireBet(root); let pick = 'heads', streak = []
       $$('[data-pick]', root).forEach(b => b.addEventListener('click', () => { pick = b.dataset.pick; $$('[data-pick]', root).forEach(x => x.classList.toggle('on', x === b)) }))
@@ -378,7 +381,7 @@
       const n = SEG.length, colors = { 0: '#3A2A5C', 1.2: '#38A8FF', 1.5: '#2EE59D', 2: '#A855FF', 3: '#FF4FB8', 5: '#FF8A00', 10: '#FFC531' }
       const grad = SEG.map((m, i) => `${colors[m]} ${i * 360 / n}deg ${(i + 1) * 360 / n}deg`).join(',')
       root.innerHTML = `
-        <div class="g-stage wheel-stage"><div class="wheel-pointer"></div><div class="wheel" data-wheel style="background:conic-gradient(${grad})">${SEG.map((m, i) => `<span style="--a:${(i + .5) * 360 / n}deg">${m ? m + 'x' : ''}</span>`).join('')}<div class="wheel-hub"><img src="/static/img/mascot-head.webp" alt=""></div></div><div class="wheel-res" data-res>转一转</div></div>
+        <div class="g-stage wheel-stage"><div class="wheel-pointer"></div><div class="wheel" data-wheel style="background:conic-gradient(${grad})">${SEG.map((m, i) => `<span style="--a:${(i + .5) * 360 / n}deg">${m ? m + 'x' : ''}</span>`).join('')}<div class="wheel-hub"><img src="/static/img/props/mousecoin.webp" alt=""></div></div><div class="wheel-res" data-res>转一转</div></div>
         <div class="g-panel">${betBox('wheel', 100)}<button class="g-btn g-btn-gold" data-go>转动轮盘 <i class="fa-solid fa-rotate"></i></button><div class="g-hint">10x 仅 1 格 · 5x 1 格 · 3x 2 格 · 半数格子为 0</div>${fairTag()}</div>`
       const getBet = wireBet(root), wheel = $('[data-wheel]', root), go = $('[data-go]', root), res = $('[data-res]', root)
       let rot = 0
@@ -404,7 +407,7 @@
     mount(root, api) {
       const PAY = { 3: 5, 4: 50, 5: 1000, 6: 50000 }
       root.innerHTML = `
-        <div class="g-stage lotto-stage"><div class="lotto-machine"><div class="lotto-drum" data-drum>${Array.from({ length: 22 }, (_, i) => `<i style="--i:${i}"></i>`).join('')}</div><div class="lotto-out" data-out></div></div><div class="lotto-pick" data-pick>${Array.from({ length: 33 }, (_, i) => `<button type="button">${i + 1}</button>`).join('')}</div><div class="lotto-sel">已选 <b data-count>0</b>/6 · <button type="button" class="g-link" data-quick>机选</button></div></div>
+        <div class="g-stage lotto-stage"><div class="lotto-machine"><div class="lotto-drum" data-drum>${Array.from({ length: 22 }, (_, i) => `<i style="--i:${i}"><img src="/static/img/props/ball7.webp" alt=""></i>`).join('')}</div><div class="lotto-out" data-out></div></div><div class="lotto-pick" data-pick>${Array.from({ length: 33 }, (_, i) => `<button type="button">${i + 1}</button>`).join('')}</div><div class="lotto-sel">已选 <b data-count>0</b>/6 · <button type="button" class="g-link" data-quick>机选</button></div></div>
         <div class="g-panel">${betBox('lotto', 20, { chips: [10, 20, 50, 100] })}<button class="g-btn g-btn-gold" data-go>开奖 <i class="fa-solid fa-ticket"></i></button><div class="g-hint">中 3 个 ×5 · 中 4 个 ×50 · 中 5 个 ×1,000 · 中 6 个 ×50,000</div>${fairTag()}</div>`
       const getBet = wireBet(root); const sel = new Set(); const pick = $('[data-pick]', root), out = $('[data-out]', root), go = $('[data-go]', root)
       const upd = () => { $('[data-count]', root).textContent = sel.size; $$('button', pick).forEach(b => b.classList.toggle('on', sel.has(+b.textContent))) }
@@ -432,9 +435,9 @@
     mount(root, api) {
       root.innerHTML = `
         <div class="g-stage scratch-stage"><div class="scratch-card" data-card><div class="scratch-under" data-under></div><canvas class="scratch-cover" data-cover></canvas><div class="scratch-hint" data-hint>先购买一张再刮</div></div></div>
-        <div class="g-panel">${betBox('scratch', 50, { chips: [20, 50, 100, 200] })}<button class="g-btn g-btn-gold" data-go>买一张 <i class="fa-solid fa-hand-pointer"></i></button><div class="g-hint">刮出 3 个相同图标即中奖:🐭 ×20 · 🪙 ×10 · 💎 ×5 · 🎲 ×2</div>${fairTag()}</div>`
+        <div class="g-panel">${betBox('scratch', 50, { chips: [20, 50, 100, 200] })}<button class="g-btn g-btn-gold" data-go>买一张 <i class="fa-solid fa-hand-pointer"></i></button><div class="g-hint">刮出 3 个相同图标即中奖:鼠王币 ×20 · 金币 ×10 · 宝石 ×5 · 骰子 ×2</div>${fairTag()}</div>`
       const getBet = wireBet(root), card = $('[data-card]', root), under = $('[data-under]', root), cv = $('[data-cover]', root), ctx = cv.getContext('2d'), hint = $('[data-hint]', root), go = $('[data-go]', root)
-      const ICONS = [['🐭', 20], ['🪙', 10], ['💎', 5], ['🎲', 2], ['⭐', 0], ['🍀', 0]]
+      const ICONS = [['mousecoin', 20], ['coin', 10], ['gem', 5], ['dice', 2], ['star', 0], ['cherry', 0]]
       let bet = 0, active = false, scratched = 0, result = null, total = 0
       const size = () => { const r = card.getBoundingClientRect(); cv.width = r.width * devicePixelRatio; cv.height = r.height * devicePixelRatio; cover() }
       const cover = () => { ctx.globalCompositeOperation = 'source-over'; const g = ctx.createLinearGradient(0, 0, cv.width, cv.height); g.addColorStop(0, '#C9A24A'); g.addColorStop(.5, '#F5D97A'); g.addColorStop(1, '#B8862B'); ctx.fillStyle = g; ctx.fillRect(0, 0, cv.width, cv.height); ctx.fillStyle = 'rgba(58,34,0,.55)'; ctx.font = `${18 * devicePixelRatio}px Baloo 2, sans-serif`; ctx.textAlign = 'center'; for (let y = 30; y < cv.height; y += 60 * devicePixelRatio) for (let x = 40; x < cv.width; x += 120 * devicePixelRatio) ctx.fillText('JYC', x, y) }
@@ -448,7 +451,7 @@
         if (winIdx >= 0) { cells = [ICONS[winIdx][0], ICONS[winIdx][0], ICONS[winIdx][0]]; for (let i = 0; i < 6; i++) cells.push(ICONS[ri(0, 5)][0]); result = ICONS[winIdx][1] }
         else { cells = []; const cnt = {}; while (cells.length < 9) { const ic = ICONS[ri(0, 5)][0]; if ((cnt[ic] || 0) < 2) { cnt[ic] = (cnt[ic] || 0) + 1; cells.push(ic) } } result = 0 }
         cells.sort(() => Math.random() - .5)
-        under.innerHTML = cells.map(c => `<span>${c}</span>`).join('')
+        under.innerHTML = cells.map(c => `<span><img src="/static/img/props/${c}.webp" alt=""></span>`).join('')
         total = cv.width * cv.height
       })
       let drawing = false

@@ -97,6 +97,23 @@ const MouseverseTeaser = () => (
   </section>
 )
 
+/* ---------- 玩法演绎视频带 ---------- */
+const Showreel = () => (
+  <section class="sec sec-wide showreel-sec" id="home-showreel">
+    <div class="sec-head reveal"><div class="kicker">SHOWREEL</div><h2 class="sec-title">十二守护鼠,<span class="grad-cyan">十二种玩法</span></h2></div>
+    <div class="reel-marquee" aria-hidden="true">
+      <div class="reel-track">
+        {[...realms, ...realms].map(r => (
+          <a class="reel-item" href={`/realms/${r.id}`} style={`--c:${r.color}`}>
+            <video data-lazy-video muted playsinline loop preload="none" poster={r.poster}><source data-src={r.video} type="video/mp4" /></video>
+            <span><b>{r.code}</b>{r.guardian.name}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)
+
 /* ---------- 热门试玩 ---------- */
 const HotGames = () => {
   const hot = ['crash', 'plinko', 'lotto', 'tarot', 'race', 'gacha'].map(id => allGames.find(g => g.id === id)!)
@@ -106,7 +123,7 @@ const HotGames = () => {
       <div class="hot-grid">
         {hot.map((g, i) => (
           <a class="hot glass reveal tilt" href={`/play/${g.id}`} style={`--c:${g.color};--c2:${g.color2};--d:${i * .07}s`}>
-            <img src={g.mouseImg} alt="" loading="lazy" />
+            <span class="hot-media"><img src={g.mouseImg} alt="" loading="lazy" /><video data-hover-video muted playsinline loop preload="none" poster={g.poster}><source data-src={g.video} type="video/mp4" /></video></span>
             <div><span class="hot-realm">{g.realmCode}</span><h3>{g.name}</h3><p>{g.desc}</p></div>
             <span class="hot-play"><i class="fa-solid fa-play"></i></span>
           </a>
@@ -184,6 +201,7 @@ export const HomePage = () => (
     <Hero />
     <Ticker />
     <MouseverseTeaser />
+    <Showreel />
     <Pillars />
     <RealmsPreview />
     <HotGames />

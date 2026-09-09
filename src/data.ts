@@ -18,6 +18,8 @@ export interface Realm {
   orbit: 1 | 2 | 3
   angle: number
   mouseImg: string
+  video: string
+  poster: string
   guardian: { name: string; title: string; trait: string; quote: string }
   games: { id: string; name: string; desc: string; tag: string }[]
 }
@@ -32,6 +34,7 @@ export const realms: Realm[] = [
     highlight: 'UGC 自建市场:任何人都可以出题当庄',
     planetImg: '/static/img/planet-predict.webp', sceneImg: '/static/img/scene-predict.jpg', orbit: 1, angle: 0,
     mouseImg: '/static/img/mouse-predict.webp',
+    video: '/static/video/realm-predict.mp4', poster: '/static/video/realm-predict.jpg',
     guardian: { name: '先知鼠 · Oracle', title: '预测宇宙守护者', trait: '冷静 · 数据狂 · 永远比市场快半步', quote: '别猜,算。' },
     games: [
       { id: 'predict', name: '预测市场', desc: '对事件结果下注 YES / NO,赔率随资金池实时变化', tag: '经典' },
@@ -47,6 +50,7 @@ export const realms: Realm[] = [
     highlight: 'JYC 主题老虎机系列:星际 · 财神 · 世界杯 · 塔罗 · 赌城夜',
     planetImg: '/static/img/planet-arcade.webp', sceneImg: '/static/img/scene-arcade.jpg', orbit: 1, angle: 90,
     mouseImg: '/static/img/mouse-arcade.webp',
+    video: '/static/video/realm-arcade.mp4', poster: '/static/video/realm-arcade.jpg',
     guardian: { name: '火箭鼠 · Rocket', title: '极速游戏城守护者', trait: '肾上腺素 · 秒级反应 · 永不下线', quote: '手快有,手慢无。' },
     games: [
       { id: 'crash', name: 'Crash 火箭', desc: '火箭升空倍数飙升,在爆炸前按下兑现', tag: '最热' },
@@ -55,6 +59,11 @@ export const realms: Realm[] = [
       { id: 'mines', name: 'Mines 扫雷', desc: '5×5 格子藏着地雷,每翻开一格倍数递增', tag: '策略' },
       { id: 'coinflip', name: 'Coinflip 硬币', desc: '3D 金币翻转,猜正反,1.96 倍', tag: '简单' },
       { id: 'wheel', name: 'Wheel 幸运轮盘', desc: '转动霓虹轮盘,停在哪格赢多少', tag: '轮盘' },
+      { id: 'slot', name: 'JYC 主题老虎机', desc: '3×3 五线老虎机,鼠王币 Wild,宝箱触发免费旋转', tag: '老虎机' },
+      { id: 'roulette', name: '轮盘 Roulette', desc: '欧式单零轮盘,红黑单双/打/直注,小球落格', tag: '经典' },
+      { id: 'baccarat', name: '百家乐', desc: '庄闲和三门,自动补牌,荷官鼠发牌', tag: '桌游' },
+      { id: 'dragontiger', name: '龙虎', desc: '一张牌定胜负,龙虎翻牌对决', tag: '快速' },
+      { id: 'sicbo', name: '骰宝', desc: '三颗 3D 骰子摇杯,大小单双围骰对子', tag: '骰子' },
     ],
   },
   {
@@ -66,6 +75,7 @@ export const realms: Realm[] = [
     highlight: 'MEGA JACKPOT:全生态每笔投注抽 0.5% 注入,任何游戏都可能触发',
     planetImg: '/static/img/planet-lottery.webp', sceneImg: '/static/img/scene-lottery.jpg', orbit: 1, angle: 180,
     mouseImg: '/static/img/mouse-lottery.webp',
+    video: '/static/video/realm-lottery.mp4', poster: '/static/video/realm-lottery.jpg',
     guardian: { name: '福星鼠 · Lucky', title: '彩票与奖池守护者', trait: '乐天 · 慷慨 · 相信每一张票都有故事', quote: '梦想很便宜,一注就够。' },
     games: [
       { id: 'lotto', name: '5 分钟快开彩', desc: '选 6 个号码,看摇奖机吐出金球', tag: '快开' },
@@ -82,6 +92,7 @@ export const realms: Realm[] = [
     highlight: '命运挑战:运势说你财旺,敢不敢下注验证?',
     planetImg: '/static/img/planet-fortune.webp', sceneImg: '/static/img/scene-fortune.jpg', orbit: 1, angle: 270,
     mouseImg: '/static/img/mouse-fortune.webp',
+    video: '/static/video/realm-fortune.mp4', poster: '/static/video/realm-fortune.jpg',
     guardian: { name: '星语鼠 · Mystic', title: '玄学命运守护者', trait: '神秘 · 洞察 · 说话总是半句', quote: '你今天的幸运数字,已经在等你了。' },
     games: [
       { id: 'tarot', name: '塔罗牌', desc: '从星盘中抽三张牌,解读过去·现在·未来', tag: '占卜' },
@@ -97,6 +108,7 @@ export const realms: Realm[] = [
     highlight: '虚拟体育:每 3 分钟一场,24 小时永不停歇',
     planetImg: '/static/img/planet-sports.webp', sceneImg: '/static/img/scene-sports.jpg', orbit: 2, angle: 30,
     mouseImg: '/static/img/mouse-sports.webp',
+    video: '/static/video/realm-sports.mp4', poster: '/static/video/realm-sports.jpg',
     guardian: { name: '飞毛鼠 · Striker', title: '体育电竞守护者', trait: '热血 · 团队 · 24 小时不下场', quote: '哨响之前,一切皆有可能。' },
     games: [
       { id: 'race', name: '虚拟赛鼠', desc: '6 只赛鼠冲线,押独赢或前二,3 分钟一场', tag: '虚拟体育' },
@@ -112,6 +124,7 @@ export const realms: Realm[] = [
     highlight: 'Trivia 直播答题:全场同答,赢者分池',
     planetImg: '/static/img/planet-arena.webp', sceneImg: '/static/img/scene-arena.jpg', orbit: 2, angle: 90,
     mouseImg: '/static/img/mouse-arena.webp',
+    video: '/static/video/realm-arena.mp4', poster: '/static/video/realm-arena.jpg',
     guardian: { name: '拳王鼠 · Champ', title: '竞技对战守护者', trait: '好胜 · 磊落 · 只服比自己强的人', quote: '赢我,不是赢庄家。' },
     games: [
       { id: 'rps', name: '1v1 猜拳对赌', desc: '与另一位玩家三局两胜,赢家全拿', tag: 'P2P' },
@@ -127,6 +140,7 @@ export const realms: Realm[] = [
     highlight: '卡牌增益:SSR = 手续费折扣 · 彩票加倍 · Crash 保险 · 分红加成',
     planetImg: '/static/img/planet-cards.webp', sceneImg: '/static/img/scene-cards.jpg', orbit: 2, angle: 150,
     mouseImg: '/static/img/mouse-cards.webp',
+    video: '/static/video/realm-cards.mp4', poster: '/static/video/realm-cards.jpg',
     guardian: { name: '闪卡鼠 · Holo', title: '卡牌与收藏守护者', trait: '收藏癖 · 审美 · 对稀有度有执念', quote: '抽的是运气,攒的是资产。' },
     games: [
       { id: 'gacha', name: '命运卡抽卡', desc: '开一包命运卡,N/R/SR/SSR/UR 五档稀有度', tag: 'NFT' },
@@ -141,6 +155,7 @@ export const realms: Realm[] = [
     highlight: '主播竞猜房:主播开盘,观众下注,主播分成',
     planetImg: '/static/img/planet-live.webp', sceneImg: '/static/img/scene-live.jpg', orbit: 2, angle: 210,
     mouseImg: '/static/img/mouse-live.webp',
+    video: '/static/video/realm-live.mp4', poster: '/static/video/realm-live.jpg',
     guardian: { name: '麦克鼠 · Mic', title: '直播与社交守护者', trait: '话多 · 感染力 · 让所有人一起下注', quote: '家人们,这一局跟我押!' },
     games: [
       { id: 'liveroom', name: '主播竞猜房', desc: '进入主播房间,跟观众一起押,弹幕红包雨', tag: '社交' },
@@ -155,6 +170,7 @@ export const realms: Realm[] = [
     highlight: '玩家做庄:购买赌桌牌照,庄家优势归你',
     planetImg: '/static/img/planet-city.webp', sceneImg: '/static/img/scene-city.jpg', orbit: 2, angle: 270,
     mouseImg: '/static/img/mouse-city.webp',
+    video: '/static/video/realm-city.mp4', poster: '/static/video/realm-city.jpg',
     guardian: { name: '市长鼠 · Mayor', title: '元宇宙赌城守护者', trait: '野心 · 建造欲 · 相信规则就是财富', quote: '在这座城里,你才是庄。' },
     games: [
       { id: 'banker', name: '玩家做庄', desc: '买下一张赌桌牌照,看流水与庄家收益实时进账', tag: '做庄' },
@@ -169,6 +185,7 @@ export const realms: Realm[] = [
     highlight: 'Bankroll 庄家池:存入 JYC,成为 120+ 玩法背后的庄家',
     planetImg: '/static/img/planet-earn.webp', sceneImg: '/static/img/scene-earn.jpg', orbit: 2, angle: 330,
     mouseImg: '/static/img/mouse-earn.webp',
+    video: '/static/video/realm-earn.mp4', poster: '/static/video/realm-earn.jpg',
     guardian: { name: '金库鼠 · Vault', title: '理财金库守护者', trait: '稳健 · 耐心 · 复利信徒', quote: '睡觉的时候,钱也在上班。' },
     games: [
       { id: 'stake', name: 'Staking 分红模拟', desc: '质押 JYC,看全生态收入按秒流入你的钱包', tag: '收益' },
@@ -183,6 +200,7 @@ export const realms: Realm[] = [
     highlight: 'AI 推荐:"你今天该玩什么"',
     planetImg: '/static/img/planet-ai.webp', sceneImg: '/static/img/scene-ai.jpg', orbit: 3, angle: 60,
     mouseImg: '/static/img/mouse-ai.webp',
+    video: '/static/video/realm-ai.mp4', poster: '/static/video/realm-ai.jpg',
     guardian: { name: '智脑鼠 · Neo', title: '智脑守护者', trait: '理性 · 全知 · 偶尔冷幽默', quote: '我知道你今天想玩什么。' },
     games: [
       { id: 'airec', name: 'AI 推荐官', desc: '告诉 AI 你的心情与预算,它为你推荐今天该玩什么', tag: 'AI' },
@@ -197,6 +215,7 @@ export const realms: Realm[] = [
     highlight: 'JYC Pay:任何商户都可以收 JYC',
     planetImg: '/static/img/planet-open.webp', sceneImg: '/static/img/scene-open.jpg', orbit: 3, angle: 240,
     mouseImg: '/static/img/mouse-open.webp',
+    video: '/static/video/realm-open.mp4', poster: '/static/video/realm-open.jpg',
     guardian: { name: '星航鼠 · Nova', title: '开放生态守护者', trait: '自由 · 连接 · 把 JYC 带到宇宙尽头', quote: '一枚币,走出星系。' },
     games: [
       { id: 'pay', name: 'JYC Pay 扫码支付', desc: '模拟商户收款:扫码 → 确认 → 链上到账', tag: '支付' },
@@ -296,7 +315,7 @@ export const foundation = [
 ]
 
 /* ---------- 全部可试玩游戏(扁平列表,供游戏大厅使用) ---------- */
-export const allGames = realms.flatMap(r => r.games.map(g => ({ ...g, realmId: r.id, realmName: r.name, realmCode: r.code, color: r.color, color2: r.color2, icon: r.icon, mouseImg: r.mouseImg })))
+export const allGames = realms.flatMap(r => r.games.map(g => ({ ...g, realmId: r.id, realmName: r.name, realmCode: r.code, color: r.color, color2: r.color2, icon: r.icon, mouseImg: r.mouseImg, video: r.video, poster: r.poster, guardian: r.guardian })))
 
 /* ---------- 老鼠元宇宙 · 世界观 ---------- */
 export const universeLore = {
