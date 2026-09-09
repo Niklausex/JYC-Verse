@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
-import { realms, totalPlays } from './data'
+import { realms, totalPlays, allGames } from './data'
 import { Page, Mascot, SHOW_SUBPAGES } from './components'
 import { HomePage } from './pages/home'
 import { VisionPage } from './pages/vision'
@@ -9,6 +9,8 @@ import { EconomyPage } from './pages/economy'
 import { PlatformPage } from './pages/platform'
 import { RoadmapPage } from './pages/roadmap'
 import { ContactPage } from './pages/contact'
+import { UniversePage } from './pages/universe'
+import { PlayPage, GamePage } from './pages/play'
 
 const app = new Hono()
 app.use(renderer)
@@ -51,12 +53,27 @@ app.get('/roadmap', (c) => c.render(<RoadmapPage />, {
   title: '路线图', desc: '2026 Q4 奠基 → 2027 Q1 扩张 → 2027 Q2 社交 → 2027 Q3 宇宙。一年点亮十二星域。',
 }))
 
+app.get('/universe', (c) => c.render(<UniversePage />, {
+  title: '鼠族元宇宙', desc: '一枚金币,十二星域,一个鼠王国。认识鼠王与十二守护鼠,了解 JYC 鼠族元宇宙的世界观与四层结构。',
+}))
+
+app.get('/play', (c) => c.render(<PlayPage />, {
+  title: '游戏大厅 · 试玩', desc: `${allGames.length} 款可交互试玩的玩法演示:Crash、Dice、Plinko、扫雷、快开彩、塔罗、赛鼠、抽卡、做庄、Staking……使用试玩 JYC,无需钱包。`,
+}))
+
+app.get('/play/:id', (c) => {
+  const g = allGames.find(x => x.id === c.req.param('id'))
+  if (!g) return c.notFound()
+  return c.render(<GamePage g={g} />, { title: `${g.name} · 试玩`, desc: `${g.realmName} · ${g.desc}` })
+})
+
 app.get('/contact', (c) => c.render(<ContactPage />, {
   title: '投资人咨询', desc: '欢迎投资机构与战略合作伙伴联系 JYC Verse。',
 }))
 
 /* ---------- API ---------- */
 app.get('/api/realms', (c) => c.json({ total: totalPlays, realms }))
+app.get('/api/games', (c) => c.json({ total: allGames.length, games: allGames }))
 app.get('/api/realms/:id', (c) => {
   const r = realms.find(x => x.id === c.req.param('id'))
   return r ? c.json(r) : c.json({ error: 'not found' }, 404)

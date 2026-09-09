@@ -17,6 +17,9 @@ export interface Realm {
   sceneImg: string
   orbit: 1 | 2 | 3
   angle: number
+  mouseImg: string
+  guardian: { name: string; title: string; trait: string; quote: string }
+  games: { id: string; name: string; desc: string; tag: string }[]
 }
 
 export const realms: Realm[] = [
@@ -28,6 +31,12 @@ export const realms: Realm[] = [
     plays: ['经典预测市场', 'Quick 极速市场', '加密 1 分钟涨跌', '加密 5 分钟涨跌', '世界杯专区', '电竞预测', '娱乐八卦预测', '天气预测', '政治选举', '科技发布预测', 'UGC 自建市场', '串关 Parlay', '跟单大神榜', '预测锦标赛', '预测积分赛季', '多结果市场', '区间市场', '预测保险'],
     highlight: 'UGC 自建市场:任何人都可以出题当庄',
     planetImg: '/static/img/planet-predict.webp', sceneImg: '/static/img/scene-predict.jpg', orbit: 1, angle: 0,
+    mouseImg: '/static/img/mouse-predict.webp',
+    guardian: { name: '先知鼠 · Oracle', title: '预测宇宙守护者', trait: '冷静 · 数据狂 · 永远比市场快半步', quote: '别猜,算。' },
+    games: [
+      { id: 'predict', name: '预测市场', desc: '对事件结果下注 YES / NO,赔率随资金池实时变化', tag: '经典' },
+      { id: 'updown', name: '加密 1 分钟涨跌', desc: '看实时 K 线,15 秒内押涨押跌,秒级结算', tag: '极速' },
+    ],
   },
   {
     id: 'arcade', no: '02', code: 'ARCADE', name: '极速游戏城',
@@ -37,6 +46,16 @@ export const realms: Realm[] = [
     plays: ['Crash 火箭', 'Dice 骰子', 'Plinko 弹珠', 'Mines 扫雷', 'Limbo', 'Coinflip 硬币', 'Wheel 幸运轮盘', 'Keno', 'Hi-Lo', 'Tower 爬塔', '轮盘 Roulette', '百家乐', '21 点', '龙虎', '骰宝', '德州扑克(对庄)', '三公', '牛牛', '视频扑克', '捕鱼', '宾果', 'JYC 主题老虎机系列'],
     highlight: 'JYC 主题老虎机系列:星际 · 财神 · 世界杯 · 塔罗 · 赌城夜',
     planetImg: '/static/img/planet-arcade.webp', sceneImg: '/static/img/scene-arcade.jpg', orbit: 1, angle: 90,
+    mouseImg: '/static/img/mouse-arcade.webp',
+    guardian: { name: '火箭鼠 · Rocket', title: '极速游戏城守护者', trait: '肾上腺素 · 秒级反应 · 永不下线', quote: '手快有,手慢无。' },
+    games: [
+      { id: 'crash', name: 'Crash 火箭', desc: '火箭升空倍数飙升,在爆炸前按下兑现', tag: '最热' },
+      { id: 'dice', name: 'Dice 骰子', desc: '拖动滑块选择胜率,骰子滚出 0–100', tag: '经典' },
+      { id: 'plinko', name: 'Plinko 弹珠', desc: '弹珠从顶端落下,撞钉子随机滚入倍数槛', tag: '物理' },
+      { id: 'mines', name: 'Mines 扫雷', desc: '5×5 格子藏着地雷,每翻开一格倍数递增', tag: '策略' },
+      { id: 'coinflip', name: 'Coinflip 硬币', desc: '3D 金币翻转,猜正反,1.96 倍', tag: '简单' },
+      { id: 'wheel', name: 'Wheel 幸运轮盘', desc: '转动霓虹轮盘,停在哪格赢多少', tag: '轮盘' },
+    ],
   },
   {
     id: 'lottery', no: '03', code: 'LOTTERY', name: '彩票与奖池',
@@ -46,6 +65,13 @@ export const realms: Realm[] = [
     plays: ['5 分钟快开彩', '每日大乐透', '周度 Powerball 累积奖池', '刮刮乐(多主题)', '区块哈希彩票', 'Raffle 实物/NFT 抽奖', '幸运号码守护(包号)', '合买团', '时时彩', '竞彩足球', '数字 3D', 'MEGA JACKPOT 全生态大奖'],
     highlight: 'MEGA JACKPOT:全生态每笔投注抽 0.5% 注入,任何游戏都可能触发',
     planetImg: '/static/img/planet-lottery.webp', sceneImg: '/static/img/scene-lottery.jpg', orbit: 1, angle: 180,
+    mouseImg: '/static/img/mouse-lottery.webp',
+    guardian: { name: '福星鼠 · Lucky', title: '彩票与奖池守护者', trait: '乐天 · 慷慨 · 相信每一张票都有故事', quote: '梦想很便宜,一注就够。' },
+    games: [
+      { id: 'lotto', name: '5 分钟快开彩', desc: '选 6 个号码,看摇奖机吐出金球', tag: '快开' },
+      { id: 'scratch', name: '刮刮乐', desc: '用手指刮开涂层,三个 JYC 图标即中奖', tag: '手感' },
+      { id: 'jackpot', name: 'MEGA JACKPOT', desc: '全生态大奖池实时滚存,任何一局都可能触发', tag: '大奖' },
+    ],
   },
   {
     id: 'fortune', no: '04', code: 'FORTUNE', name: '玄学命运',
@@ -55,6 +81,12 @@ export const realms: Realm[] = [
     plays: ['每日运势', '塔罗牌', '星座占星盘', '生肖运程', '八字命书', '易经六爻', '关帝/观音灵签', '御神签', '泰式佛牌开光', 'AI 大师算命', 'AI 面相', 'AI 手相', '风水罗盘', '数字命理', '塔罗对赌', '命运挑战', '幸运数字一键投注', '运势海报分享'],
     highlight: '命运挑战:运势说你财旺,敢不敢下注验证?',
     planetImg: '/static/img/planet-fortune.webp', sceneImg: '/static/img/scene-fortune.jpg', orbit: 1, angle: 270,
+    mouseImg: '/static/img/mouse-fortune.webp',
+    guardian: { name: '星语鼠 · Mystic', title: '玄学命运守护者', trait: '神秘 · 洞察 · 说话总是半句', quote: '你今天的幸运数字,已经在等你了。' },
+    games: [
+      { id: 'tarot', name: '塔罗牌', desc: '从星盘中抽三张牌,解读过去·现在·未来', tag: '占卜' },
+      { id: 'fortune', name: '每日运势', desc: '摇一摇生成今日运势与幸运数字,一键转投彩票', tag: '导流' },
+    ],
   },
   {
     id: 'sports', no: '05', code: 'SPORTS', name: '体育电竞',
@@ -64,6 +96,12 @@ export const realms: Realm[] = [
     plays: ['足球竞猜', '篮球', '网球', 'UFC / 拳击', 'F1', '滚球 Live', '电竞 5 大项', 'Fantasy 梦幻体育', '虚拟赛马', '虚拟足球', '虚拟赛狗', '赛马', '大赛专题(世界杯/奥运/欧冠)', '体育串关'],
     highlight: '虚拟体育:每 3 分钟一场,24 小时永不停歇',
     planetImg: '/static/img/planet-sports.webp', sceneImg: '/static/img/scene-sports.jpg', orbit: 2, angle: 30,
+    mouseImg: '/static/img/mouse-sports.webp',
+    guardian: { name: '飞毛鼠 · Striker', title: '体育电竞守护者', trait: '热血 · 团队 · 24 小时不下场', quote: '哨响之前,一切皆有可能。' },
+    games: [
+      { id: 'race', name: '虚拟赛鼠', desc: '6 只赛鼠冲线,押独赢或前二,3 分钟一场', tag: '虚拟体育' },
+      { id: 'match', name: '足球竞猜', desc: '押胜平负,看比分实时跳动', tag: '滚球' },
+    ],
   },
   {
     id: 'arena', no: '06', code: 'ARENA', name: '竞技对战',
@@ -73,6 +111,12 @@ export const realms: Realm[] = [
     plays: ['1v1 预测对赌', '德州扑克(P2P)', '麻将(国标/日麻/广东)', '斗地主', '象棋', '围棋', '国际象棋', 'Ludo 飞行棋', 'UNO', 'Trivia 直播答题', '猜拳', '反应力挑战', '拼图速度赛', 'Sit&Go 锦标赛', '战队 / 公会赛', '赛季天梯与冠军池'],
     highlight: 'Trivia 直播答题:全场同答,赢者分池',
     planetImg: '/static/img/planet-arena.webp', sceneImg: '/static/img/scene-arena.jpg', orbit: 2, angle: 90,
+    mouseImg: '/static/img/mouse-arena.webp',
+    guardian: { name: '拳王鼠 · Champ', title: '竞技对战守护者', trait: '好胜 · 磊落 · 只服比自己强的人', quote: '赢我,不是赢庄家。' },
+    games: [
+      { id: 'rps', name: '1v1 猜拳对赌', desc: '与另一位玩家三局两胜,赢家全拿', tag: 'P2P' },
+      { id: 'trivia', name: 'Trivia 直播答题', desc: '10 秒一题,全场同答,答对者分池', tag: '知识' },
+    ],
   },
   {
     id: 'cards', no: '07', code: 'CARDS', name: '卡牌与收藏',
@@ -82,6 +126,11 @@ export const realms: Realm[] = [
     plays: ['抽卡', '盲盒', '命运卡 NFT', '卡牌合成 / 升星', '卡牌增益系统', '卡牌对战 TCG', '宠物养成', '坐骑', '限量藏品拍卖', '卡牌二级市场', '赛季限定卡', '名人 / IP 联名卡'],
     highlight: '卡牌增益:SSR = 手续费折扣 · 彩票加倍 · Crash 保险 · 分红加成',
     planetImg: '/static/img/planet-cards.webp', sceneImg: '/static/img/scene-cards.jpg', orbit: 2, angle: 150,
+    mouseImg: '/static/img/mouse-cards.webp',
+    guardian: { name: '闪卡鼠 · Holo', title: '卡牌与收藏守护者', trait: '收藏癖 · 审美 · 对稀有度有执念', quote: '抽的是运气,攒的是资产。' },
+    games: [
+      { id: 'gacha', name: '命运卡抽卡', desc: '开一包命运卡,N/R/SR/SSR/UR 五档稀有度', tag: 'NFT' },
+    ],
   },
   {
     id: 'live', no: '08', code: 'LIVE', name: '直播与社交',
@@ -91,6 +140,11 @@ export const realms: Realm[] = [
     plays: ['真人荷官(百家乐 / 轮盘 / 龙虎)', '直播开奖', '主播竞猜房', '打赏即下注', '聊天室 Rain 红包雨', '跟单 Copy Bet', '好友对赌房', '战绩晒单', 'KOL 联盟', '社区投票', '排行榜直播', '语音房'],
     highlight: '主播竞猜房:主播开盘,观众下注,主播分成',
     planetImg: '/static/img/planet-live.webp', sceneImg: '/static/img/scene-live.jpg', orbit: 2, angle: 210,
+    mouseImg: '/static/img/mouse-live.webp',
+    guardian: { name: '麦克鼠 · Mic', title: '直播与社交守护者', trait: '话多 · 感染力 · 让所有人一起下注', quote: '家人们,这一局跟我押!' },
+    games: [
+      { id: 'liveroom', name: '主播竞猜房', desc: '进入主播房间,跟观众一起押,弹幕红包雨', tag: '社交' },
+    ],
   },
   {
     id: 'city', no: '09', code: 'JYC CITY', name: '元宇宙赌城',
@@ -100,6 +154,11 @@ export const realms: Realm[] = [
     plays: ['虚拟赌城地图', '虚拟地产(买地 / 开店 / 收租)', '玩家做庄(赌桌牌照)', 'Avatar 与皮肤', '剧情任务线', '探索宝箱', '赌城赛季活动', '名人堂雕像', '城市治理投票', '品牌联名地块'],
     highlight: '玩家做庄:购买赌桌牌照,庄家优势归你',
     planetImg: '/static/img/planet-city.webp', sceneImg: '/static/img/scene-city.jpg', orbit: 2, angle: 270,
+    mouseImg: '/static/img/mouse-city.webp',
+    guardian: { name: '市长鼠 · Mayor', title: '元宇宙赌城守护者', trait: '野心 · 建造欲 · 相信规则就是财富', quote: '在这座城里,你才是庄。' },
+    games: [
+      { id: 'banker', name: '玩家做庄', desc: '买下一张赌桌牌照,看流水与庄家收益实时进账', tag: '做庄' },
+    ],
   },
   {
     id: 'earn', no: '10', code: 'EARN', name: '理财金库',
@@ -109,6 +168,11 @@ export const realms: Realm[] = [
     plays: ['Staking 全生态分红', 'Bankroll 庄家池', 'LP 流动性挖矿', '复活险', '锁仓 NFT 加成', 'JYC 债券', '跟单基金', '回购销毁看板', 'VIP 返水', '收益自动复投'],
     highlight: 'Bankroll 庄家池:存入 JYC,成为 120+ 玩法背后的庄家',
     planetImg: '/static/img/planet-earn.webp', sceneImg: '/static/img/scene-earn.jpg', orbit: 2, angle: 330,
+    mouseImg: '/static/img/mouse-earn.webp',
+    guardian: { name: '金库鼠 · Vault', title: '理财金库守护者', trait: '稳健 · 耐心 · 复利信徒', quote: '睡觉的时候,钱也在上班。' },
+    games: [
+      { id: 'stake', name: 'Staking 分红模拟', desc: '质押 JYC,看全生态收入按秒流入你的钱包', tag: '收益' },
+    ],
   },
   {
     id: 'ai', no: '11', code: 'AI', name: '智脑',
@@ -118,6 +182,11 @@ export const realms: Realm[] = [
     plays: ['AI 预测分析', 'AI 算命师', 'AI 荷官 / 主播', 'AI 对手', 'AI 个性化推荐', 'AI 赛事解说', 'AI 自动出题', 'AI 风控', 'AI 客服', 'AI 内容生成'],
     highlight: 'AI 推荐:"你今天该玩什么"',
     planetImg: '/static/img/planet-ai.webp', sceneImg: '/static/img/scene-ai.jpg', orbit: 3, angle: 60,
+    mouseImg: '/static/img/mouse-ai.webp',
+    guardian: { name: '智脑鼠 · Neo', title: '智脑守护者', trait: '理性 · 全知 · 偶尔冷幽默', quote: '我知道你今天想玩什么。' },
+    games: [
+      { id: 'airec', name: 'AI 推荐官', desc: '告诉 AI 你的心情与预算,它为你推荐今天该玩什么', tag: 'AI' },
+    ],
   },
   {
     id: 'open', no: '12', code: 'OPEN', name: '开放生态',
@@ -127,6 +196,11 @@ export const realms: Realm[] = [
     plays: ['JYC Pay', '开发者 SDK', '白标 B2B', '跨链桥(BSC → Base / TON / Solana)', 'DAO 治理', '生态基金 Grants', '商户联盟(实物 / 礼品卡 / 旅游)', 'API 开放平台', '合作方游戏市场', '联盟营销网络'],
     highlight: 'JYC Pay:任何商户都可以收 JYC',
     planetImg: '/static/img/planet-open.webp', sceneImg: '/static/img/scene-open.jpg', orbit: 3, angle: 240,
+    mouseImg: '/static/img/mouse-open.webp',
+    guardian: { name: '星航鼠 · Nova', title: '开放生态守护者', trait: '自由 · 连接 · 把 JYC 带到宇宙尽头', quote: '一枚币,走出星系。' },
+    games: [
+      { id: 'pay', name: 'JYC Pay 扫码支付', desc: '模拟商户收款:扫码 → 确认 → 链上到账', tag: '支付' },
+    ],
   },
 ]
 
@@ -220,3 +294,26 @@ export const foundation = [
   { v: '1,284', l: '活跃市场' },
   { v: '$96M', l: '累计派发' },
 ]
+
+/* ---------- 全部可试玩游戏(扁平列表,供游戏大厅使用) ---------- */
+export const allGames = realms.flatMap(r => r.games.map(g => ({ ...g, realmId: r.id, realmName: r.name, realmCode: r.code, color: r.color, color2: r.color2, icon: r.icon, mouseImg: r.mouseImg })))
+
+/* ---------- 老鼠元宇宙 · 世界观 ---------- */
+export const universeLore = {
+  title: 'JYC 鼠族元宇宙',
+  slogan: '一枚金币,十二星域,一个鼠王国',
+  intro: '很久以前,一只戴着金冠的白鼠在星海深处捡到了一枚会发光的金币——JYC。它用这枚币点亮了十二颗星球,每颗星球都由一位守护鼠掌管,各自代表一种「想赢」的心理。于是,一个所有玩家类型都能找到归属的娱乐宇宙诞生了。',
+  whyMouse: [
+    { icon: 'fa-coins', title: '鼠 = 财', desc: '东方文化里,鼠是聚财与机敏的象征;十二生肖之首,天生带「开局」的寓意。' },
+    { icon: 'fa-moon', title: '夜行者', desc: '娱乐经济的高峰在深夜。鼠族 24 小时不眠,与全球玩家的作息天然同步。' },
+    { icon: 'fa-people-group', title: '群居动物', desc: '公会、战队、直播间、跟单——JYC Verse 的一切都关于「一起玩」。' },
+    { icon: 'fa-face-grin-stars', title: '潮玩基因', desc: '圆润、可爱、易于衍生皮肤与手办。一只鼠可以有一千种穿搭。' },
+  ],
+  king: { name: '鼠王 · JYC King', title: '宇宙之主', desc: '戴金冠、穿红卫衣,手举 JYC 金币。它不掌管任何一个星域,却出现在每一个星域——因为 JYC 就是它本身。' },
+  layers: [
+    { n: '01', title: '角色层', desc: '鼠王 + 12 守护鼠 + 玩家 Avatar,可穿搭、可养成、可上链' },
+    { n: '02', title: '空间层', desc: '12 座悬浮星岛由光桥相连,每座岛就是一个星域的游戏大厅' },
+    { n: '03', title: '经济层', desc: '所有岛上的每一笔投注都以 JYC 结算,0.5% 汇入 MEGA JACKPOT' },
+    { n: '04', title: '社交层', desc: '直播间、公会广场、名人堂——冠军雕像永久矗立在鼠王金币旁' },
+  ],
+}

@@ -1,4 +1,4 @@
-import { realms, totalPlays, tickerStats, roadmap, foundation } from '../data'
+import { realms, totalPlays, tickerStats, roadmap, foundation, allGames } from '../data'
 import { Page, SectionHead, RealmCard, CtaBand, SHOW_SUBPAGES } from '../components'
 
 const L = (sub: string, anchor: string) => SHOW_SUBPAGES ? sub : anchor
@@ -71,6 +71,52 @@ const Pillars = () => (
   </section>
 )
 
+/* ---------- 鼠族元宇宙 + 试玩入口 ---------- */
+const MouseverseTeaser = () => (
+  <section class="sec sec-wide mv-sec" id="home-mouseverse">
+    <div class="mv-wrap">
+      <div class="mv-text reveal">
+        <div class="kicker">MOUSE METAVERSE</div>
+        <h2 class="sec-title">一枚金币,<span class="grad-gold nowrap">十二守护鼠</span></h2>
+        <p class="sec-sub">鼠王手握 JYC 点亮十二颗星球,每颗星球由一位守护鼠掌管——它们是玩法的引导者、赛季的代言人,也是卡牌、皮肤与 NFT 的角色底座。</p>
+        <div class="hero-cta">
+          <a class="btn btn-gold" href="/universe">进入鼠族元宇宙 <i class="fa-solid fa-crown"></i></a>
+          <a class="btn btn-ghost" href="/play">试玩 {allGames.length} 款玩法 <i class="fa-solid fa-gamepad"></i></a>
+        </div>
+      </div>
+      <div class="mv-stage reveal" id="mv-stage">
+        <div class="mv-ring"></div>
+        {realms.map((r, i) => (
+          <a class="mv-mouse" href={`/realms/${r.id}`} style={`--i:${i};--n:${realms.length};--c:${r.color}`} title={r.guardian.name} data-tip={r.guardian.name}>
+            <img src={r.mouseImg} alt={r.guardian.name} loading="lazy" />
+          </a>
+        ))}
+        <img class="mv-king float" src="/static/img/mascot.webp" alt="鼠王" loading="lazy" />
+      </div>
+    </div>
+  </section>
+)
+
+/* ---------- 热门试玩 ---------- */
+const HotGames = () => {
+  const hot = ['crash', 'plinko', 'lotto', 'tarot', 'race', 'gacha'].map(id => allGames.find(g => g.id === id)!)
+  return (
+    <section class="sec sec-wide" id="home-play">
+      <SectionHead kicker="PLAY NOW · DEMO" title={<>不只是看,<span class="grad-cyan">现在就能玩</span></>} sub="每个星域的核心玩法都做成了可交互演示。用 10,000 试玩 JYC,感受秒级结算的手感。" />
+      <div class="hot-grid">
+        {hot.map((g, i) => (
+          <a class="hot glass reveal tilt" href={`/play/${g.id}`} style={`--c:${g.color};--c2:${g.color2};--d:${i * .07}s`}>
+            <img src={g.mouseImg} alt="" loading="lazy" />
+            <div><span class="hot-realm">{g.realmCode}</span><h3>{g.name}</h3><p>{g.desc}</p></div>
+            <span class="hot-play"><i class="fa-solid fa-play"></i></span>
+          </a>
+        ))}
+      </div>
+      <div class="sec-more reveal"><a class="btn btn-outline" href="/play">进入游戏大厅 · 全部 {allGames.length} 款 <i class="fa-solid fa-arrow-right"></i></a></div>
+    </section>
+  )
+}
+
 const RealmsPreview = () => (
   <section class="sec sec-wide" id="home-realms">
     <SectionHead kicker="THE UNIVERSE" title={<>JYC Verse · <span class="grad-cyan">十二星域</span></>}
@@ -137,8 +183,10 @@ export const HomePage = () => (
   <Page path="/">
     <Hero />
     <Ticker />
+    <MouseverseTeaser />
     <Pillars />
     <RealmsPreview />
+    <HotGames />
     <EconomyTeaser />
     <RoadmapTeaser />
     <FoundationBand />

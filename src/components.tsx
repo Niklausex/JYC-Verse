@@ -15,7 +15,9 @@ export const HOME_NAV = [
 export const NAV = [
   { href: '/', label: '首页' },
   { href: '/vision', label: '愿景' },
+  { href: '/universe', label: '鼠族元宇宙' },
   { href: '/realms', label: '十二星域' },
+  { href: '/play', label: '游戏大厅' },
   { href: '/economy', label: 'JYC 经济' },
   { href: '/platform', label: '平台架构' },
   { href: '/roadmap', label: '路线图' },
@@ -180,6 +182,23 @@ export const CtaBand = ({ title, sub, primary, secondary }: { title: any; sub?: 
   </section>
 )
 
+/* ---------- 移动端底部导航 ---------- */
+const MOBILE_NAV = [
+  { href: '/', icon: 'fa-house', label: '首页' },
+  { href: '/universe', icon: 'fa-crown', label: '元宇宙' },
+  { href: '/play', icon: 'fa-gamepad', label: '试玩' },
+  { href: '/realms', icon: 'fa-globe', label: '星域' },
+  { href: '/economy', icon: 'fa-coins', label: '经济' },
+]
+export const MobileNav = ({ path }: { path: string }) => (
+  <nav class="mnav" id="mobile-nav" aria-label="移动端导航">
+    {MOBILE_NAV.map(n => {
+      const active = n.href === '/' ? path === '/' : path.startsWith(n.href)
+      return <a href={n.href} class={active ? 'active' : ''} aria-current={active ? 'page' : undefined}><i class={`fa-solid ${n.icon}`}></i><span>{n.label}</span></a>
+    })}
+  </nav>
+)
+
 /* ---------- 页面外壳 ---------- */
 export const Page = ({ path, children }: { path: string; children: any }) => (
   <>
@@ -187,5 +206,6 @@ export const Page = ({ path, children }: { path: string; children: any }) => (
     <Nav path={path} />
     <main id="main" class="page-main">{children}</main>
     <Footer />
+    <MobileNav path={path} />
   </>
 )

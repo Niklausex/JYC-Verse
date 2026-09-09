@@ -27,14 +27,19 @@ export const renderer = jsxRenderer(({ children, title, desc }) => {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" rel="stylesheet" />
-        <link href="/static/style.css?v=7" rel="stylesheet" />
+        <link href="/static/style.css?v=8" rel="stylesheet" />
+        <link href="/static/games.css?v=8" rel="stylesheet" />
       </head>
       <body>
         {children}
         <button class="to-top" id="to-top" type="button" aria-label="回到顶部" title="回到顶部">
           <i class="fas fa-arrow-up"></i>
         </button>
-        <script src="/static/app.js?v=7" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+        <script src="/static/app.js?v=8" defer></script>
+        <script src="/static/games.js?v=8" defer></script>
+        <script src="/static/games2.js?v=8" defer></script>
       </body>
     </html>
   )

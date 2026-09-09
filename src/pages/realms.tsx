@@ -71,19 +71,51 @@ export const RealmDetailPage = ({ r }: { r: Realm }) => {
           <div class="realm-visual">
             <Pic src={r.sceneImg} alt={`${r.name} 概念图`} icon={r.icon} color={r.color} cls="realm-scene" />
             <Pic src={r.planetImg} alt={`${r.code} 星球`} icon={r.icon} color={r.color} cls="realm-planet" />
+            <img class="realm-guardian float" src={r.mouseImg} alt={r.guardian.name} loading="eager" />
           </div>
         </div>
+      </section>
+
+      {/* 守护鼠 + 可试玩 */}
+      <section class="sec sec-wide" id="realm-play" style={`--c:${r.color};--c2:${r.color2}`}>
+        <div class="guardian-band glass reveal">
+          <img src={r.mouseImg} alt={r.guardian.name} />
+          <div class="guardian-band-text">
+            <div class="kicker" style={`color:${r.color};border-color:${r.color}55;background:${r.color}18`}>GUARDIAN</div>
+            <h2>{r.guardian.name}</h2>
+            <p class="gb-title">{r.guardian.title} · {r.guardian.trait}</p>
+            <blockquote>“{r.guardian.quote}”</blockquote>
+          </div>
+          <div class="guardian-band-games">
+            <span class="gb-label">本星域可试玩 · {r.games.length} 款</span>
+            {r.games.map(g => <a class="gb-game" href={`/play/${g.id}`}><i class="fa-solid fa-play"></i><b>{g.name}</b><small>{g.tag}</small></a>)}
+          </div>
+        </div>
+        {r.games[0] && <>
+          <div class="sec-head left reveal" style="margin-top:56px"><div class="kicker">PLAY NOW</div><h2 class="sec-title">试玩:<span style={`color:${r.color}`}>{r.games[0].name}</span></h2><p class="sec-sub">{r.games[0].desc}</p></div>
+          <div class="wallet-bar reveal">
+            <div class="wallet-bal"><span class="coin">J</span><b data-wallet-bal>10,000</b><small>试玩 JYC</small></div>
+            <span class="wallet-demo">DEMO</span>
+            <div class="wallet-stats"><span>局数<b data-wallet-plays>0</b></span><span>获胜<b data-wallet-wins>0</b></span><span>最大单赢<b data-wallet-best>0</b></span></div>
+            <button class="wallet-reset" type="button" data-wallet-reset><i class="fa-solid fa-rotate-left"></i> 重置</button>
+          </div>
+          <div class="game-frame glass" data-game={r.games[0].id} style={`--c:${r.color};--c2:${r.color2}`}></div>
+        </>}
       </section>
 
       <section class="sec" id="plays" style={`--c:${r.color};--c2:${r.color2}`}>
         <SectionHead kicker="GAMEPLAY" title={<>全部 <span style={`color:${r.color}`}>{r.count}</span> 种玩法</>} align="left" />
         <div class="plays-grid">
-          {r.plays.map((p, i) => (
-            <div class="play glass reveal" style={`--d:${(i % 6) * 0.05}s`}>
+          {r.plays.map((p, i) => {
+            const g = r.games.find(x => p.includes(x.name.split(' ')[0]) || x.name.includes(p.split(' ')[0]))
+            const Tag: any = g ? 'a' : 'div'
+            return (
+            <Tag class={`play glass reveal ${g ? 'playable' : ''}`} href={g ? `/play/${g.id}` : undefined} style={`--d:${(i % 6) * 0.05}s`}>
               <span class="play-no">{String(i + 1).padStart(2, '0')}</span>
               <span class="play-name">{p}</span>
-            </div>
-          ))}
+              {g && <span class="play-badge"><i class="fa-solid fa-play"></i> 可试玩</span>}
+            </Tag>
+          )})}
         </div>
       </section>
 
