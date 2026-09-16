@@ -42,7 +42,7 @@
 
 ## URL（多页面站点）
 - **生产**：https://jyc.xnebul.com
-- **GitHub**：https://github.com/Niklausex/JYC-Verse
+- **GitHub**：https://github.com/wp222hx-art/JYC-Verse
 
 | 路径 | 内容 |
 |---|---|
@@ -94,7 +94,7 @@ public/static/
 
 ## 接手指南（给其他开发者 / Agent）
 ```bash
-git clone https://github.com/Niklausex/JYC-Verse.git && cd JYC-Verse
+git clone https://github.com/wp222hx-art/JYC-Verse.git && cd JYC-Verse
 npm install
 npm run build                      # Vite → dist/（Cloudflare Pages 产物）
 npx wrangler pages dev dist --ip 0.0.0.0 --port 3000   # 本地预览；沙盒内用 pm2 start ecosystem.config.cjs
