@@ -10,8 +10,8 @@
 > 新版 `main` 的历史完整包含老版 `53749cb`，即 **老版 = 新版的祖先**。`f170b71` 之后的所有开发默认在 `main`（新版）上进行。
 
 ## Git 远端
-- `origin` → https://github.com/wp222hx-art/JYC-Verse.git （新版，`main` 跟踪此远端）
-- `old-origin` → https://github.com/Niklausex/JYC-Verse.git （老版来源，仅作参考）
+- `origin` → https://github.com/Niklausex/JYC-Verse.git （**主推送仓库**，有写权限；`main` 跟踪此远端；已含 `main`、`legacy/old-jyc-verse` 与两个标签）
+- `new-upstream` → https://github.com/wp222hx-art/JYC-Verse.git （新版代码原始来源，当前授权账号 Niklausex 对其**只读**，无法推送）
 
 ## 常用操作
 ```bash

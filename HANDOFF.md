@@ -13,13 +13,13 @@
 | 基线提交 | `f170b71`（之后持续演进） | `53749cb`（冻结） |
 | 内容 | 12 星域 + **鼠族元宇宙 `/universe`** + **游戏大厅 `/play`（28 款可试玩）** + 13 段 AI 视频 + GSAP 动效 + sizzle-reel 工具链 | 12 星域投资人落地页 + 移动端适配（无 /universe、/play、视频） |
 | 线上部署 | **Cloudflare Pages 项目 `jyc-verse`** → https://jyc-verse.pages.dev / **https://jyc.xnebul.com** | 已被新版**替代下线**；代码仅保留在分支/标签中 |
-| GitHub | https://github.com/wp222hx-art/JYC-Verse （`main`） | 同仓库 `legacy/old-jyc-verse` 分支；原始来源 Niklausex/JYC-Verse |
+| GitHub | **https://github.com/Niklausex/JYC-Verse**（`main`，可写，含全部分支/标签）；镜像来源 wp222hx-art/JYC-Verse（只读，仅 `main`） | 同仓库 `legacy/old-jyc-verse` 分支 |
 
 关系：老版 `53749cb` 是新版 `main` 的祖先提交，两版历史线性相连。详见 `VERSIONS.md`。
 
 ## 用户说「新版」时
 ```bash
-git checkout main && git pull origin main
+git checkout main && git pull origin main   # origin = Niklausex/JYC-Verse
 npm run build
 # 沙盒预览（仓库自带 dev-proxy 拓扑，:3000 → :3100）
 pm2 start ecosystem.config.cjs
