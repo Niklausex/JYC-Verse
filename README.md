@@ -1,5 +1,9 @@
 # JYC Verse · 潮玩星际赌城 —— 投资人展示官网
 
+> ## ⚠️ 接手者（开发者 / AI Agent）请先读 [`HANDOFF.md`](./HANDOFF.md)
+> 本仓库有 **新版**（`main`，线上 jyc.xnebul.com）与 **老版**（`legacy/old-jyc-verse`）两个版本。
+> **动手前必须先问用户：要改新版还是老版？** 版本对应关系见 [`VERSIONS.md`](./VERSIONS.md)。
+
 ## 项目概览
 - **名称**：JYC Verse 官网（QuantumPredict 出品，独立于 qpred.io 现有站点）
 - **目标**：面向投资人展示 JYC Verse —— 以 JYC 代币为唯一结算货币的 Web3 娱乐宇宙（12 大星域 / 164+ 玩法），让 JYC 成为「全球最大的娱乐化代币」
@@ -93,6 +97,7 @@ public/static/
 ```
 
 ## 接手指南（给其他开发者 / Agent）
+**先读 `HANDOFF.md`，先问用户要改新版还是老版。** 以下为新版（`main`）流程：
 ```bash
 git clone https://github.com/wp222hx-art/JYC-Verse.git && cd JYC-Verse
 npm install
@@ -126,7 +131,7 @@ sleep 9 && curl http://localhost:3000
 - 全部二级页面开放；右下角「回到顶部」按钮
 
 ## 待办 / 建议
-- **重新部署生产**（v8 / v9 尚未上线到 jyc.xnebul.com）；v9 静态资源 ~14MB（视频 12.3MB），Cloudflare Pages 单文件上限 25MB，无压力
+- v9 静态资源 ~14MB（视频 12.3MB），Cloudflare Pages 单文件上限 25MB，无压力
 - 可选：视频加 WebM/AV1 备用源进一步省流量；给 Showreel 加「点击进入对应游戏」
 - 可选：把 Plinko / Crash 的 Canvas 换成 WebGL 提升低端机帧率；试玩战绩接 D1 做全球排行榜
 - 可顺带删除 `.nav-cta` / `.logo-coin` 遗留 CSS
@@ -138,5 +143,6 @@ sleep 9 && curl http://localhost:3000
 - **平台**：Cloudflare Pages（用户自有账号），项目名 `jyc-verse`，生产分支 `main`
 - **DNS**：`xnebul.com` zone 内 CNAME `jyc` → `jyc-verse.pages.dev`（proxied）
 - **重新部署**：`npm run build && npx wrangler pages deploy dist --project-name jyc-verse --branch main`（需 `CLOUDFLARE_API_TOKEN`）
-- **状态**：✅ 已上线
-- **最后更新**：2026-09-09（v9 视频化 + 28 款可试玩 + 20 道具；生产尚未重新部署，需 `npm run build && npx wrangler pages deploy dist --project-name jyc-verse --branch main`）
+- **状态**：✅ 新版（v9）已上线，已替代老版
+- **版本区分**：新版 `main` / 标签 `v2-new-jyc-verse`；老版 `legacy/old-jyc-verse` / 标签 `v1-old-jyc-verse`（详见 `VERSIONS.md`、`HANDOFF.md`）
+- **最后更新**：2026-09-16（新版 v9 部署到 Cloudflare Pages `jyc-verse` 替代老版；仓库内区分新/老版并加入交接文档）
