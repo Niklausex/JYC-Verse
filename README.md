@@ -10,6 +10,15 @@
 - **风格**：B+C「潮玩星际赌城」—— 紫黑星空底 + 糖果霓虹色（金色仅留给 JYC）+ 28px 大圆角玻璃卡 + 弹性 3D 金色按钮 + Baloo 2 / Nunito 圆润展示字体 + 3D 潮玩星球与吉祥物
 - **语言**：仅中文 UI；不含代币经济具体数字；路线图为 1 年（2026 Q4 → 2027 Q3）
 
+## v10 · 真实产品接入 + 首屏精简 + 分享卡片(2026-09-16)
+- **JYC BOX / 全息闪卡接入官网(不新增区块,替换原「命运卡抽卡」模拟器)**:`data.ts` 中 CARDS 星域的 `gacha` 游戏加 `live` 字段 → 所有引用它的卡片自动变为真实产品外链(首页热门试玩、/play 大厅卡、/play/gacha 详情页、/realms/cards 守护鼠横幅 + 玩法列表),绿色「已上线」徽标 + 外链图标区分于「可试玩」
+  - `/play/gacha` 与 `/realms/cards` 用 `LiveProduct` 组件(`components.tsx`)展示 JYC BOX 开盒截图 + 全息闪卡截图 + 两个 CTA → https://box.xnebul.com / https://card.xnebul.com
+  - 素材:`img/live-box.jpg`、`img/live-card.jpg`;路线图 2027 Q1 CARDS 条目注明「JYC BOX 创世盲盒已上线」
+  - 以后再有真实产品上线,只需给对应 game 加 `live: { url, label, ... }`,全站入口自动切换
+- **首页首屏精简**:移除主视觉外围 12 颗自转星球(`hero-planet`),只保留金币 + 鼠王 KV(视差保留)
+- **分享卡片 / SEO**:`og:image`(`img/og.jpg` 1200×630)、`og:url`、`twitter:card=summary_large_image`、每页 `canonical`(`renderer.tsx` 通过 `useRequestContext` 取路径)
+- **性能**:12 守护鼠 + 鼠王 WebP 重编码 1.2MB → 0.75MB(尺寸不变);FontAwesome woff2 与 hero-key.jpg `preload`
+
 ## v9 · 视频化 + 素材补齐 + 赌场五连（2026-09-09）
 - **13 段 AI 游戏动画视频**（seedance-2.0，守护鼠为主角、逐星域玩法演绎，6s / 960w / H.264 / 无声循环，含海报帧）：`public/static/video/realm-<id>.mp4|jpg` ×12 + `universe-hero.mp4`（元宇宙页背景）
 - **视频出现在每一层**：
@@ -145,4 +154,4 @@ sleep 9 && curl http://localhost:3000
 - **重新部署**：`npm run build && npx wrangler pages deploy dist --project-name jyc-verse --branch main`（需 `CLOUDFLARE_API_TOKEN`）
 - **状态**：✅ 新版（v9）已上线，已替代老版
 - **版本区分**：新版 `main` / 标签 `v2-new-jyc-verse`；老版 `legacy/old-jyc-verse` / 标签 `v1-old-jyc-verse`（详见 `VERSIONS.md`、`HANDOFF.md`）
-- **最后更新**：2026-09-16（新版 v9 部署到 Cloudflare Pages `jyc-verse` 替代老版；仓库内区分新/老版并加入交接文档）
+- **最后更新**：2026-09-16（v10:JYC BOX / 全息闪卡接入、首屏去星球、OG 分享图、守护鼠图压缩;已部署生产）

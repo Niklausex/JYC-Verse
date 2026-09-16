@@ -26,11 +26,6 @@ const Hero = () => (
     </div>
     <div class="hero-key" id="hero-orbit">
       <img src="/static/img/hero-key.jpg" alt="JYC Verse 主视觉:JYC 金币与环绕的十二星域" fetchpriority="high" />
-      {realms.map(r => (
-        <a class={`hero-planet orbit-${r.orbit}`} style={`--a:${r.angle}deg;--c:${r.color}`} href={SHOW_SUBPAGES ? `/realms/${r.id}` : '#home-realms'} title={`${r.code} · ${r.name}`}>
-          <img src={r.planetImg} alt={r.name} loading="lazy" />
-        </a>
-      ))}
     </div>
     <div class="hero-stats">
       <span><b>12</b> 大星域</span><i></i>
@@ -122,10 +117,10 @@ const HotGames = () => {
       <SectionHead kicker="PLAY NOW · DEMO" title={<>不只是看,<span class="grad-cyan">现在就能玩</span></>} sub="每个星域的核心玩法都做成了可交互演示。用 10,000 试玩 JYC,感受秒级结算的手感。" />
       <div class="hot-grid">
         {hot.map((g, i) => (
-          <a class="hot glass reveal tilt" href={`/play/${g.id}`} style={`--c:${g.color};--c2:${g.color2};--d:${i * .07}s`}>
+          <a class={`hot glass reveal tilt ${g.live ? 'is-live' : ''}`} href={g.live ? g.live.url : `/play/${g.id}`} target={g.live ? '_blank' : undefined} rel={g.live ? 'noopener' : undefined} style={`--c:${g.color};--c2:${g.color2};--d:${i * .07}s`}>
             <span class="hot-media"><img src={g.mouseImg} alt="" loading="lazy" /><video data-hover-video muted playsinline loop preload="none" poster={g.poster}><source data-src={g.video} type="video/mp4" /></video></span>
-            <div><span class="hot-realm">{g.realmCode}</span><h3>{g.name}</h3><p>{g.desc}</p></div>
-            <span class="hot-play"><i class="fa-solid fa-play"></i></span>
+            <div><span class="hot-realm">{g.realmCode}{g.live && <em class="live-dot">已上线</em>}</span><h3>{g.name}</h3><p>{g.desc}</p></div>
+            <span class="hot-play"><i class={`fa-solid ${g.live ? 'fa-arrow-up-right-from-square' : 'fa-play'}`}></i></span>
           </a>
         ))}
       </div>

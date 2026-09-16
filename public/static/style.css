@@ -1125,3 +1125,31 @@ body { animation: pagein .5s var(--ease); }
   .hot-media { width: 70px; height: 70px; }
 }
 @media (prefers-reduced-motion: reduce) { .reel-track { animation: none; } }
+
+/* ===================== v10: 已上线真实产品(JYC BOX / 全息闪卡) ===================== */
+.live-product { display: grid; grid-template-columns: 300px 1fr 240px; gap: 32px; align-items: center; padding: 30px; margin-top: 56px; border-color: color-mix(in srgb, var(--c) 40%, transparent); overflow: hidden; }
+.live-product::before { content: ''; position: absolute; inset: -40% auto auto -20%; width: 60%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--c) 28%, transparent), transparent 70%); pointer-events: none; }
+.lp-shot { position: relative; display: block; border-radius: 24px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 60px rgba(0,0,0,.5); transition: transform .4s var(--bounce), box-shadow .4s; }
+.lp-shot img { display: block; width: 100%; height: auto; }
+.lp-shot:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 0 2px var(--c); }
+.lp-box { transform: rotate(-2deg); } .lp-card { transform: rotate(2.5deg); }
+.lp-tag { position: absolute; top: 14px; left: 14px; display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 900; letter-spacing: .12em; background: rgba(10,8,24,.85); border: 1px solid rgba(255,255,255,.15); color: #fff; backdrop-filter: blur(8px); }
+.lp-tag i { font-size: 7px; color: #3DFF9A; animation: livepulse 1.6s ease-in-out infinite; }
+@keyframes livepulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .45; transform: scale(.7); } }
+.lp-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 12px 12px; font-size: 11px; font-weight: 800; text-align: center; color: rgba(255,255,255,.85); background: linear-gradient(180deg, transparent, rgba(0,0,0,.8)); }
+.lp-text .sec-title { font-size: clamp(26px, 3vw, 38px); }
+.lp-text .check-list { margin: 20px 0 26px; } .lp-text .check-list li { font-size: 14.5px; }
+.lp-text .check-list i { background: color-mix(in srgb, var(--c) 20%, transparent); color: var(--c); }
+.live-dot { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; padding: 2px 8px; border-radius: 999px; font-style: normal; font-size: 10px; letter-spacing: .1em; background: rgba(61,255,154,.12); color: #3DFF9A; border: 1px solid rgba(61,255,154,.3); }
+.live-dot::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #3DFF9A; animation: livepulse 1.6s ease-in-out infinite; }
+.play-badge.live, .gl-tag.live { background: linear-gradient(180deg, #7CFFB8, #3DFF9A); color: #06301A; }
+.gl-tag.live i { font-size: 7px; margin-right: 2px; animation: livepulse 1.6s ease-in-out infinite; }
+.gb-game.is-live small i { font-size: 9px; margin-left: 2px; }
+.hot.is-live .hot-play, .gcard-lobby.is-live .gl-play i { background: linear-gradient(180deg, #7CFFB8, #3DFF9A); color: #06301A; }
+@media (max-width: 1100px) { .live-product { grid-template-columns: 260px 1fr; } .lp-card { display: none; } }
+@media (max-width: 760px) {
+  .live-product { grid-template-columns: 1fr; padding: 22px; gap: 22px; margin-top: 36px; text-align: center; }
+  .lp-box { transform: none; width: min(100%, 300px); margin: 0 auto; }
+  .lp-text .check-list li { text-align: left; }
+  .lp-text .hero-cta { justify-content: center; }
+}

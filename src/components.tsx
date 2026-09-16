@@ -1,4 +1,4 @@
-import { realms, totalPlays } from './data'
+import { realms, totalPlays, type Game } from './data'
 
 /* ---------- 站点开关:二级页面暂不对外展示(路由保留,可随时打开) ---------- */
 export const SHOW_SUBPAGES = true
@@ -208,6 +208,34 @@ export const MobileNav = ({ path }: { path: string }) => (
       return <a href={n.href} class={active ? 'active' : ''} aria-current={active ? 'page' : undefined}><i class={`fa-solid ${n.icon}`}></i><span>{n.label}</span></a>
     })}
   </nav>
+)
+
+/* ---------- 已上线真实产品(替代站内模拟器):JYC BOX 开盒 + 全息闪卡 ---------- */
+export const LiveProduct = ({ g, color, color2 }: { g: Game; color: string; color2: string }) => (
+  <div class="live-product glass reveal" id="live-product" style={`--c:${color};--c2:${color2}`}>
+    <a class="lp-shot lp-box" href={g.live!.url} target="_blank" rel="noopener" aria-label={g.live!.label}>
+      <img src="/static/img/live-box.jpg" alt="JYC BOX 开盒界面" loading="lazy" />
+      <span class="lp-tag"><i class="fa-solid fa-circle"></i> LIVE · 已上线</span>
+    </a>
+    <div class="lp-text">
+      <div class="kicker">GENESIS · 创世纪元</div>
+      <h2 class="sec-title">{g.name}</h2>
+      <p class="sec-sub">{g.desc}</p>
+      <ul class="check-list">
+        <li><i class="fa-solid fa-fingerprint"></i> 每一只都是世间唯一:组合 + 品相 + 编号生成唯一哈希</li>
+        <li><i class="fa-solid fa-id-card"></i> 伙伴自动获得 JYC Verse 通行证,进入全生态竞技、养成、社交</li>
+        <li><i class="fa-solid fa-lock"></i> 创世期结束后总量封存,永久携带 Genesis 烙印</li>
+      </ul>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href={g.live!.url} target="_blank" rel="noopener">{g.live!.label} <i class="fa-solid fa-box-open"></i></a>
+        {g.live!.siteUrl && <a class="btn btn-ghost" href={g.live!.siteUrl} target="_blank" rel="noopener">{g.live!.siteLabel} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>}
+      </div>
+    </div>
+    {g.live!.siteUrl && <a class="lp-shot lp-card" href={g.live!.siteUrl} target="_blank" rel="noopener" aria-label={g.live!.siteLabel}>
+      <img src="/static/img/live-card.jpg" alt="全息闪卡图鉴" loading="lazy" />
+      <span class="lp-cap">全息闪卡 · 陀螺仪闪光 · 已鉴定</span>
+    </a>}
+  </div>
 )
 
 /* ---------- 页面外壳 ---------- */

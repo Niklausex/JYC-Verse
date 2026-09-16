@@ -1,5 +1,5 @@
 import { realms, totalPlays, roadmap, personas, type Realm } from '../data'
-import { Page, PageHero, SectionHead, RealmCard, CtaBand, Pic, Vid } from '../components'
+import { Page, PageHero, SectionHead, RealmCard, CtaBand, Pic, Vid, LiveProduct } from '../components'
 
 /* ---------- 星系交互图 ---------- */
 const Galaxy = () => (
@@ -91,10 +91,13 @@ export const RealmDetailPage = ({ r }: { r: Realm }) => {
           </div>
           <div class="guardian-band-games">
             <span class="gb-label">本星域可试玩 · {r.games.length} 款</span>
-            {r.games.map(g => <a class="gb-game" href={`/play/${g.id}`}><i class="fa-solid fa-play"></i><b>{g.name}</b><small>{g.tag}</small></a>)}
+            {r.games.map(g => g.live
+              ? <a class="gb-game is-live" href={g.live.url} target="_blank" rel="noopener"><i class="fa-solid fa-box-open"></i><b>{g.name}</b><small>{g.tag} <i class="fa-solid fa-arrow-up-right-from-square"></i></small></a>
+              : <a class="gb-game" href={`/play/${g.id}`}><i class="fa-solid fa-play"></i><b>{g.name}</b><small>{g.tag}</small></a>)}
           </div>
         </div>
-        {r.games[0] && <>
+        {r.games[0]?.live && <LiveProduct g={r.games[0]} color={r.color} color2={r.color2} />}
+        {r.games[0] && !r.games[0].live && <>
           <div class="sec-head left reveal" style="margin-top:56px"><div class="kicker">PLAY NOW</div><h2 class="sec-title">试玩:<span style={`color:${r.color}`}>{r.games[0].name}</span></h2><p class="sec-sub">{r.games[0].desc}</p></div>
           <div class="wallet-bar reveal">
             <div class="wallet-bal"><span class="coin">J</span><b data-wallet-bal>10,000</b><small>试玩 JYC</small></div>
@@ -111,12 +114,15 @@ export const RealmDetailPage = ({ r }: { r: Realm }) => {
         <div class="plays-grid">
           {r.plays.map((p, i) => {
             const g = r.games.find(x => p.includes(x.name.split(' ')[0]) || x.name.includes(p.split(' ')[0]))
-            const Tag: any = g ? 'a' : 'div'
+            const ext = r.games.find(x => x.live && (p.includes('JYC BOX') || p.includes('闪卡')))
+            const live = ext?.live ? (p.includes('闪卡') && ext.live.siteUrl ? ext.live.siteUrl : ext.live.url) : undefined
+            const href = live ?? (g ? `/play/${g.id}` : undefined)
+            const Tag: any = href ? 'a' : 'div'
             return (
-            <Tag class={`play glass reveal ${g ? 'playable' : ''}`} href={g ? `/play/${g.id}` : undefined} style={`--d:${(i % 6) * 0.05}s`}>
+            <Tag class={`play glass reveal ${href ? 'playable' : ''}`} href={href} target={live ? '_blank' : undefined} rel={live ? 'noopener' : undefined} style={`--d:${(i % 6) * 0.05}s`}>
               <span class="play-no">{String(i + 1).padStart(2, '0')}</span>
               <span class="play-name">{p}</span>
-              {g && <span class="play-badge"><i class="fa-solid fa-play"></i> 可试玩</span>}
+              {live ? <span class="play-badge live"><i class="fa-solid fa-arrow-up-right-from-square"></i> 已上线</span> : g && <span class="play-badge"><i class="fa-solid fa-play"></i> 可试玩</span>}
             </Tag>
           )})}
         </div>

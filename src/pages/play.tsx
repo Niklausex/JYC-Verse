@@ -1,5 +1,5 @@
 import { realms, allGames } from '../data'
-import { Page, PageHero, CtaBand, Vid } from '../components'
+import { Page, PageHero, CtaBand, Vid, LiveProduct } from '../components'
 
 /* ---------- 试玩钱包条(所有游戏页共用) ---------- */
 export const WalletBar = () => (
@@ -17,16 +17,16 @@ export const WalletBar = () => (
 
 /* ---------- 单个游戏卡片(大厅) ---------- */
 const GameCard = ({ g, i }: { g: (typeof allGames)[number]; i: number }) => (
-  <a class="gcard-lobby glass reveal tilt" href={`/play/${g.id}`} style={`--c:${g.color};--c2:${g.color2};--d:${(i % 4) * .06}s`}>
+  <a class={`gcard-lobby glass reveal tilt ${g.live ? 'is-live' : ''}`} href={g.live ? g.live.url : `/play/${g.id}`} target={g.live ? '_blank' : undefined} rel={g.live ? 'noopener' : undefined} style={`--c:${g.color};--c2:${g.color2};--d:${(i % 4) * .06}s`}>
     <div class="gl-visual">
       <img src={g.mouseImg} alt="" loading="lazy" />
-      <span class="gl-tag">{g.tag}</span>
+      <span class={`gl-tag ${g.live ? 'live' : ''}`}>{g.live ? <><i class="fa-solid fa-circle"></i> {g.tag}</> : g.tag}</span>
     </div>
     <div class="gl-body">
       <span class="gl-realm"><i class={`fa-solid ${g.icon}`}></i> {g.realmCode}</span>
       <h3>{g.name}</h3>
       <p>{g.desc}</p>
-      <span class="gl-play">试玩 <i class="fa-solid fa-play"></i></span>
+      {g.live ? <span class="gl-play">{g.live.label} <i class="fa-solid fa-arrow-up-right-from-square"></i></span> : <span class="gl-play">试玩 <i class="fa-solid fa-play"></i></span>}
     </div>
   </a>
 )
@@ -89,6 +89,24 @@ export const GamePage = ({ g }: { g: (typeof allGames)[number] }) => {
         </div>
       </section>
 
+      {g.live ? (
+      <section class="sec sec-wide game-sec" id="game">
+        <LiveProduct g={g} color={g.color} color2={g.color2} />
+        <div class="game-video-row">
+          <Vid src={g.video} poster={g.poster} cls="game-video" cap={`${g.guardian.name} 玩法演绎`} sub={`${g.realmName} · ${g.realmCode}`} />
+          <div class="game-howto glass">
+            <div class="kicker" style={`color:${g.color};border-color:${g.color}55;background:${g.color}18`}>HOW IT WORKS</div>
+            <h3>{g.name} · 三步上手</h3>
+            <ol>
+              <li><b>01</b><span>进入 JYC BOX,连接钱包(MetaMask / OKX / TokenPocket 等)</span></li>
+              <li><b>02</b><span>点击「开盒」,15 个装扮元素掷取拼合,召唤属于你的创世鼠伙伴</span></li>
+              <li><b>03</b><span>伙伴以全息闪卡形态归档与鉴定,可在图鉴欣赏、交易所流通</span></li>
+            </ol>
+            <blockquote><img src="/static/img/mascot-head.webp" alt="" /> {g.guardian.name}:“{g.guardian.quote}”</blockquote>
+          </div>
+        </div>
+      </section>
+      ) : (
       <section class="sec sec-wide game-sec" id="game">
         <WalletBar />
         <div class="game-frame glass" data-game={g.id} style={`--c:${g.color};--c2:${g.color2}`}></div>
@@ -107,6 +125,7 @@ export const GamePage = ({ g }: { g: (typeof allGames)[number] }) => {
         </div>
         <p class="game-disc"><i class="fa-solid fa-circle-info"></i> 本页为产品概念演示,所有数字为试玩币,随机数在浏览器本地生成,不涉及真实资产。</p>
       </section>
+      )}
 
       {siblings.length > 0 && (
         <section class="sec sec-wide" id="game-siblings">

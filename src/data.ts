@@ -21,8 +21,11 @@ export interface Realm {
   video: string
   poster: string
   guardian: { name: string; title: string; trait: string; quote: string }
-  games: { id: string; name: string; desc: string; tag: string }[]
+  games: Game[]
 }
+
+/* live: 已上线的真实产品(外链);有 live 的玩法不再走站内模拟器 */
+export type Game = { id: string; name: string; desc: string; tag: string; live?: { url: string; label: string; sub?: string; siteUrl?: string; siteLabel?: string } }
 
 export const realms: Realm[] = [
   {
@@ -136,14 +139,15 @@ export const realms: Realm[] = [
     tagline: '抽的是运气,攒的是资产',
     desc: '命运卡 NFT 五档稀有度(N / R / SR / SSR / UR),卡牌不仅能收藏、合成、交易,还能在全生态生效:SSR 卡 = 手续费折扣、彩票加倍、Crash 保险、分红加成。',
     color: '#E86BFF', color2: '#38E8FF', icon: 'fa-clone', count: 12,
-    plays: ['抽卡', '盲盒', '命运卡 NFT', '卡牌合成 / 升星', '卡牌增益系统', '卡牌对战 TCG', '宠物养成', '坐骑', '限量藏品拍卖', '卡牌二级市场', '赛季限定卡', '名人 / IP 联名卡'],
+    plays: ['盲盒 · JYC BOX', '全息闪卡', '命运卡 NFT', '卡牌合成 / 升星', '卡牌增益系统', '卡牌对战 TCG', '宠物养成', '坐骑', '限量藏品拍卖', '卡牌二级市场', '赛季限定卡', '名人 / IP 联名卡'],
     highlight: '卡牌增益:SSR = 手续费折扣 · 彩票加倍 · Crash 保险 · 分红加成',
     planetImg: '/static/img/planet-cards.webp', sceneImg: '/static/img/scene-cards.jpg', orbit: 2, angle: 150,
     mouseImg: '/static/img/mouse-cards.webp',
     video: '/static/video/realm-cards.mp4', poster: '/static/video/realm-cards.jpg',
     guardian: { name: '闪卡鼠 · Holo', title: '卡牌与收藏守护者', trait: '收藏癖 · 审美 · 对稀有度有执念', quote: '抽的是运气,攒的是资产。' },
     games: [
-      { id: 'gacha', name: '命运卡抽卡', desc: '开一包命运卡,N/R/SR/SSR/UR 五档稀有度', tag: 'NFT' },
+      { id: 'gacha', name: 'JYC BOX 创世盲盒', desc: '开盒召唤创世鼠伙伴:15 个装扮元素独立掷取,每一只都是唯一编号;开出的伙伴以全息闪卡呈现,可鉴定、可流通', tag: '已上线',
+        live: { url: 'https://box.xnebul.com', label: '进入 JYC BOX 开盒', sub: '创世纪元 · 真实产品', siteUrl: 'https://card.xnebul.com', siteLabel: '全息闪卡图鉴' } },
     ],
   },
   {
@@ -285,7 +289,7 @@ export const roadmap = [
   },
   {
     q: '2027 Q1', title: '扩张', color: '#38E8FF',
-    items: ['LOTTERY 全线上线 + MEGA JACKPOT 启动', 'SPORTS 体育电竞 + 虚拟体育', 'CARDS 抽卡与命运卡 NFT', 'PREDICT 加密秒级市场 + UGC 自建市场', '公会与战队系统'],
+    items: ['LOTTERY 全线上线 + MEGA JACKPOT 启动', 'SPORTS 体育电竞 + 虚拟体育', 'CARDS 命运卡 NFT + 卡牌合成(JYC BOX 创世盲盒已上线)', 'PREDICT 加密秒级市场 + UGC 自建市场', '公会与战队系统'],
     realms: ['lottery', 'sports', 'cards', 'predict'],
   },
   {

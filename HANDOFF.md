@@ -43,6 +43,11 @@ git checkout -b legacy/fix-xxx
 - ❌ 删除 `legacy/old-jyc-verse` 分支或 `v1-old-jyc-verse` / `v2-new-jyc-verse` 标签
 - ❌ 在 `legacy/old-jyc-verse` 上 rebase / force push
 
+## 关联产品（独立站点，官网仅外链）
+- **JYC BOX** https://box.xnebul.com（CF Pages `jyc-box`）· **全息闪卡** https://card.xnebul.com（CF Pages `jyc-verse-card`）
+- 官网接入方式：`src/data.ts` → CARDS 星域 `games[0]`（id `gacha`）的 `live` 字段。**不要**为新产品另加导航项/首页区块，给对应 game 加 `live` 即可全站生效
+- 设计原则（用户明确要求）：体系已完善，**改一处需联动多处时优先用数据驱动，不要往首页/导航堆叠新东西**
+
 ## 关键路径速查（新版）
 - 入口 `src/index.tsx`；页面 `src/pages/*.tsx`；数据 `src/data.ts`；公共组件 `src/components.tsx`（顶部 `SHOW_SUBPAGES` 开关）
 - 前端脚本 `public/static/app.js`、`games.js` / `games2.js` / `games3.js`；动效库自托管 `public/static/vendor/`
